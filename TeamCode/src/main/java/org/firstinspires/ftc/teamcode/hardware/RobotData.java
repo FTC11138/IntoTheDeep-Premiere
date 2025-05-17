@@ -37,9 +37,13 @@ public class RobotData {
     public IntakeSubsystem.ArmState armState = IntakeSubsystem.ArmState.NONE;
     public IntakeSubsystem.IntakePushState intakePushState = IntakeSubsystem.IntakePushState.STORE;
     public IntakeSubsystem.IntakeState intakeState = IntakeSubsystem.IntakeState.STOP;
+
+
     public NewIntakeSubsystem.ArmState armStateNew = NewIntakeSubsystem.ArmState.NONE;
-    public NewIntakeSubsystem.IntakePushState intakePushStateNew = NewIntakeSubsystem.IntakePushState.STORE;
-    public NewIntakeSubsystem.SampleClawState sampleClawState = NewIntakeSubsystem.SampleClawState.OPEN;
+    public NewIntakeSubsystem.ClawState clawState = NewIntakeSubsystem.ClawState.OPEN;
+    public NewIntakeSubsystem.WristState wristState = NewIntakeSubsystem.WristState.NONE;
+    public NewIntakeSubsystem.RotateState rotateState = NewIntakeSubsystem.RotateState.NONE;
+    public double clawAngle = 0;
 
     public int specimenLiftPosition = 0;
     public SpecimenSubsystem.SpecimenClawState specimenClawState = SpecimenSubsystem.SpecimenClawState.OPEN;

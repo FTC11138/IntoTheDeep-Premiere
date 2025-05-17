@@ -58,6 +58,23 @@ public class Constants {
 
 
 
+
+
+    public static double clawOpen = 1;
+    public static double clawClose = 0;
+
+    public static double wristGrab = 0;
+    public static double wristStore = 0.2;
+    public static double wristTransfer = 0.5;
+
+    public static double rotateHorizontal = 0;
+    public static double rotateVertical = 90;
+    public static double rotate0 = 0;
+    public static double rotate180 = 1;
+
+
+
+
     /* -------------------------------------------- MOTOR CONSTANTS -------------------------------------------- */
 
     // LIFT

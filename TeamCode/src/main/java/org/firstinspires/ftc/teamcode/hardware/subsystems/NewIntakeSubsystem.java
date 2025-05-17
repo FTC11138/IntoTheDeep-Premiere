@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.hardware.subsystems;
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
-import com.qualcomm.robotcore.hardware.CRServoImplEx;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -22,37 +21,37 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
     private final RE_DcMotorEx extension;
     private final RE_DcMotorExParams extensionParams;
 
-    private final Servo arm1, arm2, intakePush;
-    private final Servo intake;
-    private final RevColorSensorV3 colorSensor;
-    private Servo clawrotate;
+    private final Servo arm1, arm2, claw, wrist, rotate;
 
     public RevBlinkinLedDriver leds;
 
-    public SampleClawState sampleClawState;
-    public SampleRotationState sampleRotationState;
+    public ClawState clawState;
     public ArmState armState;
+    public WristState wristState;
+    public RotateState rotateState;
     public IntakePushState intakePushState;
-    public IntakeFlickState intakeFlickState;
+    public double clawAngle;
 
-    public enum IntakeFlickState {
-        DOWN,
-        READY,
+    // Constants for rotate servo angle calculation
+    private final double ROTATE_TICKS_PER_DEGREE;
+
+    public enum WristState {
+        GRAB,
+        STORE,
+        TRANSFER,
+        NONE
     }
-    public enum SampleRotationState {
-        ROTATE,
-        STOP,
-    }
-    public enum SampleClawState {
+
+    public enum ClawState {
         OPEN,
         CLOSE,
+        NONE
     }
 
-    public enum IntakePushState {
-        PUSH,
-        UP,
-        STORE,
-        DRIVE
+    public enum RotateState {
+        HORIZONTAL,
+        VERTICAL,
+        NONE
     }
 
     public enum ArmState {
@@ -63,7 +62,15 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         NONE
     }
 
-    public NewIntakeSubsystem(HardwareMap hardwareMap, String ext, String arm1, String arm2, String intake, String leds, String colorSensor, String intakePush) {
+    public enum IntakePushState {
+        PUSH,
+        UP,
+        STORE,
+        DRIVE,
+        NONE
+    }
+
+    public NewIntakeSubsystem(HardwareMap hardwareMap, String ext, String arm1, String arm2, String claw, String rotate, String wrist) {
         extensionParams = new RE_DcMotorExParams(
                 Constants.extMin, Constants.extMax, Constants.extSlow,
                 1, 1, Constants.extUpRatio, Constants.extDownRatio, Constants.extSlowRatio
@@ -74,16 +81,18 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         this.arm2 = hardwareMap.get(Servo.class, arm2);
         this.arm2.setDirection(Servo.Direction.REVERSE);
 
-        this.intakePush = hardwareMap.get(Servo.class, intakePush);
+        this.claw = hardwareMap.get(Servo.class, claw);
+        this.wrist = hardwareMap.get(Servo.class, wrist);
+        this.rotate = hardwareMap.get(Servo.class, rotate);
 
-        this.intake = hardwareMap.get(Servo.class, intake);
-//        this.leds = hardwareMap.get(RevBlinkinLedDriver.class, leds);
+        // Calculate degrees per servo unit for rotation (0-1 corresponds to 0-180 degrees)
+        ROTATE_TICKS_PER_DEGREE = (Constants.rotate180 - Constants.rotate0) / 180.0;
 
-        this.colorSensor = hardwareMap.get(RevColorSensorV3.class, colorSensor);
-
-        sampleClawState = SampleClawState.OPEN;
+        clawState = ClawState.OPEN;
+        wristState = WristState.STORE;
         armState = ArmState.UP;
-        intakePushState = IntakePushState.STORE;
+        rotateState = RotateState.NONE;
+        intakePushState = IntakePushState.NONE;
 
         Robot.getInstance().subsystems.add(this);
     }
@@ -95,7 +104,9 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         Robot.getInstance().data.armStateNew = armState;
         Robot.getInstance().data.armPosition1 = arm1.getPosition();
         Robot.getInstance().data.armPosition2 = arm2.getPosition();
-        Robot.getInstance().data.sampleClawState = sampleClawState;
+        Robot.getInstance().data.clawState = clawState;
+        Robot.getInstance().data.wristState = wristState;
+        Robot.getInstance().data.clawAngle = clawAngle;
     }
 
     public void setArmPosition(double pos) {
@@ -105,6 +116,18 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
 
     public void updateArmState(ArmState state) {
         this.armState = state;
+    }
+
+    public void updateWristState(WristState state) {
+        this.wristState = state;
+    }
+
+    public void updateClawState(ClawState state) {
+        this.clawState = state;
+    }
+
+    public void updateRotateState(RotateState state) {
+        this.rotateState = state;
     }
 
     public void updateIntakePushState(IntakePushState state) {
@@ -126,6 +149,43 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         }
     }
 
+    private double getWristStatePosition(WristState state) {
+        switch (state) {
+            case GRAB:
+                return Constants.wristGrab;
+            case STORE:
+                return Constants.wristStore;
+            case TRANSFER:
+                return Constants.wristTransfer;
+            default:
+                return Constants.wristStore;
+        }
+    }
+
+    private double getClawStatePosition(ClawState state) {
+        switch (state) {
+            case OPEN:
+                return Constants.clawOpen;
+            case CLOSE:
+                return Constants.clawClose;
+            default:
+                return Constants.clawOpen;
+        }
+    }
+
+    private double getRotateStatePosition(RotateState state) {
+        switch (state) {
+            case HORIZONTAL:
+                return Constants.rotateHorizontal;
+            case VERTICAL:
+                return Constants.rotateVertical;
+            case NONE:
+                return clawAngle;
+            default:
+                return Constants.rotateHorizontal;
+        }
+    }
+
     private double getIntakePushStatePosition(IntakePushState state) {
         switch (state) {
             case PUSH:
@@ -141,6 +201,40 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         }
     }
 
+    public void setClawPosition(double position) {
+        this.claw.setPosition(position);
+    }
+
+    public void setWristPosition(double position) {
+        this.wrist.setPosition(position);
+    }
+
+    public void setRotatePosition(double position) {
+        this.rotate.setPosition(position);
+    }
+
+    public void setRotateAngle(double angle) {
+        angle = normalizeAngle(angle);
+
+        double servoPosition = angle * ROTATE_TICKS_PER_DEGREE;
+
+        this.rotateState = RotateState.NONE;
+        this.clawAngle = angle;
+    }
+
+    private double normalizeAngle(double angle) {
+        angle = angle % 360;
+        if (angle < 0) {
+            angle += 360;
+        }
+
+        if (angle > 180) {
+            angle = 360 - angle;
+        }
+
+        return angle;
+    }
+
     public void setExtensionPower(double power) {
         this.extension.setPower(power);
     }
@@ -153,42 +247,9 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         this.extension.setPosition(power, target);
     }
 
-
-
-    public double getDistance() {
-        return colorSensor.getDistance(DistanceUnit.INCH);
-    }
-
-    public void toggleLight() {
-        colorSensor.enableLed(!colorSensor.isLightOn());
-    }
-
-    public Globals.COLORS getColor() {
-        NormalizedRGBA colors = colorSensor.getNormalizedColors();
-
-        double red = colors.red;
-        double green = colors.green;
-        double blue = colors.blue;
-
-        if (red > 0.4 && green > 0.4 && blue < 0.2) {
-            return Globals.COLORS.YELLOW;
-        } else if (red > 0.5 && green < 0.3 && blue < 0.3) {
-            return Globals.COLORS.RED;
-        } else if (blue > 0.5 && red < 0.3 && green < 0.3) {
-            return Globals.COLORS.BLUE;
-        } else {
-            return Globals.COLORS.NONE;
-        }
-    }
-
-
-
     @Override
     public void periodic() {
-        this.colorSensor.setGain(Constants.colorSensorGain);
-
         this.extension.periodic();
-
 
         if (armState == ArmState.TRANSFER) {
             this.arm1.setPosition(getArmStatePosition(armState) - Constants.armServoOffsetTransfer);
@@ -197,20 +258,11 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         }
         this.arm2.setPosition(getArmStatePosition(armState));
 
-        this.intakePush.setPosition(getIntakePushStatePosition(intakePushState));
+        // Update the claw, wrist, and rotate positions based on their states
+        this.claw.setPosition(getClawStatePosition(clawState));
+        this.wrist.setPosition(getWristStatePosition(wristState));
 
-        switch (this.sampleClawState) {
-            case OPEN:
-                intake.setPosition(1);
-                break;
-            case CLOSE:
-                intake.setPosition(-1);
-                break;
-        }
-    }
-
-    public void setLeds(RevBlinkinLedDriver.BlinkinPattern pattern) {
-        leds.setPattern(pattern);
+        setRotateAngle(getRotateStatePosition(rotateState));
     }
 
     public void resetExtension() {
@@ -227,4 +279,19 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
     }
 
 
+    public double getClawPosition() {
+        return claw.getPosition();
+    }
+
+    public double getWristPosition() {
+        return wrist.getPosition();
+    }
+
+    public double getRotatePosition() {
+        return rotate.getPosition();
+    }
+
+    public double getRotateAngle() {
+        return clawAngle;
+    }
 }
