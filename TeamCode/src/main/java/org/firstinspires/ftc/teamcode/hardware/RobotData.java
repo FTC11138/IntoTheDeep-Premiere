@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.IntakeSubsystem;
+import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.SensorSubsystem;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.SpecimenSubsystem;
 import org.firstinspires.ftc.teamcode.util.Constants;
@@ -36,7 +37,9 @@ public class RobotData {
     public IntakeSubsystem.ArmState armState = IntakeSubsystem.ArmState.NONE;
     public IntakeSubsystem.IntakePushState intakePushState = IntakeSubsystem.IntakePushState.STORE;
     public IntakeSubsystem.IntakeState intakeState = IntakeSubsystem.IntakeState.STOP;
-
+    public NewIntakeSubsystem.ArmState armStateNew = NewIntakeSubsystem.ArmState.NONE;
+    public NewIntakeSubsystem.IntakePushState intakePushStateNew = NewIntakeSubsystem.IntakePushState.STORE;
+    public NewIntakeSubsystem.SampleClawState sampleClawState = NewIntakeSubsystem.SampleClawState.OPEN;
 
     public int specimenLiftPosition = 0;
     public SpecimenSubsystem.SpecimenClawState specimenClawState = SpecimenSubsystem.SpecimenClawState.OPEN;
