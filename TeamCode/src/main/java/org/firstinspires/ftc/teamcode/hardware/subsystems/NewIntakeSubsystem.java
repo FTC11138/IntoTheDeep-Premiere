@@ -205,7 +205,7 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         this.claw.setPosition(position);
     }
 
-    public void setWristPosition(double position) {
+    public void Position(double position) {
         this.wrist.setPosition(position);
     }
 
