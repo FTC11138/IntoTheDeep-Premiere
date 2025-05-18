@@ -127,9 +127,9 @@ public class TeleOp_Solo extends CommandOpMode {
         boolean liftChangeJoystickDown = gamepad1.right_stick_y > 0.8;
 
         if (robot.data.intaking) {
-            robot.intakeSubsystem.setExtensionPower(-gamepad1.right_stick_y);
+            robot.newIntakeSubsystem.setExtensionPower(-gamepad1.right_stick_y);
             new WaitCommand(150);
-            robot.intakeSubsystem.setExtensionPower(0);
+            robot.newIntakeSubsystem.setExtensionPower(0);
         }
 
         lastLiftChangeJoystickUp = liftChangeJoystickUp;
