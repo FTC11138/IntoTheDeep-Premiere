@@ -24,20 +24,17 @@ public class NewSampleTransferCommand extends ConditionalCommand {
                         new ConditionalCommand(
                                 new SequentialCommandGroup(
                                         new NewArmStateCommand(NewIntakeSubsystem.ArmState.TRANSFER),
-                                        new NewIntakePushStateCommand(NewIntakeSubsystem.IntakePushState.UP),
-                                        new WaitCommand(50),
                                         new WristStateCommand(NewIntakeSubsystem.WristState.TRANSFER),
                                         new WaitCommand(50)
                                 ),
                                 new InstantCommand(),
                                 () -> Robot.getInstance().newIntakeSubsystem.armState != NewIntakeSubsystem.ArmState.TRANSFER
+                                    || Robot.getInstance().newIntakeSubsystem.wristState != NewIntakeSubsystem.WristState.TRANSFER
                         ),
                         new InstantCommand(Robot.getInstance().data::setSampleLoaded),
                         new ClawStateCommand(NewIntakeSubsystem.ClawState.OPEN),
                         new WaitCommand(600),
-                        new NewArmStateCommand(NewIntakeSubsystem.ArmState.UP),
-                        new NewIntakePushStateCommand(NewIntakeSubsystem.IntakePushState.STORE),
-                        new ClawStateCommand(NewIntakeSubsystem.ClawState.CLOSE)
+                        new NewArmStateCommand(NewIntakeSubsystem.ArmState.UP)
                 ),
                 new InstantCommand(),
                 () -> (

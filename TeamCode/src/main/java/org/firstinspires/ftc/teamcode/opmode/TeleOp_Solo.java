@@ -248,7 +248,7 @@ public class TeleOp_Solo extends CommandOpMode {
         }
 
         if (leftTrigger && !lastLeftTrigger) {
-            CommandScheduler.getInstance().schedule(new NewIntakePushOutCommand(Constants.extIntake, !Globals.IS_AUTO));
+            CommandScheduler.getInstance().schedule(new NewIntakePushOutCommand(Constants.extIntake));
         }
 
         lastLeftTrigger = leftTrigger;

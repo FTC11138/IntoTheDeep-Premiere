@@ -105,6 +105,13 @@ public class RobotData {
         telemetry.addData("Intake Push State", this.intakePushState);
         telemetry.addData("Intake State", this.intakeState);
 
+        telemetry.addLine();
+
+        telemetry.addData("Arm State New", this.armStateNew);
+        telemetry.addData("Claw State", this.clawState);
+        telemetry.addData("Wrist State", this.wristState);
+        telemetry.addData("Rotate State", this.rotateState);
+        telemetry.addData("Claw Angle", this.clawAngle);
 
         telemetry.addLine();
 

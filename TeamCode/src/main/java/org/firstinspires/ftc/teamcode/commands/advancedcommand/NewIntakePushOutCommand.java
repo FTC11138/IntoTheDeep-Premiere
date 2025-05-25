@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.commands.subsystem.IntakePushStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.IntakeStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.NewArmStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.NewIntakePushStateCommand;
+import org.firstinspires.ftc.teamcode.commands.subsystem.RotateStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.WristStateCommand;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.IntakeSubsystem;
@@ -21,35 +22,12 @@ public class NewIntakePushOutCommand extends SequentialCommandGroup {
     public NewIntakePushOutCommand(int ext) {
         super(
                 new ExtensionPositionCommand(ext),
+                new RotateStateCommand(NewIntakeSubsystem.RotateState.VERTICAL),
                 new NewArmStateCommand(NewIntakeSubsystem.ArmState.FLAT),
                 new WristStateCommand(NewIntakeSubsystem.WristState.GRAB),
                 new ClawStateCommand(NewIntakeSubsystem.ClawState.OPEN),
                 new WaitCommand(500),
                 new InstantCommand(Robot.getInstance().data::startIntaking)
-        );
-    }
-
-    public NewIntakePushOutCommand(int ext, boolean intake) {
-        super(
-                new ConditionalCommand(
-                        new SequentialCommandGroup(
-                                new NewIntakePushStateCommand(NewIntakeSubsystem.IntakePushState.DRIVE),
-                                new ClawStateCommand(NewIntakeSubsystem.ClawState.OPEN)
-                        ),
-                        new SequentialCommandGroup(
-                                new NewIntakePushStateCommand(NewIntakeSubsystem.IntakePushState.PUSH)
-                        ),
-                        () -> intake
-                ),
-                new ExtensionPositionCommand(ext),
-                new NewArmStateCommand(NewIntakeSubsystem.ArmState.INTAKE),
-                new ConditionalCommand(
-                        new WaitCommand(500),
-                        new InstantCommand(),
-                        () -> intake
-                ),
-                new InstantCommand(Robot.getInstance().data::startIntaking)
-
         );
     }
 }

@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.commands.subsystem.NewArmStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.ExtensionPositionCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.IntakePushStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.IntakeStateCommand;
-import org.firstinspires.ftc.teamcode.commands.subsystem.NewExtensionPositionCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.NewIntakePushStateCommand;
+import org.firstinspires.ftc.teamcode.commands.subsystem.RotateStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.WristStateCommand;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.IntakeSubsystem;
@@ -23,9 +23,10 @@ public class NewIntakePullBackCommand extends SequentialCommandGroup {
                 new InstantCommand(Robot.getInstance().data::stopIntaking),
                 new NewArmStateCommand(NewIntakeSubsystem.ArmState.TRANSFER),
                 new WristStateCommand(NewIntakeSubsystem.WristState.TRANSFER),
-                new NewIntakePushStateCommand(NewIntakeSubsystem.IntakePushState.UP),
-                new NewExtensionPositionCommand(Constants.extMin),
-                new WaitCommand((int) (Robot.getInstance().newIntakeSubsystem.getExtensionPosition() * 0.6))
+                new RotateStateCommand(NewIntakeSubsystem.RotateState.VERTICAL),
+                new ExtensionPositionCommand(Constants.extMin),
+                new WaitCommand((int) (Robot.getInstance().intakeSubsystem.getExtensionPosition() * 0.6)),
+                new RotateStateCommand(NewIntakeSubsystem.RotateState.HORIZONTAL)
         );
     }
 }
