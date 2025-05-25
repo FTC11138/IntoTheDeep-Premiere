@@ -21,10 +21,9 @@ public class NewIntakePushOutCommand extends SequentialCommandGroup {
     public NewIntakePushOutCommand(int ext) {
         super(
                 new ExtensionPositionCommand(ext),
-                new NewArmStateCommand(NewIntakeSubsystem.ArmState.INTAKE),
+                new NewArmStateCommand(NewIntakeSubsystem.ArmState.FLAT),
                 new WristStateCommand(NewIntakeSubsystem.WristState.GRAB),
                 new ClawStateCommand(NewIntakeSubsystem.ClawState.OPEN),
-                new ClawStateCommand(NewIntakeSubsystem.ClawState.CLOSE),
                 new WaitCommand(500),
                 new InstantCommand(Robot.getInstance().data::startIntaking)
         );

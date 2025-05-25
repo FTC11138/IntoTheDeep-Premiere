@@ -22,7 +22,7 @@ public class NewSampleExtendGrabCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return robot.sensorSubsystem.getIntakeSpeed() < Constants.samplePickupTurnSpeedTolerance || robot.intakeSubsystem.getExtensionPosition() >= Constants.extMax;
+        return robot.sensorSubsystem.getIntakeSpeed() < Constants.samplePickupTurnSpeedTolerance || robot.newIntakeSubsystem.getExtensionPosition() >= Constants.extMax;
     }
 
     @Override
