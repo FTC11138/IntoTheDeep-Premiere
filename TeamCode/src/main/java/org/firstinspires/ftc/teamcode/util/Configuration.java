@@ -25,7 +25,7 @@ public class Configuration {
     public final String arm1 = "arm1";
     public final String arm2 = "arm2";
     public final String intake = "intake";
-    public final String intakePush = "intakePush";
+//    public final String intakePush = "intakePush";
 
     public final String claw = "claw";
     public final String rotate = "rotate";

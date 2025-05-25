@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.hardware.Robot;
 public class ExtensionPowerCommand extends InstantCommand {
     public ExtensionPowerCommand(double power) {
         super(
-                () -> Robot.getInstance().intakeSubsystem.setExtensionPower(power)
+                () -> Robot.getInstance().newIntakeSubsystem.setExtensionPower(power)
         );
     }
 }

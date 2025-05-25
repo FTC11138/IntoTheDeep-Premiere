@@ -4,8 +4,8 @@ import com.arcrobotics.ftclib.command.InstantCommand;
 
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 
-public class ExtensionPositionCommand extends InstantCommand {
-    public ExtensionPositionCommand(int target) {
+public class NewExtensionPositionCommand extends InstantCommand {
+    public NewExtensionPositionCommand(int target) {
         super(
                 () -> Robot.getInstance().newIntakeSubsystem.setTargetExtensionPosition(target)
         );

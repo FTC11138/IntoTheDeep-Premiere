@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 public class NewIntakePushStateCommand extends InstantCommand {
     public NewIntakePushStateCommand(NewIntakeSubsystem.IntakePushState state) {
         super(
-                () -> Robot.getInstance().newIntakeSubsystem.updateIntakePushState(state)
+                () -> {}
         );
     }
 }

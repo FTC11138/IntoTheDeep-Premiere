@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.commands.subsystem.NewArmStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.ExtensionPositionCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.IntakePushStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.IntakeStateCommand;
+import org.firstinspires.ftc.teamcode.commands.subsystem.NewExtensionPositionCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.NewIntakePushStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.WristStateCommand;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
@@ -23,9 +24,8 @@ public class NewIntakePullBackCommand extends SequentialCommandGroup {
                 new NewArmStateCommand(NewIntakeSubsystem.ArmState.TRANSFER),
                 new WristStateCommand(NewIntakeSubsystem.WristState.TRANSFER),
                 new NewIntakePushStateCommand(NewIntakeSubsystem.IntakePushState.UP),
-                new ExtensionPositionCommand(Constants.extMin),
-                new WaitCommand((int) (Robot.getInstance().intakeSubsystem.getExtensionPosition() * 0.6)),
-                new IntakeStateCommand(IntakeSubsystem.IntakeState.STOP)
+                new NewExtensionPositionCommand(Constants.extMin),
+                new WaitCommand((int) (Robot.getInstance().newIntakeSubsystem.getExtensionPosition() * 0.6))
         );
     }
 }

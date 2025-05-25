@@ -205,7 +205,7 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         this.claw.setPosition(position);
     }
 
-    public void Position(double position) {
+    public void setWristPosition(double position) {
         this.wrist.setPosition(position);
     }
 
@@ -217,6 +217,7 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         angle = normalizeAngle(angle);
 
         double servoPosition = angle * ROTATE_TICKS_PER_DEGREE;
+        setRotatePosition(servoPosition);
 
         this.rotateState = RotateState.NONE;
         this.clawAngle = angle;

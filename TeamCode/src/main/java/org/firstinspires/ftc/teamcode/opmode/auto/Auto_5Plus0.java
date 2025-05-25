@@ -89,8 +89,7 @@ public class Auto_5Plus0 extends LinearOpMode {
     public static Path sample2Path, sample2ScorePath;
     public static Path sample3Path, sample3ScorePath;
     public static Path sample4Path, sample4ScorePath;
-    public static Path test1Path, test2Path;
-    public static Path test3Path, test4Path;
+    public static Path test1Path, test2Path, test3Path, test4Path;
 
     public void buildPaths() {
         Pose startPose = PoseConstants.Start.redBasket;
@@ -170,20 +169,20 @@ public class Auto_5Plus0 extends LinearOpMode {
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
 
-                        new PathCommand(test1Path),
+//                        new PathCommand(test1Path),
 //                                .alongWith(
 //                        new WaitCommand(5000)),
-                        new PathCommand(test2Path),
+//                        new PathCommand(test2Path),
 
 
 //                                .alongWith(
 //                                        new WaitCommand(5000)),
-                        new PathCommand(test3Path),
+//                        new PathCommand(test3Path),
 //                                .alongWith(
 //                                        new WaitCommand(5000)),
-                        new PathCommand(test4Path)
-                                .alongWith(
-                                        new WaitCommand(500000000)),
+//                        new PathCommand(test4Path)
+//                                .alongWith(
+//                                        new WaitCommand(500000000)),
 
 //                        new ArmStateCommand(IntakeSubsystem.ArmState.UP),
 //                        new BucketStateCommand(DepositSubsystem.BucketState.INTAKE),
