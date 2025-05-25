@@ -27,6 +27,10 @@ public class Configuration {
     public final String intake = "intake";
     public final String intakePush = "intakePush";
 
+    public final String claw = "claw";
+    public final String rotate = "rotate";
+    public final String wrist = "wrist";
+
     public final String intakeSensor = "intakeSens";
     public final String outtakeSensor = "outtakeSens";
     public final String intakeEncoder = "intakeEnc";

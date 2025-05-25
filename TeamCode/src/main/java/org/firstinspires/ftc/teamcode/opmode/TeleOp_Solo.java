@@ -19,6 +19,10 @@ import org.firstinspires.ftc.teamcode.commands.advancedcommand.IntakePushOutComm
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.LiftDownCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.LiftMidCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.LiftUpCommand;
+import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePullBackCommand;
+import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePushOutCommand;
+import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleEjectCommand;
+import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleTransferCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleEjectCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleTransferCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SpecimenDepositCommand;
@@ -123,7 +127,9 @@ public class TeleOp_Solo extends CommandOpMode {
         boolean liftChangeJoystickDown = gamepad1.right_stick_y > 0.8;
 
         if (robot.data.intaking) {
-            robot.intakeSubsystem.setExtensionPower(-gamepad1.right_stick_y);
+            robot.newIntakeSubsystem.setExtensionPower(-gamepad1.right_stick_y);
+            new WaitCommand(150);
+            robot.newIntakeSubsystem.setExtensionPower(0);
         }
 
         lastLiftChangeJoystickUp = liftChangeJoystickUp;
@@ -161,7 +167,7 @@ public class TeleOp_Solo extends CommandOpMode {
         scheduleCommand(lastB, b, new LiftDownCommand());
         scheduleCommand(lastY, y, new LiftMidCommand());
 
-        scheduleCommand(lastLeftBumper, leftBumper, new SampleEjectCommand());
+        scheduleCommand(lastLeftBumper, leftBumper, new NewSampleEjectCommand());
         scheduleCommand(lastRightBumper, rightBumper, new LiftUpCommand());
 
         scheduleCommand(lastDpadDown, dpadDown, new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.GRAB));
@@ -229,27 +235,24 @@ public class TeleOp_Solo extends CommandOpMode {
         if (rightTrigger && !lastRightTrigger ||
                 (
                         robot.data.intaking
-                        && (lastIntakeSpeed > Constants.samplePickupTurnSpeedTolerance)
-                        && (intakeSpeed < Constants.samplePickupTurnSpeedTolerance)
                         && (intakeDistance < Constants.samplePickupTolerance)
                 )) {
             gamepad1.rumble(500);
             CommandScheduler.getInstance().schedule(
                     new ConditionalCommand(
-                            new IntakePullBackCommand().andThen(new SampleTransferCommand()),
-                            new SampleTransferCommand(),
+                            new NewIntakePullBackCommand().andThen(new NewSampleTransferCommand()),
+                            new NewSampleTransferCommand(),
                             () -> robot.data.intaking
                     )
             );
         }
 
         if (leftTrigger && !lastLeftTrigger) {
-            CommandScheduler.getInstance().schedule(new IntakePushOutCommand(Constants.extIntake, !Globals.IS_AUTO));
+            CommandScheduler.getInstance().schedule(new NewIntakePushOutCommand(Constants.extIntake, !Globals.IS_AUTO));
         }
 
         lastLeftTrigger = leftTrigger;
         lastRightTrigger = rightTrigger;
-        lastIntakeSpeed = intakeSpeed;
         lastIntakeDistance = intakeDistance;
 
         if (gamepad1.touchpad) {
