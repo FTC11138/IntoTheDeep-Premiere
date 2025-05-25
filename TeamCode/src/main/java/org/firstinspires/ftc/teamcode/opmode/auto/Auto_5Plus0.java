@@ -34,8 +34,8 @@ import org.firstinspires.ftc.teamcode.util.PoseConstants;
 @Autonomous(name = "5+0", preselectTeleOp = "Solo")
 public class Auto_5Plus0 extends LinearOpMode {
 
-    public static double score1X = 12.5;
-    public static double score1Y = 126;
+    public static double score1X = 12.5; //also scorepos
+    public static double score1Y = 126; //also scorepos
     public static double score1Degrees = -45;
 
     public static double score2X = 16;
@@ -62,14 +62,26 @@ public class Auto_5Plus0 extends LinearOpMode {
     public static int sample2ext = 0;
 
     public static double sample3x = 40;
-    public static double sample3y = 123;
+    public static double sample3y = 120; //123
     public static double sample3degrees = 90;
     public static int sample3ext = 0;
 
-    public static double sample4x = 72;
-    public static double sample4y = 100;
-    public static double sample4degrees = -90;
-    public static int sample4ext = 250;
+    public static double sample4x = 45;
+    public static double sample4y = 72;
+    public static double sample4degrees = 0;
+//    public static int sample4ext = 250;
+
+    public static double test1X = 15.5;
+    public static double test1Y = 104;
+    public static double test1Deg = 0;
+
+    public static double test2X = 46;
+    public static double test2Y = 120;
+    public static double test2Deg = 0;
+
+    public static double test3X = 97;
+    public static double test3Y = 120;
+    public static double test3Deg = 0;
 
 
     public static Path preload;
@@ -77,6 +89,8 @@ public class Auto_5Plus0 extends LinearOpMode {
     public static Path sample2Path, sample2ScorePath;
     public static Path sample3Path, sample3ScorePath;
     public static Path sample4Path, sample4ScorePath;
+    public static Path test1Path, test2Path;
+    public static Path test3Path, test4Path;
 
     public void buildPaths() {
         Pose startPose = PoseConstants.Start.redBasket;
@@ -90,6 +104,15 @@ public class Auto_5Plus0 extends LinearOpMode {
         Pose sample2Pose = new Pose(sample2x, sample2y, Math.toRadians(sample2degrees));
         Pose sample3Pose = new Pose(sample3x, sample3y, Math.toRadians(sample3degrees));
         Pose sample4Pose = new Pose(sample4x, sample4y, Math.toRadians(sample4degrees));
+        Pose test1 = new Pose(test1X, test1Y, Math.toRadians(0));
+        Pose test2 = new Pose(test2X, test2Y, Math.toRadians(0));
+        Pose test3 = new Pose(test3X, test3Y, Math.toRadians(0));
+
+        test1Path = buildPath(test1, test2);
+        test2Path = buildPath(test2, test3);
+        test3Path = buildPath(test3, test2);
+        test4Path = buildPath(test2, test1);
+
 
         // Preload path
         preload = buildPath(startPose, score1);
@@ -106,8 +129,17 @@ public class Auto_5Plus0 extends LinearOpMode {
         sample3Path = buildPath(scorePose, sample3Pose);
         sample3ScorePath = buildPath(sample3Pose, score4);
 
+        sample4Path = buildPath(scorePose, sample4Pose);
+        sample4ScorePath = buildPath(sample4Pose, score4);
+
+//        test1Path = buildPath(scorePose, sample4Pose);
+//        test2Path = buildPath(sample4Pose, score4);
+//        test3Path = buildPath(sample4Pose, score4);
+//        test4Path = buildPath(sample4Pose, score4);
+
+
         // Sample 4 paths
-        sample4Path = buildCurve(scorePose, sample4Pose, new Point(75, 119));
+//        sample4Path = buildCurve(scorePose, sample4Pose, new Point(75, 119));
     }
 
     @Override
@@ -126,6 +158,7 @@ public class Auto_5Plus0 extends LinearOpMode {
             CommandScheduler.getInstance().run();
             robot.updateData();
             robot.periodic();
+
             robot.write();
         }
 
@@ -136,76 +169,94 @@ public class Auto_5Plus0 extends LinearOpMode {
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new ArmStateCommand(IntakeSubsystem.ArmState.UP),
-                        new BucketStateCommand(DepositSubsystem.BucketState.INTAKE),
-                        new PathCommand(preload)
-                                .alongWith(new LiftUpCommand()),
-                        new DropSampleCommand(),
 
-                        new PathCommand(sample1Path)
-                                .alongWith(new SequentialCommandGroup(
-                                        new LiftDownCommand(),
-                                        new IntakePushOutCommand(0)
-                                )),
+                        new PathCommand(test1Path),
+//                                .alongWith(
+//                        new WaitCommand(5000)),
+                        new PathCommand(test2Path),
 
-                        new ExtensionJumpCommand(1, sample1ext),
-                        new WaitCommand(500),
-                        new PathCommand(sample1ScorePath)
+
+//                                .alongWith(
+//                                        new WaitCommand(5000)),
+                        new PathCommand(test3Path),
+//                                .alongWith(
+//                                        new WaitCommand(5000)),
+                        new PathCommand(test4Path)
                                 .alongWith(
-                                        new SequentialCommandGroup(
-                                                new IntakePullBackCommand(),
-                                                new WaitCommand(500),
-                                                new SampleTransferCommand(),
-                                                new WaitCommand(200),
-                                                new LiftUpCommand(),
-                                                new WaitCommand(700)
-                                        )
-                                ),
-                        new DropSampleCommand(),
+                                        new WaitCommand(500000000)),
 
-                        new PathCommand(sample2Path)
-                                .alongWith(new SequentialCommandGroup(
-                                        new LiftDownCommand(),
-                                        new IntakePushOutCommand(0)
-                                )),
+//                        new ArmStateCommand(IntakeSubsystem.ArmState.UP),
+//                        new BucketStateCommand(DepositSubsystem.BucketState.INTAKE),
+                        new PathCommand(preload),
+//                                .alongWith(new LiftUpCommand()), new DropSampleCommand(),
 
-                        new ExtensionJumpCommand(1),
-                        new WaitCommand(500),
-                        new PathCommand(sample2ScorePath)
-                                .alongWith(
-                                        new SequentialCommandGroup(
-                                                new IntakePullBackCommand(),
-                                                new WaitCommand(500),
-                                                new SampleTransferCommand(),
-                                                new WaitCommand(200),
-                                                new LiftUpCommand(),
-                                                new WaitCommand(700)
-                                        )
-                                ),
-                        new DropSampleCommand(),
+                        new PathCommand(sample1Path),
+//                                .alongWith(new SequentialCommandGroup(
+//                                        new LiftDownCommand(),
+//                                        new IntakePushOutCommand(0)
+//                                )),
 
-                        new PathCommand(sample3Path)
-                                .alongWith(new SequentialCommandGroup(
-                                        new LiftDownCommand(),
-                                        new IntakePushOutCommand(0)
-                                )),
+//                        new ExtensionJumpCommand(1, sample1ext),
+//                        new WaitCommand(500),
+                        new PathCommand(sample1ScorePath),
+//                                                        .alongWith(
+//                                        new SequentialCommandGroup(
+//                                                new IntakePullBackCommand(),
+//                                                new WaitCommand(500),
+//                                                new SampleTransferCommand(),
+//                                                new WaitCommand(200),
+//                                                new LiftUpCommand(),
+//                                                new WaitCommand(700)
+//                                        )
+//                                ),
+//                        new DropSampleCommand(),
 
-                        new ExtensionJumpCommand(1),
-                        new WaitCommand(500),
-                        new PathCommand(sample3ScorePath)
-                                .alongWith(
-                                        new SequentialCommandGroup(
-                                                new IntakePullBackCommand(),
-                                                new WaitCommand(500),
-                                                new SampleTransferCommand(),
-                                                new WaitCommand(200),
-                                                new LiftUpCommand(),
-                                                new WaitCommand(700)
-                                        )
-                                ),
-                        new DropSampleCommand(),
+                        new PathCommand(sample2Path),
+//                                .alongWith(new SequentialCommandGroup(
+//                                        new LiftDownCommand(),
+//                                        new IntakePushOutCommand(0)
+//                                )),
 
-                        new LiftDownCommand()
+//                        new ExtensionJumpCommand(1),
+//                        new WaitCommand(500),
+//                        new PathCommand(sample2ScorePath),
+//                                .alongWith(
+//                                        new SequentialCommandGroup(
+//                                                new IntakePullBackCommand(),
+//                                                new WaitCommand(500),
+//                                                new SampleTransferCommand(),
+//                                                new WaitCommand(200),
+//                                                new LiftUpCommand(),
+//                                                new WaitCommand(700)
+//                                        )
+//                                ),
+//                        new DropSampleCommand(),
+
+                        new PathCommand(sample3Path),
+//                                .alongWith(new SequentialCommandGroup(
+//                                        new LiftDownCommand(),
+//                                        new IntakePushOutCommand(0)
+//                                )),
+
+//                        new ExtensionJumpCommand(1),
+//                        new WaitCommand(500),
+                        new PathCommand(sample3ScorePath),
+                        new PathCommand(sample4Path),
+                        new PathCommand(sample4ScorePath)
+
+//                                .alongWith(
+//                                        new SequentialCommandGroup(
+//                                                new IntakePullBackCommand(),
+//                                                new WaitCommand(500),
+//                                                new SampleTransferCommand(),
+//                                                new WaitCommand(200),
+//                                                new LiftUpCommand(),
+//                                                new WaitCommand(700)
+//                                        )
+//                                ),
+//                        new DropSampleCommand(),
+//
+//                        new LiftDownCommand()
 
                 )
         );
