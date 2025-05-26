@@ -59,6 +59,7 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         INTAKE,
         UP,
         FLAT,
+        FLATHIGH,
         NONE
     }
 
@@ -144,6 +145,8 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
                 return Constants.armUp;
             case FLAT:
                 return Constants.armFlat;
+            case FLATHIGH:
+                return Constants.armFlatHigh;
             default:
                 return 0;
         }

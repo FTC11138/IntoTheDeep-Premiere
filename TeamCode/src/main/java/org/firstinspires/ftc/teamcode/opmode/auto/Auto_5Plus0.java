@@ -169,20 +169,20 @@ public class Auto_5Plus0 extends LinearOpMode {
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
 
-//                        new PathCommand(test1Path),
+                        new PathCommand(test1Path),
 //                                .alongWith(
 //                        new WaitCommand(5000)),
-//                        new PathCommand(test2Path),
+                        new PathCommand(test2Path),
 
 
 //                                .alongWith(
 //                                        new WaitCommand(5000)),
-//                        new PathCommand(test3Path),
+                        new PathCommand(test3Path),
 //                                .alongWith(
 //                                        new WaitCommand(5000)),
-//                        new PathCommand(test4Path)
-//                                .alongWith(
-//                                        new WaitCommand(500000000)),
+                        new PathCommand(test4Path)
+                                .alongWith(
+                                        new WaitCommand(500000000)),
 
 //                        new ArmStateCommand(IntakeSubsystem.ArmState.UP),
 //                        new BucketStateCommand(DepositSubsystem.BucketState.INTAKE),

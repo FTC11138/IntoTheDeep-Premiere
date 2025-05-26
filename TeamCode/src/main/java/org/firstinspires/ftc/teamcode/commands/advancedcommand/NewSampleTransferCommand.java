@@ -20,7 +20,10 @@ public class NewSampleTransferCommand extends ConditionalCommand {
     public NewSampleTransferCommand() {
         super(
                 new SequentialCommandGroup(
-
+//                        new NewIntakePullBackCommand(),
+//                        new NewArmStateCommand(NewIntakeSubsystem.ArmState.FLAT),
+                        new WaitCommand(4000),
+                        new NewIntakePullBackCommand().andThen(
                         new ConditionalCommand(
                                 new SequentialCommandGroup(
                                         new NewArmStateCommand(NewIntakeSubsystem.ArmState.TRANSFER),
@@ -35,7 +38,7 @@ public class NewSampleTransferCommand extends ConditionalCommand {
                         new ClawStateCommand(NewIntakeSubsystem.ClawState.OPEN),
                         new WaitCommand(600),
                         new NewArmStateCommand(NewIntakeSubsystem.ArmState.UP)
-                ),
+                )),
                 new InstantCommand(),
                 () -> (
                         !Robot.getInstance().data.intaking && !Robot.getInstance().data.scoring

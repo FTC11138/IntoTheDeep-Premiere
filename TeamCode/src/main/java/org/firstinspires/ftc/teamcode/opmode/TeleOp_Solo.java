@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.ScheduleCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -22,6 +23,7 @@ import org.firstinspires.ftc.teamcode.commands.advancedcommand.LiftUpCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePullBackCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePushOutCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleEjectCommand;
+import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePickupCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleTransferCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleEjectCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleTransferCommand;
@@ -238,13 +240,15 @@ public class TeleOp_Solo extends CommandOpMode {
                         && (intakeDistance < Constants.samplePickupTolerance)
                 )) {
             gamepad1.rumble(500);
-            CommandScheduler.getInstance().schedule(
-                    new ConditionalCommand(
-                            new NewIntakePullBackCommand().andThen(new NewSampleTransferCommand()),
-                            new NewSampleTransferCommand(),
-                            () -> robot.data.intaking
-                    )
-            );
+            CommandScheduler.getInstance().schedule(new NewSamplePickupCommand()); //was pickup originally
+//            CommandScheduler.getInstance().schedule(new WaitCommand(5000));
+//            CommandScheduler.getInstance().schedule(new NewSampleTransferCommand());
+//                    new ConditionalCommand(
+//                            new NewIntakePullBackCommand().andThen(new NewSampleTransferCommand()),
+//                            new NewSampleTransferCommand())
+//                            () -> robot.data.intaking
+//                    )
+//            );
         }
 
         if (leftTrigger && !lastLeftTrigger) {
@@ -259,6 +263,7 @@ public class TeleOp_Solo extends CommandOpMode {
             robot.follower.setPose(new Pose());
             gamepad1.rumble(500);
             gamepad1.setLedColor(0, 1, 0, 1000);
+//            CommandScheduler.getInstance().schedule(new NewSampleEjectCommand());
         }
 
 

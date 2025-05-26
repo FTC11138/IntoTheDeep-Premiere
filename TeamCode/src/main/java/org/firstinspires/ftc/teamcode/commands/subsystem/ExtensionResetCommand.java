@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.hardware.Robot;
 public class ExtensionResetCommand extends InstantCommand {
     public ExtensionResetCommand() {
         super(
-                () -> Robot.getInstance().intakeSubsystem.resetExtension()
+                () -> Robot.getInstance().newIntakeSubsystem.resetExtension()
         );
     }
 }
