@@ -13,7 +13,7 @@ public class SamplePickupCommand extends SequentialCommandGroup {
                 new ConditionalCommand(
                         new SequentialCommandGroup(
                                 new IntakePushOutCommand(300),
-                                new WaitCommand(500)
+                                new WaitCommand(300)
                         ),
                         new InstantCommand(),
                         () -> Robot.getInstance().data.intaking

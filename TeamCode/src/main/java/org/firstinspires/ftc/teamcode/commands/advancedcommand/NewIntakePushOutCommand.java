@@ -30,6 +30,7 @@ public class NewIntakePushOutCommand extends SequentialCommandGroup {
 //                new WaitCommand(1000),
 //                new ClawStateCommand(NewIntakeSubsystem.ClawState.CLOSE),
 //                new WaitCommand(500),
+
                 new InstantCommand(Robot.getInstance().data::startIntaking)
         );
     }

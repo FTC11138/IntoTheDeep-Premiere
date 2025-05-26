@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.commands.subsystem.ArmStateCommand;
+import org.firstinspires.ftc.teamcode.commands.subsystem.ClawStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.NewArmStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.ExtensionPositionCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.IntakePushStateCommand;
@@ -26,6 +27,7 @@ public class NewIntakePullBackCommand extends SequentialCommandGroup {
                 new RotateStateCommand(NewIntakeSubsystem.RotateState.VERTICAL),
                 new ExtensionPositionCommand(Constants.extMin),
                 new WaitCommand((int) (Robot.getInstance().newIntakeSubsystem.getExtensionPosition() * 0.6)),
+                new ClawStateCommand(NewIntakeSubsystem.ClawState.OPEN),
                 new RotateStateCommand(NewIntakeSubsystem.RotateState.HORIZONTAL)
         );
     }

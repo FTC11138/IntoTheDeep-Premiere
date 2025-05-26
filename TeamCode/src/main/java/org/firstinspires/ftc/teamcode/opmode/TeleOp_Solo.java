@@ -130,8 +130,6 @@ public class TeleOp_Solo extends CommandOpMode {
 
         if (robot.data.intaking) {
             robot.newIntakeSubsystem.setExtensionPower(-gamepad1.right_stick_y);
-            new WaitCommand(150);
-            robot.newIntakeSubsystem.setExtensionPower(0);
         }
 
         lastLiftChangeJoystickUp = liftChangeJoystickUp;
@@ -240,7 +238,7 @@ public class TeleOp_Solo extends CommandOpMode {
                         && (intakeDistance < Constants.samplePickupTolerance)
                 )) {
             gamepad1.rumble(500);
-            CommandScheduler.getInstance().schedule(new NewSamplePickupCommand()); //was pickup originally
+            CommandScheduler.getInstance().schedule(new NewSamplePickupCommand());
 //            CommandScheduler.getInstance().schedule(new WaitCommand(5000));
 //            CommandScheduler.getInstance().schedule(new NewSampleTransferCommand());
 //                    new ConditionalCommand(
