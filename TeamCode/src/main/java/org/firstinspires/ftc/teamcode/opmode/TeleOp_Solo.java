@@ -227,18 +227,16 @@ public class TeleOp_Solo extends CommandOpMode {
         lastStart = start;
 
 
-        double intakeSpeed = robot.sensorSubsystem.getIntakeSpeed();
+//        double intakeSpeed = robot.sensorSubsystem.getIntakeSpeed();
         double intakeDistance = robot.sensorSubsystem.getIntakeDistance();
         boolean leftTrigger = gamepad1.left_trigger > .5;
         boolean rightTrigger = gamepad1.right_trigger > .5;
 
-        if (rightTrigger && !lastRightTrigger ||
-                (
-                        robot.data.intaking
-                        && (intakeDistance < Constants.samplePickupTolerance)
-                )) {
+        if (rightTrigger && !lastRightTrigger) {
             gamepad1.rumble(500);
             CommandScheduler.getInstance().schedule(new NewSamplePickupCommand());
+            CommandScheduler.getInstance().schedule(new IntakePullBackCommand());
+            CommandScheduler.getInstance().schedule(new SampleTransferCommand());
 //            CommandScheduler.getInstance().schedule(new WaitCommand(5000));
 //            CommandScheduler.getInstance().schedule(new NewSampleTransferCommand());
 //                    new ConditionalCommand(

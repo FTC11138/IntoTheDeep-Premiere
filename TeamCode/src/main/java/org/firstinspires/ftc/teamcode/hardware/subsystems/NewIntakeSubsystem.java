@@ -29,7 +29,6 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
     public ArmState armState;
     public WristState wristState;
     public RotateState rotateState;
-    public IntakePushState intakePushState;
     public double clawAngle;
 
     // Constants for rotate servo angle calculation
@@ -58,16 +57,8 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         TRANSFER,
         INTAKE,
         UP,
+        DOWN,
         FLAT,
-        FLATHIGH,
-        NONE
-    }
-
-    public enum IntakePushState {
-        PUSH,
-        UP,
-        STORE,
-        DRIVE,
         NONE
     }
 
@@ -93,7 +84,6 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         wristState = WristState.STORE;
         armState = ArmState.UP;
         rotateState = RotateState.NONE;
-        intakePushState = IntakePushState.NONE;
 
         Robot.getInstance().subsystems.add(this);
     }
@@ -131,9 +121,6 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         this.rotateState = state;
     }
 
-    public void updateIntakePushState(IntakePushState state) {
-        this.intakePushState = state;
-    }
 
     private double getArmStatePosition(ArmState state) {
         switch (state) {
@@ -145,8 +132,8 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
                 return Constants.armUp;
             case FLAT:
                 return Constants.armFlat;
-            case FLATHIGH:
-                return Constants.armFlatHigh;
+            case DOWN:
+                return Constants.armDown;
             default:
                 return 0;
         }
@@ -186,21 +173,6 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
                 return clawAngle;
             default:
                 return Constants.rotateHorizontal;
-        }
-    }
-
-    private double getIntakePushStatePosition(IntakePushState state) {
-        switch (state) {
-            case PUSH:
-                return Constants.intakePushDown;
-            case UP:
-                return Constants.intakePushUp;
-            case STORE:
-                return Constants.intakePushStore;
-            case DRIVE:
-                return Constants.intakePushDrive;
-            default:
-                return 0;
         }
     }
 

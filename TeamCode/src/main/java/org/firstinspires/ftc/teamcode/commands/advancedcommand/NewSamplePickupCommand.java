@@ -22,12 +22,10 @@ public class NewSamplePickupCommand extends SequentialCommandGroup {
 //                        () -> Robot.getInstance().data.intaking
 //                ),
 //                new NewSampleAlignCommand(), will need later, we have no camera currently -----------------------------------------------------------------
-                new NewArmStateCommand(NewIntakeSubsystem.ArmState.FLAT),
+                new NewArmStateCommand(NewIntakeSubsystem.ArmState.DOWN),
                 new WaitCommand(300),
-                new ClawStateCommand(NewIntakeSubsystem.ClawState.CLOSE),
+                new ClawStateCommand(NewIntakeSubsystem.ClawState.CLOSE)
 //                new SampleExtendGrabCommand(),
-                new WaitCommand(1000),
-                new NewSampleTransferCommand()
         );
     }
 }

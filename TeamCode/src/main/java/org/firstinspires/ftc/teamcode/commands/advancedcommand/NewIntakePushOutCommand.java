@@ -25,7 +25,7 @@ public class NewIntakePushOutCommand extends SequentialCommandGroup {
                 new ClawStateCommand(NewIntakeSubsystem.ClawState.OPEN),
 //                new WaitCommand(5000),
                 new RotateStateCommand(NewIntakeSubsystem.RotateState.HORIZONTAL),
-                new NewArmStateCommand(NewIntakeSubsystem.ArmState.FLATHIGH),
+                new NewArmStateCommand(NewIntakeSubsystem.ArmState.FLAT),
                 new WristStateCommand(NewIntakeSubsystem.WristState.GRAB),
 //                new WaitCommand(1000),
 //                new ClawStateCommand(NewIntakeSubsystem.ClawState.CLOSE),

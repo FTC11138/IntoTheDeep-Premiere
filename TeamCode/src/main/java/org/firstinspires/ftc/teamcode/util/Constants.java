@@ -43,8 +43,8 @@ public class Constants {
 
     public static double armTransfer = 0.92;
     public static double armIntake = 0.445;
-    public static double armFlat = 0.52;
-    public static double armFlatHigh = 0.57;
+    public static double armDown = 0.52;
+    public static double armFlat = 0.57;
     public static double armUp = 0.85;
     public static double armServoOffset = -0.02;
     public static double armServoOffsetTransfer = -0.02;
