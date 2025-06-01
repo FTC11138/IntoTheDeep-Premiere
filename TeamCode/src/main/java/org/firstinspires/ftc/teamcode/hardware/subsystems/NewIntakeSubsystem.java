@@ -62,6 +62,14 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         NONE
     }
 
+    public enum NewIntakePushState {
+        PUSH,
+        UP,
+        STORE,
+        DRIVE,
+        NONE
+    }
+
     public NewIntakeSubsystem(HardwareMap hardwareMap, String ext, String arm1, String arm2, String claw, String rotate, String wrist) {
         extensionParams = new RE_DcMotorExParams(
                 Constants.extMin, Constants.extMax, Constants.extSlow,

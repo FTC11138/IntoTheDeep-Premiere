@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.hardware.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 
 public class NewIntakePushStateCommand extends InstantCommand {
-    public NewIntakePushStateCommand(NewIntakeSubsystem.IntakePushState state) {
+    public NewIntakePushStateCommand(NewIntakeSubsystem.NewIntakePushState state) {
         super(
                 () -> {}
         );

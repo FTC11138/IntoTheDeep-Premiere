@@ -92,7 +92,8 @@ public class Auto_5Plus0 extends LinearOpMode {
     public static Path test1Path, test2Path, test3Path, test4Path;
 
     public void buildPaths() {
-        Pose startPose = PoseConstants.Start.redBasket;
+//        Pose startPose = PoseConstants.Start.redBasket;
+
         Pose scorePose = new Pose(score1X, score1Y, Math.toRadians(score1Degrees));
         Pose score1 = new Pose(score1X, score1Y, Math.toRadians(score1Degrees));
         Pose score2 = new Pose(score2X, score2Y, Math.toRadians(score2Degrees));
@@ -103,9 +104,11 @@ public class Auto_5Plus0 extends LinearOpMode {
         Pose sample2Pose = new Pose(sample2x, sample2y, Math.toRadians(sample2degrees));
         Pose sample3Pose = new Pose(sample3x, sample3y, Math.toRadians(sample3degrees));
         Pose sample4Pose = new Pose(sample4x, sample4y, Math.toRadians(sample4degrees));
-        Pose test1 = new Pose(test1X, test1Y, Math.toRadians(0));
-        Pose test2 = new Pose(test2X, test2Y, Math.toRadians(0));
-        Pose test3 = new Pose(test3X, test3Y, Math.toRadians(0));
+        Pose test1 = new Pose(test1X, test1Y, Math.toRadians(270));
+        Pose test2 = new Pose(test2X, test2Y, Math.toRadians(270));
+        Pose test3 = new Pose(test3X, test3Y, Math.toRadians(270));
+        Pose startPose = test1;
+
 
         test1Path = buildPath(test1, test2);
         test2Path = buildPath(test2, test3);
@@ -262,6 +265,7 @@ public class Auto_5Plus0 extends LinearOpMode {
 
         while (opModeIsActive() && !isStopRequested()) {
             CommandScheduler.getInstance().run();
+            telemetry.addData("Heading", robot.follower.getPose().getHeading());
             robot.updateData();
             robot.periodic();
             robot.write();
