@@ -21,10 +21,16 @@ import org.firstinspires.ftc.teamcode.util.Constants;
 public class NewIntakePullBackCommand extends SequentialCommandGroup {
     public NewIntakePullBackCommand() {
         super(
+                new InstantCommand(Robot.getInstance().data::startIntaking),
+                new NewArmStateCommand(NewIntakeSubsystem.ArmState.DOWN),
+                new WaitCommand(600),
+                new ClawStateCommand(NewIntakeSubsystem.ClawState.CLOSE),
+                new WaitCommand(600),
                 new InstantCommand(Robot.getInstance().data::stopIntaking),
+                new RotateStateCommand(NewIntakeSubsystem.RotateState.VERTICAL),
                 new NewArmStateCommand(NewIntakeSubsystem.ArmState.TRANSFER),
                 new WristStateCommand(NewIntakeSubsystem.WristState.TRANSFER),
-                new RotateStateCommand(NewIntakeSubsystem.RotateState.VERTICAL),
+                new WristStateCommand(NewIntakeSubsystem.WristState.STORE),
                 new ExtensionPositionCommand(Constants.extMin),
                 new WaitCommand((int) (Robot.getInstance().newIntakeSubsystem.getExtensionPosition() * 0.6)),
                 new ClawStateCommand(NewIntakeSubsystem.ClawState.OPEN),

@@ -9,9 +9,10 @@ import org.firstinspires.ftc.teamcode.hardware.subsystems.IntakeSubsystem;
 public class SampleEjectCommand extends SequentialCommandGroup {
     public SampleEjectCommand() {
         super(
-                new IntakeStateCommand(IntakeSubsystem.IntakeState.OUT),
-                new WaitCommand(500),
-                new IntakeStateCommand(IntakeSubsystem.IntakeState.IN)
+
+//                new IntakeStateCommand(IntakeSubsystem.IntakeState.OUT),
+//                new WaitCommand(500),
+//                new IntakeStateCommand(IntakeSubsystem.IntakeState.IN)
         );
     }
 }

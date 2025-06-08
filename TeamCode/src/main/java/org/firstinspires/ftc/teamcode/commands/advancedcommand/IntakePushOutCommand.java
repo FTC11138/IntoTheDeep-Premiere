@@ -11,12 +11,13 @@ import org.firstinspires.ftc.teamcode.commands.subsystem.IntakePushStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.IntakeStateCommand;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.IntakeSubsystem;
+import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 
 public class IntakePushOutCommand extends SequentialCommandGroup {
     public IntakePushOutCommand(int ext) {
         super(
                 new ExtensionPositionCommand(ext),
-                new ArmStateCommand(IntakeSubsystem.ArmState.INTAKE),
+                new ArmStateCommand(NewIntakeSubsystem.ArmState.INTAKE),
                 new IntakeStateCommand(IntakeSubsystem.IntakeState.IN),
                 new WaitCommand(500),
                 new InstantCommand(Robot.getInstance().data::startIntaking)
@@ -36,7 +37,7 @@ public class IntakePushOutCommand extends SequentialCommandGroup {
                         () -> intake
                 ),
                 new ExtensionPositionCommand(ext),
-                new ArmStateCommand(IntakeSubsystem.ArmState.INTAKE),
+                new ArmStateCommand(NewIntakeSubsystem.ArmState.INTAKE),
                 new ConditionalCommand(
                         new WaitCommand(500),
                         new InstantCommand(),

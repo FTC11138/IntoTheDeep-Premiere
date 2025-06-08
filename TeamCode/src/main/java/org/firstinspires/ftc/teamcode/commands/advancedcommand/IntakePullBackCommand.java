@@ -10,17 +10,17 @@ import org.firstinspires.ftc.teamcode.commands.subsystem.IntakePushStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.IntakeStateCommand;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.IntakeSubsystem;
+import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 import org.firstinspires.ftc.teamcode.util.Constants;
 
 public class IntakePullBackCommand extends SequentialCommandGroup {
     public IntakePullBackCommand() {
         super(
                 new InstantCommand(Robot.getInstance().data::stopIntaking),
-                new ArmStateCommand(IntakeSubsystem.ArmState.TRANSFER),
-                new IntakePushStateCommand(IntakeSubsystem.IntakePushState.UP),
-                new ExtensionPositionCommand(Constants.extMin),
-                new WaitCommand((int) (Robot.getInstance().intakeSubsystem.getExtensionPosition() * 0.6)),
-                new IntakeStateCommand(IntakeSubsystem.IntakeState.STOP)
+                new ArmStateCommand(NewIntakeSubsystem.ArmState.TRANSFER),
+                new ExtensionPositionCommand(Constants.extMin)
+//                new WaitCommand((int) (Robot.getInstance().newIntakeSubsystem.getExtensionPosition() * 0.6)),
+//                new IntakeStateCommand(IntakeSubsystem.IntakeState.STOP)
         );
     }
 }

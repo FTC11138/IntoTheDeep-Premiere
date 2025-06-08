@@ -23,7 +23,7 @@ public class NewSamplePickupCommand extends SequentialCommandGroup {
 //                ),
 //                new NewSampleAlignCommand(), will need later, we have no camera currently -----------------------------------------------------------------
                 new NewArmStateCommand(NewIntakeSubsystem.ArmState.DOWN),
-                new WaitCommand(300),
+                new WaitCommand(600),
                 new ClawStateCommand(NewIntakeSubsystem.ClawState.CLOSE)
 //                new SampleExtendGrabCommand(),
         );

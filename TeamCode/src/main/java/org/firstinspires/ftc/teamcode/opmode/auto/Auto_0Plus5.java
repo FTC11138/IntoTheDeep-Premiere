@@ -27,6 +27,7 @@ import org.firstinspires.ftc.teamcode.commands.subsystem.SpecimenClawStateComman
 import org.firstinspires.ftc.teamcode.commands.subsystem.SpecimenLiftStateCommand;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.IntakeSubsystem;
+import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.SpecimenSubsystem;
 import org.firstinspires.ftc.teamcode.util.Globals;
 import org.firstinspires.ftc.teamcode.util.PoseConstants;
@@ -280,18 +281,18 @@ public class Auto_0Plus5 extends LinearOpMode {
                         new PathCommand(sampleDragPath1Back)
                                 .alongWith(new SequentialCommandGroup(
                                         new ExtensionPositionCommand(dragStart2Ext),
-                                        new ArmStateCommand(IntakeSubsystem.ArmState.FLAT)
+                                        new ArmStateCommand(NewIntakeSubsystem.ArmState.FLAT)
                                 )),
-                        new ArmStateCommand(IntakeSubsystem.ArmState.INTAKE),
+                        new ArmStateCommand(NewIntakeSubsystem.ArmState.INTAKE),
                         new WaitCommand(200),
 
                         new PathCommand(sampleDragPath2),
                         new PathCommand(sampleDragPath2Back)
                                 .alongWith(new SequentialCommandGroup(
                                         new ExtensionPositionCommand(dragStart3Ext),
-                                        new ArmStateCommand(IntakeSubsystem.ArmState.FLAT)
+                                        new ArmStateCommand(NewIntakeSubsystem.ArmState.FLAT)
                                 )),
-                        new ArmStateCommand(IntakeSubsystem.ArmState.INTAKE),
+                        new ArmStateCommand(NewIntakeSubsystem.ArmState.INTAKE),
                         new WaitCommand(200),
 
                         new PathCommand(sampleDragPath3),

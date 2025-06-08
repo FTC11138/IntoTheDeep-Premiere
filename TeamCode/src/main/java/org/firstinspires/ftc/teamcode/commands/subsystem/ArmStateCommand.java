@@ -4,11 +4,12 @@ import com.arcrobotics.ftclib.command.InstantCommand;
 
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.IntakeSubsystem;
+import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 
 public class ArmStateCommand extends InstantCommand {
-    public ArmStateCommand(IntakeSubsystem.ArmState state) {
+    public ArmStateCommand(NewIntakeSubsystem.ArmState state) {
         super(
-                () -> Robot.getInstance().intakeSubsystem.updateArmState(state)
+                () -> Robot.getInstance().newIntakeSubsystem.updateArmState(state)
         );
     }
 }
