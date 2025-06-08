@@ -23,9 +23,11 @@ public class NewIntakePullBackCommand extends SequentialCommandGroup {
         super(
                 new InstantCommand(Robot.getInstance().data::startIntaking),
                 new NewArmStateCommand(NewIntakeSubsystem.ArmState.DOWN),
-                new WaitCommand(600),
+                new WaitCommand(5000),
+                //Either make a seperate command to incorporate the camera or include here!
                 new ClawStateCommand(NewIntakeSubsystem.ClawState.CLOSE),
                 new WaitCommand(600),
+                //lower wait after testing!
                 new InstantCommand(Robot.getInstance().data::stopIntaking),
                 new RotateStateCommand(NewIntakeSubsystem.RotateState.VERTICAL),
                 new NewArmStateCommand(NewIntakeSubsystem.ArmState.TRANSFER),
@@ -34,6 +36,8 @@ public class NewIntakePullBackCommand extends SequentialCommandGroup {
                 new ExtensionPositionCommand(Constants.extMin),
 //                new WaitCommand((int) (Robot.getInstance().newIntakeSubsystem.getExtensionPosition() * 0.6)),
                 new ClawStateCommand(NewIntakeSubsystem.ClawState.OPEN),
+                new NewArmStateCommand(NewIntakeSubsystem.ArmState.UP),
+                new WristStateCommand(NewIntakeSubsystem.WristState.TRANSFER),
                 new RotateStateCommand(NewIntakeSubsystem.RotateState.HORIZONTAL)
         );
     }
