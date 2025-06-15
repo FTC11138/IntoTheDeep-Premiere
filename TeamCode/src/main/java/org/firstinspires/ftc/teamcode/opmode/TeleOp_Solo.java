@@ -26,6 +26,7 @@ import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleEjectCom
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePickupCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleTransferCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleEjectCommand;
+import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleGrabCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleTransferCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SpecimenDepositCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SpecimenGrabCommand;
@@ -236,7 +237,7 @@ public class TeleOp_Solo extends CommandOpMode {
 
         if (rightTrigger && !lastRightTrigger) {
             gamepad1.rumble(500);
-            CommandScheduler.getInstance().schedule(new NewIntakePullBackCommand().andThen(new NewSampleTransferCommand()));
+            CommandScheduler.getInstance().schedule(new SampleGrabCommand().andThen(new NewIntakePullBackCommand()).andThen(new NewSampleTransferCommand()));
 //            CommandScheduler.getInstance().schedule(new SampleTransferCommand());
 //            CommandScheduler.getInstance().schedule(new WaitCommand(5000));
 //            CommandScheduler.getInstance().schedule(new NewSampleTransferCommand());

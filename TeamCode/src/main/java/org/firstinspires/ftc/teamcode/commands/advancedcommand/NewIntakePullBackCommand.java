@@ -16,14 +16,6 @@ import org.firstinspires.ftc.teamcode.util.Constants;
 public class NewIntakePullBackCommand extends SequentialCommandGroup {
     public NewIntakePullBackCommand() {
         super(
-                new InstantCommand(Robot.getInstance().data::startIntaking),
-                new NewArmStateCommand(NewIntakeSubsystem.ArmState.DOWN),
-                new WristStateCommand(NewIntakeSubsystem.WristState.GRAB),
-                new WaitCommand(200),
-                //Either make a seperate command to incorporate the camera or include here!
-                new ClawStateCommand(NewIntakeSubsystem.ClawState.CLOSE),
-                new WaitCommand(200),
-//                //lower wait after testing!
                 new InstantCommand(Robot.getInstance().data::stopIntaking),
                 new RotateStateCommand(NewIntakeSubsystem.RotateState.HORIZONTAL),
                 new NewArmStateCommand(NewIntakeSubsystem.ArmState.UP),
