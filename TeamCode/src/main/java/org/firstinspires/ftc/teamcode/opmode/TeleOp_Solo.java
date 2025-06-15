@@ -32,10 +32,12 @@ import org.firstinspires.ftc.teamcode.commands.advancedcommand.SpecimenGrabComma
 import org.firstinspires.ftc.teamcode.commands.subsystem.ExtensionResetCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.LiftPowerCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.LiftResetCommand;
+import org.firstinspires.ftc.teamcode.commands.subsystem.RotateStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.SpecLiftResetCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.SpecimenLiftStateCommand;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.RobotData;
+import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.SpecimenSubsystem;
 import org.firstinspires.ftc.teamcode.util.Constants;
 import org.firstinspires.ftc.teamcode.util.Globals;
@@ -167,7 +169,7 @@ public class TeleOp_Solo extends CommandOpMode {
         scheduleCommand(lastB, b, new LiftDownCommand());
         scheduleCommand(lastY, y, new LiftMidCommand());
 
-        scheduleCommand(lastLeftBumper, leftBumper, new NewSampleEjectCommand());
+        scheduleCommand(lastLeftBumper, leftBumper, new RotateStateCommand(NewIntakeSubsystem.RotateState.VERTICAL));
         scheduleCommand(lastRightBumper, rightBumper, new LiftUpCommand());
 
         scheduleCommand(lastDpadDown, dpadDown, new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.GRAB));
@@ -234,7 +236,7 @@ public class TeleOp_Solo extends CommandOpMode {
 
         if (rightTrigger && !lastRightTrigger) {
             gamepad1.rumble(500);
-            CommandScheduler.getInstance().schedule(new NewIntakePullBackCommand());
+            CommandScheduler.getInstance().schedule(new NewIntakePullBackCommand().andThen(new NewSampleTransferCommand()));
 //            CommandScheduler.getInstance().schedule(new SampleTransferCommand());
 //            CommandScheduler.getInstance().schedule(new WaitCommand(5000));
 //            CommandScheduler.getInstance().schedule(new NewSampleTransferCommand());

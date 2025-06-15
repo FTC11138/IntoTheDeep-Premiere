@@ -41,12 +41,12 @@ public class Constants {
     public static double bucketIntake = 0.7;
     public static double bucketAscent = 0;
 
-    public static double armTransfer = 0.93;
+    public static double armTransfer = 0.9;
     public static double armIntake = 0.445;
-    public static double armDown = 0.55;
+    public static double armDown = 0.52;
     public static double armFlat = 0.57;
     public static double armUp = 0.8;
-    public static double armServoOffset = -0.02;
+    public static double armServoOffset = -0.055;
     public static double armServoOffsetTransfer = -0.02;
 
     public static double intakePushDown = 0.35;
@@ -60,14 +60,15 @@ public class Constants {
     public static double clawOpen = 0.0;
     public static double clawClose = 1.0;
 
-    public static double wristGrab = 0.15;
-    public static double wristStore = 0.2;
+    public static double wristGrab = 0;
+    public static double wristPreGrab = 0.05;
+    public static double wristStore = 0.6;
     public static double wristTransfer = 1;
 
     public static double rotateHorizontal = 0;
     public static double rotateVertical = 90;
-    public static double rotate0 = 0;
-    public static double rotate180 = 1;
+    public static double rotate0 = 0.3;
+    public static double rotate180 = 0.97;
 
 
 
@@ -126,6 +127,21 @@ public class Constants {
     public static double kFAngle = 0;
 
     public static double sampleAlignAngleTolerance = 2;
+
+
+
+    public static double fX = 203.7;
+    public static double fY = 203.7;
+    public static double cX = 320;
+    public static double cY = 240;
+
+    public static double k1 = -1.5;
+    public static double k2 = 1.0;
+    public static double p1 = 0;
+    public static double p2 = 0;
+    public static double k3 = 0;
+
+
 
 
 

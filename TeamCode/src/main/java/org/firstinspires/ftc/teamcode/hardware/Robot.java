@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.hardware.subsystems.CameraSubsystem;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
@@ -46,6 +47,7 @@ public class Robot {
     public IntakeSubsystem intakeSubsystem;
     public NewIntakeSubsystem newIntakeSubsystem;
     public SpecimenSubsystem specimenSubsystem;
+    public CameraSubsystem cameraSubsystem;
 
     public SensorSubsystem sensorSubsystem;
 
@@ -76,6 +78,7 @@ public class Robot {
         this.specimenSubsystem = new SpecimenSubsystem(hardwareMap, names.specimenClaw, names.specimenLift);
 
         this.sensorSubsystem = new SensorSubsystem(hardwareMap, names.intakeSensor, names.outtakeSensor, names.rightRear, names.webcam);
+        this.cameraSubsystem = new CameraSubsystem(hardwareMap, names.webcam);
 
 //        sensorSubsystem.updateCameraState(SensorSubsystem.CameraState.ON);
 

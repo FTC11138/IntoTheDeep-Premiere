@@ -106,8 +106,6 @@ public class SensorSubsystem extends RE_SubsystemBase {
         Robot.getInstance().data.intakeColor = this.color;
         Robot.getInstance().data.intakeSpeed = this.intakeSpeed;
         Robot.getInstance().data.outtakeDistance = this.outtakeDistance;
-        Robot.getInstance().data.cameraState = this.cameraState;
-        Robot.getInstance().data.sampleAngle = this.cameraAngleSample;
 
     }
 

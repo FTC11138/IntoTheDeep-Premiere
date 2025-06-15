@@ -5,6 +5,7 @@ import com.pedropathing.localization.Pose;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.hardware.subsystems.CameraSubsystem;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
@@ -22,7 +23,7 @@ public class RobotData {
     public Globals.COLORS intakeColor = Globals.COLORS.NONE;
     public double outtakeDistance = 0;
     public double intakeSpeed = 0;
-    public SensorSubsystem.CameraState cameraState = SensorSubsystem.CameraState.OFF;
+    public CameraSubsystem.CameraState cameraState = CameraSubsystem.CameraState.OFF;
     public double sampleAngle = 0;
 
     public int liftPosition1 = 0;
@@ -44,6 +45,7 @@ public class RobotData {
     public NewIntakeSubsystem.WristState wristState = NewIntakeSubsystem.WristState.NONE;
     public NewIntakeSubsystem.RotateState rotateState = NewIntakeSubsystem.RotateState.NONE;
     public double clawAngle = 0;
+    public double rotatePosition = 0;
 
     public int specimenLiftPosition = 0;
     public SpecimenSubsystem.SpecimenClawState specimenClawState = SpecimenSubsystem.SpecimenClawState.OPEN;
@@ -112,6 +114,7 @@ public class RobotData {
         telemetry.addData("Wrist State", this.wristState);
         telemetry.addData("Rotate State", this.rotateState);
         telemetry.addData("Claw Angle", this.clawAngle);
+        telemetry.addData("Rotate Position", this.rotatePosition);
 
         telemetry.addLine();
 

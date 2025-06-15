@@ -5,14 +5,11 @@ import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
-import org.firstinspires.ftc.teamcode.commands.subsystem.ArmStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.ClawStateCommand;
-import org.firstinspires.ftc.teamcode.commands.subsystem.IntakePushStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.NewArmStateCommand;
-import org.firstinspires.ftc.teamcode.commands.subsystem.NewIntakePushStateCommand;
+import org.firstinspires.ftc.teamcode.commands.subsystem.RotateStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.WristStateCommand;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
-import org.firstinspires.ftc.teamcode.hardware.subsystems.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 
 public class NewSampleTransferCommand extends ConditionalCommand {
@@ -22,13 +19,13 @@ public class NewSampleTransferCommand extends ConditionalCommand {
                 new SequentialCommandGroup(
 //                        new NewIntakePullBackCommand(),
 //                        new NewArmStateCommand(NewIntakeSubsystem.ArmState.FLAT),
-                        new WaitCommand(4000),
-                        new NewIntakePullBackCommand().andThen(
                         new ConditionalCommand(
                                 new SequentialCommandGroup(
-                                        new NewArmStateCommand(NewIntakeSubsystem.ArmState.TRANSFER),
+                                        new RotateStateCommand(NewIntakeSubsystem.RotateState.VERTICAL),
                                         new WristStateCommand(NewIntakeSubsystem.WristState.TRANSFER),
-                                        new WaitCommand(50)
+                                        new WaitCommand(300),
+                                        new NewArmStateCommand(NewIntakeSubsystem.ArmState.TRANSFER)
+
                                 ),
                                 new InstantCommand(),
                                 () -> Robot.getInstance().newIntakeSubsystem.armState != NewIntakeSubsystem.ArmState.TRANSFER
@@ -36,9 +33,11 @@ public class NewSampleTransferCommand extends ConditionalCommand {
                         ),
                         new InstantCommand(Robot.getInstance().data::setSampleLoaded),
                         new ClawStateCommand(NewIntakeSubsystem.ClawState.OPEN),
-                        new WaitCommand(600),
-                        new NewArmStateCommand(NewIntakeSubsystem.ArmState.UP)
-                )),
+                        new WaitCommand(200),
+                        new NewArmStateCommand(NewIntakeSubsystem.ArmState.UP),
+                        new WristStateCommand(NewIntakeSubsystem.WristState.STORE),
+                        new RotateStateCommand(NewIntakeSubsystem.RotateState.HORIZONTAL)
+                ),
                 new InstantCommand(),
                 () -> (
                         !Robot.getInstance().data.intaking && !Robot.getInstance().data.scoring

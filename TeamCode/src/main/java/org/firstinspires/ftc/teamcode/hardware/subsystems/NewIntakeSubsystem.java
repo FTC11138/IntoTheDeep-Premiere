@@ -32,10 +32,11 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
     public double clawAngle;
 
     // Constants for rotate servo angle calculation
-    private final double ROTATE_TICKS_PER_DEGREE;
+    private double ROTATE_TICKS_PER_DEGREE;
 
     public enum WristState {
         GRAB,
+        PREGRAB,
         STORE,
         TRANSFER,
         NONE
@@ -62,13 +63,6 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         NONE
     }
 
-    public enum NewIntakePushState {
-        PUSH,
-        UP,
-        STORE,
-        DRIVE,
-        NONE
-    }
 
     public NewIntakeSubsystem(HardwareMap hardwareMap, String ext, String arm1, String arm2, String claw, String rotate, String wrist) {
         extensionParams = new RE_DcMotorExParams(
@@ -106,6 +100,8 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         Robot.getInstance().data.clawState = clawState;
         Robot.getInstance().data.wristState = wristState;
         Robot.getInstance().data.clawAngle = clawAngle;
+        Robot.getInstance().data.rotatePosition = this.rotate.getPosition();
+        Robot.getInstance().data.rotateState = rotateState;
     }
 
     public void setArmPosition(double pos) {
@@ -127,6 +123,10 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
 
     public void updateRotateState(RotateState state) {
         this.rotateState = state;
+    }
+    public void setRotateAngle(double angle) {
+        this.rotateState = RotateState.NONE;
+        this.clawAngle = angle;
     }
 
 
@@ -151,6 +151,8 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         switch (state) {
             case GRAB:
                 return Constants.wristGrab;
+            case PREGRAB:
+                return Constants.wristPreGrab;
             case STORE:
                 return Constants.wristStore;
             case TRANSFER:
@@ -196,14 +198,11 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         this.rotate.setPosition(position);
     }
 
-    public void setRotateAngle(double angle) {
+    private void setRotate(double angle) {
         angle = normalizeAngle(angle);
 
-        double servoPosition = angle * ROTATE_TICKS_PER_DEGREE;
+        double servoPosition = Constants.rotate0 + angle * ROTATE_TICKS_PER_DEGREE;
         setRotatePosition(servoPosition);
-
-        this.rotateState = RotateState.NONE;
-        this.clawAngle = angle;
     }
 
     private double normalizeAngle(double angle) {
@@ -233,6 +232,8 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
 
     @Override
     public void periodic() {
+        ROTATE_TICKS_PER_DEGREE = (Constants.rotate180 - Constants.rotate0) / 180.0;
+
         this.extension.periodic();
 
         if (armState == ArmState.TRANSFER) {
@@ -246,7 +247,7 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         this.claw.setPosition(getClawStatePosition(clawState));
         this.wrist.setPosition(getWristStatePosition(wristState));
 
-        setRotateAngle(getRotateStatePosition(rotateState));
+        setRotate(getRotateStatePosition(rotateState));
     }
 
     public void resetExtension() {
