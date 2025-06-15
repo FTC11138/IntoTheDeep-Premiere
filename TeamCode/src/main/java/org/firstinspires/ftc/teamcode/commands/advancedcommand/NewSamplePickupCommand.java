@@ -5,8 +5,10 @@ import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
+import org.firstinspires.ftc.teamcode.commands.subsystem.ArmStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.ClawStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.NewArmStateCommand;
+import org.firstinspires.ftc.teamcode.commands.subsystem.WristStateCommand;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 
@@ -23,8 +25,11 @@ public class NewSamplePickupCommand extends SequentialCommandGroup {
 //                ),
 //                new NewSampleAlignCommand(), will need later, we have no camera currently -----------------------------------------------------------------
                 new NewArmStateCommand(NewIntakeSubsystem.ArmState.DOWN),
-                new WaitCommand(600),
-                new ClawStateCommand(NewIntakeSubsystem.ClawState.CLOSE)
+                new WristStateCommand(NewIntakeSubsystem.WristState.GRAB),
+                new WaitCommand(100),
+                new ClawStateCommand(NewIntakeSubsystem.ClawState.CLOSE),
+                new WaitCommand(200),
+                new ArmStateCommand(NewIntakeSubsystem.ArmState.FLAT)
 //                new SampleExtendGrabCommand(),
         );
     }
