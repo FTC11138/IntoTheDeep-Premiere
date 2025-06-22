@@ -32,11 +32,10 @@ public class SampleTransferCommand extends ConditionalCommand {
                         ),
                         new InstantCommand(Robot.getInstance().data::setSampleLoaded),
                         new RotateStateCommand(NewIntakeSubsystem.RotateState.VERTICAL),
-                        new WaitCommand(600),
                         new WristStateCommand(NewIntakeSubsystem.WristState.TRANSFER),
                         new ArmStateCommand(NewIntakeSubsystem.ArmState.TRANSFER),
                         new WristStateCommand(NewIntakeSubsystem.WristState.STORE),
-                        new WaitCommand(600),
+                        new WaitCommand(700),
                         new ClawStateCommand(NewIntakeSubsystem.ClawState.OPEN)
 
 

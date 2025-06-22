@@ -58,7 +58,7 @@ public class Constants {
     public static double specimenClawClose = 0.6;
 
     public static double clawOpen = 0.0;
-    public static double clawClose = 1.0;
+    public static double clawClose = 0.22;
 
     public static double wristGrab = 0;
     public static double wristPreGrab = 0.05;

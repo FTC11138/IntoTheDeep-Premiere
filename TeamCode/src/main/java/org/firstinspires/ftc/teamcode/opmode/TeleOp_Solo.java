@@ -25,6 +25,7 @@ import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePushOutC
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleEjectCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePickupCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleTransferCommand;
+import org.firstinspires.ftc.teamcode.commands.advancedcommand.RotateToggleCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleEjectCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleGrabCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleTransferCommand;
@@ -137,7 +138,6 @@ public class TeleOp_Solo extends CommandOpMode {
 
         lastLiftChangeJoystickUp = liftChangeJoystickUp;
         lastLiftChangeJoystickDown = liftChangeJoystickDown;
-
         boolean a = g1.getButton(GamepadKeys.Button.A);
         boolean b = g1.getButton(GamepadKeys.Button.B);
         boolean x = g1.getButton(GamepadKeys.Button.X);
@@ -170,7 +170,7 @@ public class TeleOp_Solo extends CommandOpMode {
         scheduleCommand(lastB, b, new LiftDownCommand());
         scheduleCommand(lastY, y, new LiftMidCommand());
 
-        scheduleCommand(lastLeftBumper, leftBumper, new RotateStateCommand(NewIntakeSubsystem.RotateState.VERTICAL));
+        scheduleCommand(lastLeftBumper, leftBumper, new RotateToggleCommand());
         scheduleCommand(lastRightBumper, rightBumper, new LiftUpCommand());
 
         scheduleCommand(lastDpadDown, dpadDown, new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.GRAB));
