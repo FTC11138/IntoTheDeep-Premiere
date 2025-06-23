@@ -39,11 +39,8 @@ public class CameraSubsystem extends RE_SubsystemBase {
 
         this.intakeCamera = hardwareMap.get(WebcamName.class, intakeCamera);
 
-        cameraState = CameraState.OFF;
-        if (Globals.IS_AUTO) {
-            setupCamera();
-            cameraState = CameraState.ON;
-        }
+        setupCamera();
+        cameraState = CameraState.ON;
 
 
         Robot.getInstance().subsystems.add(this);

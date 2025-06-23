@@ -9,7 +9,7 @@ public class ExtensionJumpCommand extends InstantCommand {
     public ExtensionJumpCommand(int dir) {
         super(
                 () -> {
-                    Robot.getInstance().intakeSubsystem.setTargetExtensionPosition(
+                    Robot.getInstance().newIntakeSubsystem.setTargetExtensionPosition(
                             Robot.getInstance().data.extensionPosition + Constants.extJump * dir
                     );
                 }
@@ -19,7 +19,7 @@ public class ExtensionJumpCommand extends InstantCommand {
     public ExtensionJumpCommand(int dir, int dist) {
         super(
                 () -> {
-                    Robot.getInstance().intakeSubsystem.setTargetExtensionPosition(
+                    Robot.getInstance().newIntakeSubsystem.setTargetExtensionPosition(
                             Robot.getInstance().data.extensionPosition + (dist * dir)
                     );
                 }

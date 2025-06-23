@@ -10,14 +10,13 @@
         <!--This line declares the Expansion Hub. We use RS485 connection, so we declare it with a port.-->
         <LynxModule name="Expansion Hub 2" port="2">
 
-            <goBILDA5202SeriesMotor name="lift" port="0"/>
-            <goBILDA5202SeriesMotor name="sLift" port="1"/>
-            <goBILDA5202SeriesMotor name="ext" port="2"/>
-            <goBILDA5202SeriesMotor name="lift2" port="3"/>
+            <goBILDA5203SeriesMotor name="lift" port="0"/>
+            <goBILDA5203SeriesMotor name="sLift" port="1"/>
+            <goBILDA5203SeriesMotor name="ext" port="2"/>
+            <goBILDA5203SeriesMotor name="lift2" port="3"/>
 
             <Servo name="arm1" port="0"/>
             <Servo name="arm2" port="1"/>
-            <Servo name="claw" port="2"/>
             <Servo name="bucket" port="3"/>
             <Servo name="sClaw" port="4"/>
 
@@ -25,13 +24,14 @@
 
         <LynxModule name="Control Hub" port="173">
 
-            <goBILDA5202SeriesMotor name="rr" port="0"/>
-            <goBILDA5202SeriesMotor name="rf" port="1"/>
-            <goBILDA5202SeriesMotor name="lf" port="2"/>
-            <goBILDA5202SeriesMotor name="lr" port="3"/>
+            <goBILDA5203SeriesMotor name="rr" port="0"/>
+            <goBILDA5203SeriesMotor name="rf" port="1"/>
+            <goBILDA5203SeriesMotor name="lf" port="2"/>
+            <goBILDA5203SeriesMotor name="lr" port="3"/>
 
-            <Servo name="wrist" port="1"/>
+            <Servo name="claw" port="1"/>
             <Servo name="rotate" port="2"/>
+            <Servo name="wrist" port="5"/>
 
             <RevColorSensorV3 name="intakeSens" port="1" bus="0"/>
             <ControlHubImuBNO055 name="imu" port="0" bus="0"/>
@@ -41,10 +41,6 @@
 
         <!--This line signifies that the Control Hub Portal configuration has ended.-->
     </LynxUsbDevice>
-
-    <EthernetDevice name="Webcam 1" serialNumber="7749:32802">
-
-    </EthernetDevice>
 
     <!--Put other devices here. Most teams don't need to worry about this unless they are using things like webcams that don't go in the main ports.-->
 

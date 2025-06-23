@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePushOutC
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleExtendGrabCommand;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.util.Constants;
+import org.firstinspires.ftc.teamcode.util.Globals;
 
 @Config
 @TeleOp
@@ -22,6 +23,8 @@ public class SampleAngleOpMode extends OpMode {
 
     @Override
     public void init() {
+        Globals.IS_AUTO = true;
+
         robot.initialize(hardwareMap, telemetry);
         robot.follower.setPose(new Pose(0, 0, 0));
         robot.follower.startTeleopDrive();

@@ -25,6 +25,7 @@ import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePushOutC
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleEjectCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePickupCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleTransferCommand;
+import org.firstinspires.ftc.teamcode.commands.advancedcommand.RotateAlignCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.RotateToggleCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleEjectCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleGrabCommand;
@@ -170,7 +171,7 @@ public class TeleOp_Solo extends CommandOpMode {
         scheduleCommand(lastB, b, new LiftDownCommand());
         scheduleCommand(lastY, y, new LiftMidCommand());
 
-        scheduleCommand(lastLeftBumper, leftBumper, new RotateToggleCommand());
+        scheduleCommand(lastLeftBumper, leftBumper, new RotateAlignCommand());
         scheduleCommand(lastRightBumper, rightBumper, new LiftUpCommand());
 
         scheduleCommand(lastDpadDown, dpadDown, new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.GRAB));
@@ -238,6 +239,8 @@ public class TeleOp_Solo extends CommandOpMode {
         if (rightTrigger && !lastRightTrigger) {
             gamepad1.rumble(500);
             CommandScheduler.getInstance().schedule(new SequentialCommandGroup(
+                    new RotateAlignCommand(),
+                    new WaitCommand(300),
                     new NewSamplePickupCommand(),
                     new NewIntakePullBackCommand(),
                     new NewSampleTransferCommand()

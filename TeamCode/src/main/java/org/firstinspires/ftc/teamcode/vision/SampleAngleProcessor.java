@@ -78,10 +78,18 @@ public class SampleAngleProcessor implements VisionProcessor {
             if (maxArea > 500) {  // Only consider reasonably large objects
                 RotatedRect rect = Imgproc.minAreaRect(new MatOfPoint2f(largest.toArray()));
 
-                // Get angle and center
                 blockAngle = rect.angle;
+
+                // Normalize based on size to get consistent 0-90 behavior
                 if (rect.size.width < rect.size.height) {
-                    blockAngle += 90;
+                    blockAngle = rect.angle + 90;  // Vertical block = 90°
+                } else {
+                    blockAngle = rect.angle;       // Flat block = 0°
+                }
+
+                // Ensure positive angles only
+                if (blockAngle < 0) {
+                    blockAngle += 180;
                 }
                 foundBlock = true;
 

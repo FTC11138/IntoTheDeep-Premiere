@@ -55,11 +55,6 @@ public class SensorSubsystem extends RE_SubsystemBase {
         this.intakeEncoder = hardwareMap.get(DcMotorEx.class, intakeEncoder);
         this.intakeCamera = hardwareMap.get(WebcamName.class, intakeCamera);
 
-        cameraState = CameraState.OFF;
-        if (Globals.IS_AUTO) {
-            setupCamera();
-            cameraState = CameraState.ON;
-        }
 //        stopCamera();
 
 

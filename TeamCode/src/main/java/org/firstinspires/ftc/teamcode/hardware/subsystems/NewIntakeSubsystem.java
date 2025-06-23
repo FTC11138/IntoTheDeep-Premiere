@@ -51,6 +51,12 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
     public enum RotateState {
         HORIZONTAL,
         VERTICAL,
+        ANGLE_0,
+        ANGLE_90,
+        ANGLE_180,
+        ANGLE_45,
+        ANGLE_135,
+
         NONE
     }
 
@@ -179,6 +185,16 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
                 return Constants.rotateHorizontal;
             case VERTICAL:
                 return Constants.rotateVertical;
+            case ANGLE_0:
+                return 90;
+            case ANGLE_45:
+                return 45;
+            case ANGLE_90:
+                return 0;
+            case ANGLE_135:
+                return 135;
+            case ANGLE_180:
+                return 90;
             case NONE:
                 return clawAngle;
             default:

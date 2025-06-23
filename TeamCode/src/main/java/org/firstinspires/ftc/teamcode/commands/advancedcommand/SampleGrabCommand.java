@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.commands.subsystem.NewArmStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.WristStateCommand;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
+import org.firstinspires.ftc.teamcode.util.Constants;
 
 public class SampleGrabCommand extends SequentialCommandGroup {
     public SampleGrabCommand() {
@@ -17,6 +18,7 @@ public class SampleGrabCommand extends SequentialCommandGroup {
                 new InstantCommand(Robot.getInstance().data::startIntaking),
                 new NewArmStateCommand(NewIntakeSubsystem.ArmState.DOWN),
                 new WristStateCommand(NewIntakeSubsystem.WristState.GRAB),
+                new ExtensionJumpCommand(-1, Constants.extGrabJump),
                 new WaitCommand(150),
                 //Either make a seperate command to incorporate the camera or include here!
                 new ClawStateCommand(NewIntakeSubsystem.ClawState.CLOSE),
