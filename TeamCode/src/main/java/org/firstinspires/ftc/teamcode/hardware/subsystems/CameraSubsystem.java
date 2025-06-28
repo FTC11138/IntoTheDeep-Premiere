@@ -26,6 +26,8 @@ public class CameraSubsystem extends RE_SubsystemBase {
     private CameraState cameraState;
 
     private double cameraAngleSample;
+    private double sampleDx;
+    private double sampleDy;
 
 
     public enum CameraState {
@@ -62,6 +64,8 @@ public class CameraSubsystem extends RE_SubsystemBase {
 
         Robot.getInstance().data.cameraState = this.cameraState;
         Robot.getInstance().data.sampleAngle = this.cameraAngleSample;
+        Robot.getInstance().data.sampleDx = this.sampleDx;
+        Robot.getInstance().data.sampleDy = this.sampleDy;
 
     }
 
@@ -70,6 +74,8 @@ public class CameraSubsystem extends RE_SubsystemBase {
 
         if (cameraState == CameraState.ON) {
             cameraAngleSample = sampleAngleProcessor.getBlockAngle();
+            sampleDx = sampleAngleProcessor.getDx();
+            sampleDy = sampleAngleProcessor.getDy();
         }
 
     }

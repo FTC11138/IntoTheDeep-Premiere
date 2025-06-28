@@ -25,6 +25,8 @@ public class RobotData {
     public double intakeSpeed = 0;
     public CameraSubsystem.CameraState cameraState = CameraSubsystem.CameraState.OFF;
     public double sampleAngle = 0;
+    public double sampleDx = 0;
+    public double sampleDy = 0;
 
     public int liftPosition1 = 0;
     public int liftPosition2 = 0;
@@ -69,7 +71,7 @@ public class RobotData {
         telemetry.addData("BUSY", Robot.getInstance().follower.isBusy());
         telemetry.addLine(Constants.robotCentric ? "ROBOT CENTRIC" : "FIELD CENTRIC");
 
-        telemetry.addData("DRIVE VECTOR", Robot.getInstance().follower.getVelocity());
+//        telemetry.addData("DRIVE VECTOR", Robot.getInstance().follower.getVelocity());
 
         telemetry.addLine();
 
@@ -79,16 +81,18 @@ public class RobotData {
 
         telemetry.addLine();
 
-        telemetry.addData("Intake Distance", this.intakeDistance);
-        telemetry.addLine("Intake Color Values");
-        telemetry.addData("     Intake R", this.intakeColorValues.red);
-        telemetry.addData("     Intake G", this.intakeColorValues.green);
-        telemetry.addData("     Intake B", this.intakeColorValues.blue);
-        telemetry.addData("Intake Color", this.intakeColor);
-        telemetry.addData("Intake Speed", this.intakeSpeed);
-        telemetry.addData("Outtake Distance", this.outtakeDistance);
+//        telemetry.addData("Intake Distance", this.intakeDistance);
+//        telemetry.addLine("Intake Color Values");
+//        telemetry.addData("     Intake R", this.intakeColorValues.red);
+//        telemetry.addData("     Intake G", this.intakeColorValues.green);
+//        telemetry.addData("     Intake B", this.intakeColorValues.blue);
+//        telemetry.addData("Intake Color", this.intakeColor);
+//        telemetry.addData("Intake Speed", this.intakeSpeed);
+//        telemetry.addData("Outtake Distance", this.outtakeDistance);
         telemetry.addData("Camera State", this.cameraState);
         telemetry.addData("Camera Sample Angle", this.sampleAngle);
+        telemetry.addData("Camera Sample Dx", this.sampleDx);
+        telemetry.addData("Camera Sample Dy", this.sampleDy);
 
         telemetry.addLine();
 
