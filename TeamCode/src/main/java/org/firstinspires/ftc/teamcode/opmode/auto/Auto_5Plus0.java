@@ -153,13 +153,15 @@ public class Auto_5Plus0 extends LinearOpMode {
                                         new NewIntakePushOutCommand(Constants.extIntake)
                                 )),
 
-                        new ExtensionJumpCommand(1, sample1ext),
+//                        new ExtensionJumpCommand(1, sample1ext),
                         new WaitCommand(500),
                         new PathCommand(sample1ScorePath)
                                 .alongWith(
                                         new SequentialCommandGroup(
                                                 new NewSamplePickupCommand(),
+                                                new WaitCommand(1500),
                                                 new NewIntakePullBackCommand(),
+                                                new WaitCommand(1000),
                                                 new NewSampleTransferCommand(),
                                                 new WaitCommand(1000),
                                                 new LiftUpCommand(),
@@ -174,13 +176,15 @@ public class Auto_5Plus0 extends LinearOpMode {
                                         new NewIntakePushOutCommand(Constants.extIntake)
                                 )),
 
-                        new ExtensionJumpCommand(1),
+//                        new ExtensionJumpCommand(1),
                         new WaitCommand(500),
                         new PathCommand(sample2ScorePath)
                                 .alongWith(
                                         new SequentialCommandGroup(
                                                 new NewSamplePickupCommand(),
+                                                new WaitCommand(1000),
                                                 new NewIntakePullBackCommand(),
+                                                new WaitCommand(300),
                                                 new NewSampleTransferCommand(),
                                                 new WaitCommand(1000),
                                                 new LiftUpCommand(),
@@ -195,13 +199,15 @@ public class Auto_5Plus0 extends LinearOpMode {
                                         new NewIntakePushOutCommand(Constants.extIntake)
                                 )),
 
-                        new ExtensionJumpCommand(1),
+//                        new ExtensionJumpCommand(1),
                         new WaitCommand(500),
                         new PathCommand(sample3ScorePath)
                                 .alongWith(
                                         new SequentialCommandGroup(
                                                 new NewSamplePickupCommand(),
+                                                new WaitCommand(1200),
                                                 new NewIntakePullBackCommand(),
+                                                new WaitCommand(300),
                                                 new NewSampleTransferCommand(),
                                                 new WaitCommand(1000),
                                                 new LiftUpCommand(),

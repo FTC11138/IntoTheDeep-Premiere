@@ -37,8 +37,8 @@ public class Constants {
 
     /* -------------------------------------------- SERVO CONSTANTS -------------------------------------------- */
 
-    public static double bucketDrop = 0.3;
-    public static double bucketIntake = 0.78;
+    public static double bucketDrop = 0.28;
+    public static double bucketIntake = 0.76;
     public static double bucketAscent = 0;
 
     public static double armTransfer = 0.9;
@@ -57,8 +57,8 @@ public class Constants {
     public static double specimenClawOpen = 0.06;
     public static double specimenClawClose = 0.6;
 
-    public static double clawOpen = 0.0;
-    public static double clawClose = 0.22;
+    public static double clawOpen = 0.02;
+    public static double clawClose = 0.29;
 
     public static double wristGrab = 0;
     public static double wristPreGrabForward = 0.1;
@@ -74,7 +74,7 @@ public class Constants {
 
 
 
- 
+
     /* -------------------------------------------- MOTOR CONSTANTS -------------------------------------------- */
 
     // LIFT
