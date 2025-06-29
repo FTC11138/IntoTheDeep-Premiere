@@ -36,7 +36,9 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
 
     public enum WristState {
         GRAB,
+        PREGRABBACK,
         PREGRAB,
+        PREGRABFORWARD,
         STORE,
         TRANSFER,
         NONE
@@ -157,6 +159,10 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         switch (state) {
             case GRAB:
                 return Constants.wristGrab;
+            case PREGRABFORWARD:
+                return Constants.wristPreGrabForward;
+            case PREGRABBACK:
+                return Constants.wristPreGrabBack;
             case PREGRAB:
                 return Constants.wristPreGrab;
             case STORE:

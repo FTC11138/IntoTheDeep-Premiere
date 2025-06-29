@@ -32,6 +32,7 @@ import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleGrabCommand
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleTransferCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SpecimenDepositCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SpecimenGrabCommand;
+import org.firstinspires.ftc.teamcode.commands.advancedcommand.WristToggleCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.ExtensionResetCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.LiftPowerCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.LiftResetCommand;
@@ -171,7 +172,7 @@ public class TeleOp_Solo extends CommandOpMode {
         scheduleCommand(lastB, b, new LiftDownCommand());
         scheduleCommand(lastY, y, new LiftMidCommand());
 
-        scheduleCommand(lastLeftBumper, leftBumper, new RotateAlignCommand());
+        scheduleCommand(lastLeftBumper, leftBumper, new WristToggleCommand());
         scheduleCommand(lastRightBumper, rightBumper, new LiftUpCommand());
 
         scheduleCommand(lastDpadDown, dpadDown, new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.GRAB));

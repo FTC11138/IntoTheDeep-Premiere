@@ -5,7 +5,10 @@ import android.graphics.Paint;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import org.firstinspires.ftc.robotcore.external.Const;
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
+import org.firstinspires.ftc.teamcode.hardware.Robot;
+import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 import org.firstinspires.ftc.teamcode.util.Constants;
 import org.firstinspires.ftc.vision.VisionProcessor;
 import org.opencv.calib3d.Calib3d;
@@ -34,6 +37,19 @@ public class SampleAngleProcessor implements VisionProcessor {
     private int imageWidth = 0;
     private int imageHeight = 0;
 
+    public final Scalar redLow = new Scalar(0,100, 100);
+    public final Scalar redHigh = new Scalar(179, 255, 255);
+
+    public final Scalar yellowHigh = new Scalar(58,88,47);
+
+    public final Scalar yellowLow = new Scalar(58, 81, 96);
+
+    public final Scalar blueLow = new Scalar(237,88,98);
+
+    public final Scalar blueHigh = new Scalar(237,100, 41);
+
+
+
     @Override
     public Object processFrame(Mat input, long captureTimeNanos) {
         Mat undistorted = new Mat();
@@ -45,20 +61,19 @@ public class SampleAngleProcessor implements VisionProcessor {
         Mat mask = new Mat();
 
         // Red Mask
-        Mat mask1 = new Mat();
-        Mat mask2 = new Mat();
-        Core.inRange(hsv, new Scalar(0, 100, 100), new Scalar(10, 255, 255), mask1);
-        Core.inRange(hsv, new Scalar(160, 100, 100), new Scalar(179, 255, 255), mask2);
-        Core.bitwise_or(mask1, mask2, mask);
+        Mat redMask = new Mat();
+        Core.inRange(hsv, new Scalar(0, 75, 95), new Scalar(0, 100, 40), redMask);
+        Core.bitwise_or(mask, redMask, mask);
 
         // Yellow Mask
         Mat yellowMask = new Mat();
-        Core.inRange(hsv, new Scalar(20, 100, 100), new Scalar(30, 255, 255), yellowMask);
+        Core.inRange(hsv, yellowLow, yellowHigh, yellowMask);
         Core.bitwise_or(mask, yellowMask, mask);
 
         // Blue Mask
         Mat blueMask = new Mat();
-        Core.inRange(hsv, new Scalar(100, 150, 0), new Scalar(130, 255, 255), blueMask);
+        Core.inRange(hsv, blueLow, blueHigh, blueMask);
+
         Core.bitwise_or(mask, blueMask, mask);
 
         Imgproc.erode(mask, mask, new Mat(), new Point(-1, -1), 2);
@@ -168,6 +183,15 @@ public class SampleAngleProcessor implements VisionProcessor {
     }
 
     public double getDy() {
+
+        double newDy = dy;
+        if (Robot.getInstance().newIntakeSubsystem.wristState == NewIntakeSubsystem.WristState.PREGRABBACK) {
+            newDy -= Constants.extGrabBackOffset;
+        } else if (Robot.getInstance().newIntakeSubsystem.wristState == NewIntakeSubsystem.WristState.PREGRABFORWARD) {
+            newDy += Constants.extGrabFowardOffset;
+        }
+        newDy *= Constants.sampleDyCorrectionMultiplier;
+
         return dy;
     }
 }
