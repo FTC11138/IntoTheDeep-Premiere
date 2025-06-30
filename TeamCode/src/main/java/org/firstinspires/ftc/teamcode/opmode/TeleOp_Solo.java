@@ -45,6 +45,7 @@ import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.SpecimenSubsystem;
 import org.firstinspires.ftc.teamcode.util.Constants;
 import org.firstinspires.ftc.teamcode.util.Globals;
+import org.firstinspires.ftc.teamcode.util.PoseConstants;
 
 @TeleOp (name = "Solo")
 public class TeleOp_Solo extends CommandOpMode {
@@ -98,6 +99,7 @@ public class TeleOp_Solo extends CommandOpMode {
 
         robot.initialize(hardwareMap, telemetry);
         robot.follower.setPose(robot.data.currentPose);
+        robot.follower.setPose(PoseConstants.Start.blueBasket);
 
         CommandScheduler.getInstance().reset();
         CommandScheduler.getInstance().cancelAll();

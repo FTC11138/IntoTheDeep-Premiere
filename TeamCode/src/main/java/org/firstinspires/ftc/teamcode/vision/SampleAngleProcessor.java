@@ -48,33 +48,38 @@ public class SampleAngleProcessor implements VisionProcessor {
 
     public final Scalar blueHigh = new Scalar(237,100, 41);
 
+    private static Mat hsv;
+    private static Mat mask;
+    private static Mat redMask;
+    private static Mat yellowMask;
+    private static Mat blueMask;
 
 
     @Override
     public Object processFrame(Mat input, long captureTimeNanos) {
-        Mat undistorted = new Mat();
-        Calib3d.undistort(input, undistorted, cameraMatrix, distCoeffs);
+        hsv = new Mat();
+        Imgproc.cvtColor(input, hsv, Imgproc.COLOR_RGB2HSV);
 
-        Mat hsv = new Mat();
-        Imgproc.cvtColor(undistorted, hsv, Imgproc.COLOR_RGB2HSV);
-
-        Mat mask = new Mat();
+        mask = new Mat();
 
         // Red Mask
-        Mat redMask = new Mat();
+        redMask = new Mat();
         Core.inRange(hsv, new Scalar(0, 75, 95), new Scalar(0, 100, 40), redMask);
         Core.bitwise_or(mask, redMask, mask);
 
         // Yellow Mask
-        Mat yellowMask = new Mat();
+        yellowMask = new Mat();
         Core.inRange(hsv, yellowLow, yellowHigh, yellowMask);
         Core.bitwise_or(mask, yellowMask, mask);
 
         // Blue Mask
-        Mat blueMask = new Mat();
+        blueMask = new Mat();
         Core.inRange(hsv, blueLow, blueHigh, blueMask);
-
         Core.bitwise_or(mask, blueMask, mask);
+
+        redMask.release();
+        yellowMask.release();
+        blueMask.release();
 
         Imgproc.erode(mask, mask, new Mat(), new Point(-1, -1), 2);
         Imgproc.dilate(mask, mask, new Mat(), new Point(-1, -1), 2);
@@ -123,10 +128,10 @@ public class SampleAngleProcessor implements VisionProcessor {
             Point[] box = new Point[4];
             closestRect.points(box);
             for (int i = 0; i < 4; i++) {
-                Imgproc.line(undistorted, box[i], box[(i + 1) % 4], new Scalar(0, 255, 0), 2);
+                Imgproc.line(input, box[i], box[(i + 1) % 4], new Scalar(0, 255, 0), 2);
             }
 
-            Imgproc.putText(undistorted,
+            Imgproc.putText(input,
                     String.format("Angle: %.1f deg dx: %.1f dy: %.1f", blockAngle, dx, dy),
                     closestRect.center,
                     Imgproc.FONT_HERSHEY_SIMPLEX,
@@ -135,7 +140,7 @@ public class SampleAngleProcessor implements VisionProcessor {
                     2);
         }
 
-        undistorted.copyTo(input);
+        input.copyTo(input);
         return null;
     }
 

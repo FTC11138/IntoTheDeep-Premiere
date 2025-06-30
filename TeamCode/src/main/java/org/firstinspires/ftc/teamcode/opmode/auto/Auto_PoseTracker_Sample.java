@@ -31,7 +31,7 @@ public class Auto_PoseTracker_Sample extends LinearOpMode {
             robot.write();
         }
 
-        robot.follower.setPose(PoseConstants.Start.redBasket);
+        robot.follower.setPose(PoseConstants.Start.blueBasket);
         robot.data.stopIntaking();
         robot.data.stopScoring();
         robot.data.setSampleLoaded();

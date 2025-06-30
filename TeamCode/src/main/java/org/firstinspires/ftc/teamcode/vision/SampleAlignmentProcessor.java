@@ -55,6 +55,8 @@ public class SampleAlignmentProcessor implements VisionProcessor {
         Mat maskCombined = new Mat();
         Mat hierarchy = new Mat();
 
+
+
         // Convert to HSV color space
         Imgproc.cvtColor(input, hsvMat, Imgproc.COLOR_RGB2HSV);
 

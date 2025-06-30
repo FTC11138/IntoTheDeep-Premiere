@@ -38,7 +38,7 @@ public class Constants {
     /* -------------------------------------------- SERVO CONSTANTS -------------------------------------------- */
 
     public static double bucketDrop = 0.28;
-    public static double bucketIntake = 0.76;
+    public static double bucketIntake = 0.79;
     public static double bucketAscent = 0;
 
     public static double armTransfer = 0.9;
@@ -54,8 +54,8 @@ public class Constants {
     public static double intakePushStore = 0.57;
     public static double intakePushDrive = 0.1;
 
-    public static double specimenClawOpen = 0.06;
-    public static double specimenClawClose = 0.6;
+    public static double specimenClawOpen = 0;
+    public static double specimenClawClose = 0.25;
 
     public static double clawOpen = 0.02;
     public static double clawClose = 0.29;

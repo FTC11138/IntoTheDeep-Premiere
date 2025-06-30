@@ -9,7 +9,7 @@ public class PoseConstants {
     public static class Start {
         public static Pose redBasket = new Pose(8.5, 111.5, Math.toRadians(-90));
         public static Pose redObsv = new Pose(8.5, 63.5, Math.toRadians(90));
-        public static Pose blueBasket = new Pose(39.5 + 72, 63.5 + 72, Math.toRadians(180));
+        public static Pose blueBasket = new Pose(111.5, 7.5, Math.toRadians(180));
         public static Pose blueObsv = new Pose(-39.5 + 72, -63.5 + 72, Math.toRadians(180));
     }
 
