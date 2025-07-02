@@ -83,10 +83,7 @@ public class CameraSubsystem extends RE_SubsystemBase {
 
     private void setupCamera() {
         sampleAngleProcessor = new SampleAngleProcessor();
-        aprilTagProcessor = new AprilTagProcessor.Builder().build();
-        aprilTagProcessor.setDecimation(2);
         visionPortal = new VisionPortal.Builder()
-                .addProcessor(aprilTagProcessor)
                 .addProcessor(sampleAngleProcessor)
                 .setCamera(intakeCamera)
                 .build();

@@ -37,20 +37,21 @@ public class SampleAngleProcessor implements VisionProcessor {
     private int imageWidth = 0;
     private int imageHeight = 0;
 
-    public final Scalar redLow = new Scalar(0,100, 100);
-    public final Scalar redHigh = new Scalar(179, 255, 255);
+    public final Scalar redLow1 = new Scalar(0,100, 100);
+    public final Scalar redHigh1 = new Scalar(10, 255, 255);
+    public final Scalar redLow2 = new Scalar(160,100, 100);
+    public final Scalar redHigh2 = new Scalar(179, 255, 255);
 
-    public final Scalar yellowHigh = new Scalar(58,88,47);
+    public final Scalar yellowLow = new Scalar(20, 100, 100);
+    public final Scalar yellowHigh = new Scalar(35, 255, 255);
 
-    public final Scalar yellowLow = new Scalar(58, 81, 96);
 
-    public final Scalar blueLow = new Scalar(237,88,98);
-
-    public final Scalar blueHigh = new Scalar(237,100, 41);
+    public final Scalar blueLow = new Scalar(100, 150, 50);
+    public final Scalar blueHigh = new Scalar(130, 255, 255);
 
     private static Mat hsv;
     private static Mat mask;
-    private static Mat redMask;
+    private static Mat redMask1, redMask2;
     private static Mat yellowMask;
     private static Mat blueMask;
 
@@ -63,9 +64,11 @@ public class SampleAngleProcessor implements VisionProcessor {
         mask = new Mat();
 
         // Red Mask
-        redMask = new Mat();
-        Core.inRange(hsv, new Scalar(0, 75, 95), new Scalar(0, 100, 40), redMask);
-        Core.bitwise_or(mask, redMask, mask);
+        redMask1 = new Mat();
+        redMask2 = new Mat();
+        Core.inRange(hsv, redLow1, redHigh1, redMask1);
+        Core.inRange(hsv, redLow2, redHigh2, redMask2);
+        Core.bitwise_or(redMask1, redMask2, mask);
 
         // Yellow Mask
         yellowMask = new Mat();
@@ -77,7 +80,8 @@ public class SampleAngleProcessor implements VisionProcessor {
         Core.inRange(hsv, blueLow, blueHigh, blueMask);
         Core.bitwise_or(mask, blueMask, mask);
 
-        redMask.release();
+        redMask1.release();
+        redMask2.release();
         yellowMask.release();
         blueMask.release();
 
@@ -197,6 +201,6 @@ public class SampleAngleProcessor implements VisionProcessor {
         }
         newDy *= Constants.sampleDyCorrectionMultiplier;
 
-        return dy;
+        return newDy;
     }
 }

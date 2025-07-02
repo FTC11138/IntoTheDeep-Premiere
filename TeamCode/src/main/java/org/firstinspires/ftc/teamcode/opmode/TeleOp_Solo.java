@@ -235,14 +235,14 @@ public class TeleOp_Solo extends CommandOpMode {
 
 
 //        double intakeSpeed = robot.sensorSubsystem.getIntakeSpeed();
-        double intakeDistance = robot.sensorSubsystem.getIntakeDistance();
+//        double intakeDistance = robot.sensorSubsystem.getIntakeDistance();
         boolean leftTrigger = gamepad1.left_trigger > .5;
         boolean rightTrigger = gamepad1.right_trigger > .5;
 
         if (rightTrigger && !lastRightTrigger) {
             gamepad1.rumble(500);
             CommandScheduler.getInstance().schedule(new SequentialCommandGroup(
-//                    new RotateAlignCommand(),
+                    new RotateAlignCommand(),
                     new WaitCommand(300),
                     new NewSamplePickupCommand(),
                     new NewIntakePullBackCommand(),
@@ -265,7 +265,7 @@ public class TeleOp_Solo extends CommandOpMode {
 
         lastLeftTrigger = leftTrigger;
         lastRightTrigger = rightTrigger;
-        lastIntakeDistance = intakeDistance;
+//        lastIntakeDistance = intakeDistance;
 
         if (gamepad1.touchpad) {
             robot.follower.setPose(new Pose());

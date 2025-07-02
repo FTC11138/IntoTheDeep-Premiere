@@ -77,8 +77,8 @@ public class Robot {
         this.newIntakeSubsystem = new NewIntakeSubsystem(hardwareMap, names.extension, names.arm1, names.arm2, names.claw, names.rotate, names.wrist);
         this.specimenSubsystem = new SpecimenSubsystem(hardwareMap, names.specimenClaw, names.specimenLift);
 
-        this.sensorSubsystem = new SensorSubsystem(hardwareMap, names.intakeSensor, names.outtakeSensor, names.rightRear, names.webcam);
-//        this.cameraSubsystem = new CameraSubsystem(hardwareMap, names.webcam);
+//        this.sensorSubsystem = new SensorSubsystem(hardwareMap, names.intakeSensor, names.outtakeSensor, names.rightRear, names.webcam);
+        this.cameraSubsystem = new CameraSubsystem(hardwareMap, names.webcam);
 
 //        sensorSubsystem.updateCameraState(SensorSubsystem.CameraState.ON);
 
