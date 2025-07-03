@@ -28,6 +28,7 @@ public class CameraSubsystem extends RE_SubsystemBase {
     private double cameraAngleSample;
     private double sampleDx;
     private double sampleDy;
+    private double extAdjustDistance;
 
 
     public enum CameraState {
@@ -57,6 +58,9 @@ public class CameraSubsystem extends RE_SubsystemBase {
     }
 
 
+    public double getExtDistanceSample() {
+        return extAdjustDistance;
+    }
 
 
     @Override
@@ -66,6 +70,7 @@ public class CameraSubsystem extends RE_SubsystemBase {
         Robot.getInstance().data.sampleAngle = this.cameraAngleSample;
         Robot.getInstance().data.sampleDx = this.sampleDx;
         Robot.getInstance().data.sampleDy = this.sampleDy;
+        Robot.getInstance().data.extAdjustDistance = this.extAdjustDistance;
 
     }
 
@@ -76,6 +81,15 @@ public class CameraSubsystem extends RE_SubsystemBase {
             cameraAngleSample = sampleAngleProcessor.getBlockAngle();
             sampleDx = sampleAngleProcessor.getDx();
             sampleDy = sampleAngleProcessor.getDy();
+
+            double extMove = -Constants.extGrabJump;
+            extMove += sampleDy * Constants.sampleDyCorrectionMultiplier;
+            if (Robot.getInstance().newIntakeSubsystem.wristState == NewIntakeSubsystem.WristState.PREGRABBACK) {
+                extMove -= Constants.extGrabBackOffset;
+            } else if (Robot.getInstance().newIntakeSubsystem.wristState == NewIntakeSubsystem.WristState.PREGRABFORWARD) {
+                extMove += Constants.extGrabFowardOffset;
+            }
+            extAdjustDistance = extMove;
         }
 
     }

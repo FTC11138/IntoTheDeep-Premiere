@@ -27,6 +27,7 @@ public class RobotData {
     public double sampleAngle = 0;
     public double sampleDx = 0;
     public double sampleDy = 0;
+    public double extAdjustDistance = 0;
 
     public int liftPosition1 = 0;
     public int liftPosition2 = 0;
@@ -93,6 +94,7 @@ public class RobotData {
         telemetry.addData("Camera Sample Angle", this.sampleAngle);
         telemetry.addData("Camera Sample Dx", this.sampleDx);
         telemetry.addData("Camera Sample Dy", this.sampleDy);
+        telemetry.addData("Ext Adjust Distance", this.extAdjustDistance);
 
         telemetry.addLine();
 

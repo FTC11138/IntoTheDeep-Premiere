@@ -45,7 +45,6 @@ public class SampleAngleProcessor implements VisionProcessor {
     public final Scalar yellowLow = new Scalar(20, 100, 100);
     public final Scalar yellowHigh = new Scalar(35, 255, 255);
 
-
     public final Scalar blueLow = new Scalar(100, 150, 50);
     public final Scalar blueHigh = new Scalar(130, 255, 255);
 
@@ -192,15 +191,6 @@ public class SampleAngleProcessor implements VisionProcessor {
     }
 
     public double getDy() {
-
-        double newDy = dy;
-        if (Robot.getInstance().newIntakeSubsystem.wristState == NewIntakeSubsystem.WristState.PREGRABBACK) {
-            newDy -= Constants.extGrabBackOffset;
-        } else if (Robot.getInstance().newIntakeSubsystem.wristState == NewIntakeSubsystem.WristState.PREGRABFORWARD) {
-            newDy += Constants.extGrabFowardOffset;
-        }
-        newDy *= Constants.sampleDyCorrectionMultiplier;
-
-        return newDy;
+        return dy;
     }
 }
