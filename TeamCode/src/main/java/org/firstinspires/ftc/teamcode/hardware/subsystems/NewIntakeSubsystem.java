@@ -90,7 +90,7 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         // Calculate degrees per servo unit for rotation (0-1 corresponds to 0-180 degrees)
         ROTATE_TICKS_PER_DEGREE = (Constants.rotate180 - Constants.rotate0) / 180.0;
 
-        clawState = ClawState.OPEN;
+        clawState = ClawState.CLOSE;
         wristState = WristState.STORE;
         armState = ArmState.UP;
         rotateState = RotateState.NONE;

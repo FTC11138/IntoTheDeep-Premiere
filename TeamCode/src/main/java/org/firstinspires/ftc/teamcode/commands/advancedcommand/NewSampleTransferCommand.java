@@ -35,6 +35,8 @@ public class NewSampleTransferCommand extends ConditionalCommand {
                         new ClawStateCommand(NewIntakeSubsystem.ClawState.OPEN),
                         new WaitCommand(200),
                         new NewArmStateCommand(NewIntakeSubsystem.ArmState.UP),
+                        new WaitCommand(250),
+                        new ClawStateCommand(NewIntakeSubsystem.ClawState.CLOSE),
                         new WristStateCommand(NewIntakeSubsystem.WristState.STORE),
                         new RotateStateCommand(NewIntakeSubsystem.RotateState.HORIZONTAL)
                 ),

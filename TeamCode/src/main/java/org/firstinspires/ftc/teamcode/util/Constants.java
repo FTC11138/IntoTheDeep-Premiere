@@ -65,7 +65,7 @@ public class Constants {
     public static double wristPreGrabBack = 0.23;
     public static double wristPreGrab = 0.15;
     public static double wristStore = 0.3;
-    public static double wristTransfer = 0.7;
+    public static double wristTransfer = 0.75;
 
     public static double rotateHorizontal = 0;
     public static double rotateVertical = 90;
@@ -95,7 +95,7 @@ public class Constants {
     public static int extSlow = 50;
 
     public static int extJump = 500;
-    public static int extGrabJump = 250;
+    public static int extGrabJump = 200;
     public static int extGrabFowardOffset = 200;
     public static int extGrabBackOffset = 200;
 
@@ -133,7 +133,7 @@ public class Constants {
 
     public static double sampleAlignAngleTolerance = 2;
 
-    public static double sampleDyCorrectionMultiplier = 1.5;
+    public static double sampleDyCorrectionMultiplier = 2.4;
 
 
 

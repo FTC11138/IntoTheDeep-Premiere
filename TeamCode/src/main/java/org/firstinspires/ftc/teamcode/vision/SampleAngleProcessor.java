@@ -57,8 +57,13 @@ public class SampleAngleProcessor implements VisionProcessor {
 
     @Override
     public Object processFrame(Mat input, long captureTimeNanos) {
+
+        Mat rotated = new Mat();
+        Core.transpose(input, rotated);
+        Core.flip(rotated, rotated, 1);
+
         hsv = new Mat();
-        Imgproc.cvtColor(input, hsv, Imgproc.COLOR_RGB2HSV);
+        Imgproc.cvtColor(rotated, hsv, Imgproc.COLOR_RGB2HSV);
 
         mask = new Mat();
 
@@ -131,10 +136,10 @@ public class SampleAngleProcessor implements VisionProcessor {
             Point[] box = new Point[4];
             closestRect.points(box);
             for (int i = 0; i < 4; i++) {
-                Imgproc.line(input, box[i], box[(i + 1) % 4], new Scalar(0, 255, 0), 2);
+                Imgproc.line(rotated, box[i], box[(i + 1) % 4], new Scalar(0, 255, 0), 2);
             }
 
-            Imgproc.putText(input,
+            Imgproc.putText(rotated,
                     String.format("Angle: %.1f deg dx: %.1f dy: %.1f", blockAngle, dx, dy),
                     closestRect.center,
                     Imgproc.FONT_HERSHEY_SIMPLEX,
@@ -143,7 +148,7 @@ public class SampleAngleProcessor implements VisionProcessor {
                     2);
         }
 
-        input.copyTo(input);
+        rotated.copyTo(input);
         return null;
     }
 
