@@ -60,6 +60,8 @@ public class RobotData {
     public boolean sampleLoaded = false;
     public boolean intaking = false;
 
+    public double clawServoPosition = 0.00;
+
     public void write(Telemetry telemetry) {
 
         telemetry.addData("LOOP TIME", System.currentTimeMillis() - loopTime);
@@ -127,6 +129,10 @@ public class RobotData {
         telemetry.addData("Specimen Lift Position", this.specimenLiftPosition);
         telemetry.addData("Specimen Claw State", this.specimenClawState);
         telemetry.addData("Specimen Lift State", this.specimenLiftState);
+
+        telemetry.addLine();
+
+        telemetry.addData("Claw Servo Position", this.specimenLiftState);
 
         telemetry.addLine();
 

@@ -46,6 +46,7 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
 
     public enum ClawState {
         OPEN,
+        OPEN_WIDE,
         CLOSE,
         NONE
     }
@@ -178,6 +179,8 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         switch (state) {
             case OPEN:
                 return Constants.clawOpen;
+            case OPEN_WIDE:
+                return Constants.clawOpenWide;
             case CLOSE:
                 return Constants.clawClose;
             default:
