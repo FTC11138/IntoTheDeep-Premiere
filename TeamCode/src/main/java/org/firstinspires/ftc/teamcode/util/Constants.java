@@ -67,7 +67,11 @@ public class Constants {
     public static double wristPreGrab = 0.15;
     public static double wristStore = 0.3;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     public static double wristTransfer = 0.78;
+=======
+    public static double wristTransfer = 0.85;
+>>>>>>> Stashed changes
 =======
     public static double wristTransfer = 0.85;
 >>>>>>> Stashed changes

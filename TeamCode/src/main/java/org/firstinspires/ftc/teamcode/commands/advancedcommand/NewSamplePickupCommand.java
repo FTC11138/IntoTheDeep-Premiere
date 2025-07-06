@@ -26,11 +26,14 @@ public class NewSamplePickupCommand extends SequentialCommandGroup {
 //                ),
 //                new NewSampleAlignCommand(), will need later, we have no camera currently -----------------------------------------------------------------
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 new ClawStateCommand(NewIntakeSubsystem.ClawState.OPEN_WIDE),
                 new RotateAlignCommand(),
                 new ExtensionJumpCommand(1, (int) Robot.getInstance().cameraSubsystem.getExtDistanceSample()),
                 new WaitCommand(300),
 =======
+=======
+>>>>>>> Stashed changes
 ///////////////////                new ExtensionJumpCommand(1, (int) Robot.getInstance().cameraSubsystem.getExtDistanceSample()),
                 new WaitCommand(100),
 >>>>>>> Stashed changes
