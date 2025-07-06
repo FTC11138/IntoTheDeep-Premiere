@@ -37,15 +37,15 @@ public class Constants {
 
     /* -------------------------------------------- SERVO CONSTANTS -------------------------------------------- */
 
-    public static double bucketDrop = 0.28;
+    public static double bucketDrop = 0.22;
     public static double bucketIntake = 0.79;
     public static double bucketAscent = 0;
 
-    public static double armTransfer = 0.90;
+    public static double armTransfer = 0.9;
     public static double armIntake = 0.445;
     public static double armDown = 0.52;
     public static double armFlat = 0.68;
-    public static double armUp = 0.80; //0.8
+    public static double armUp = 0.8;
     public static double armServoOffset = -0.055;
     public static double armServoOffsetTransfer = -0.02;
 
@@ -57,24 +57,16 @@ public class Constants {
     public static double specimenClawOpen = 0.3;
     public static double specimenClawClose = 0.25;
 
-    public static double clawOpenWide = 0.06;
-    public static double clawOpen = 0.15;
-    public static double clawClose = 0.34;
+    public static double clawOpen = 0.02;
+    public static double clawOpenWide = 0;
+    public static double clawClose = 0.29;
 
     public static double wristGrab = 0;
     public static double wristPreGrabForward = 0.1;
     public static double wristPreGrabBack = 0.23;
     public static double wristPreGrab = 0.15;
     public static double wristStore = 0.3;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    public static double wristTransfer = 0.78;
-=======
-    public static double wristTransfer = 0.85;
->>>>>>> Stashed changes
-=======
-    public static double wristTransfer = 0.85;
->>>>>>> Stashed changes
+    public static double wristTransfer = 0.76;
 
     public static double rotateHorizontal = 0;
     public static double rotateVertical = 90;

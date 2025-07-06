@@ -57,23 +57,10 @@ public class SampleAngleProcessor implements VisionProcessor {
 
     @Override
     public Object processFrame(Mat input, long captureTimeNanos) {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-
-        Mat rotated = new Mat();
-        Core.transpose(input, rotated);
-        Core.flip(rotated, rotated, 1);
-=======
-=======
->>>>>>> Stashed changes
         Mat rotated = new Mat();
         Core.transpose(input, rotated);
         Core.flip(rotated, input, 1);
         rotated.release();
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
         hsv = new Mat();
         Imgproc.cvtColor(rotated, hsv, Imgproc.COLOR_RGB2HSV);

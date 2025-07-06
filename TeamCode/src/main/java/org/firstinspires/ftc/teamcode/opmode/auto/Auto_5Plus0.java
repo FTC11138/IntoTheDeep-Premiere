@@ -67,7 +67,7 @@ public class Auto_5Plus0 extends LinearOpMode {
     public static double sample1x = 32;
     public static double sample1y = 109;
     public static double sample1degrees = 60;
-    public static int sample1ext = 1200;
+    public static int sample1ext = 1300;
 
     public static double sample2x = 40.5;
     public static double sample2y = 115;
@@ -158,12 +158,19 @@ public class Auto_5Plus0 extends LinearOpMode {
                             )),
                         new DropSampleCommand().andThen(new LiftDownCommand())
                                 .alongWith(
-                                        new RotateStateCommand(NewIntakeSubsystem.RotateState.ANGLE_160)
+                                        new RotateStateCommand(NewIntakeSubsystem.RotateState.ANGLE_160),
+                                        new WaitCommand(300),
+                                        new NewSamplePickupCommand(),
+//                                        new WaitCommand(300),`
+                                        new RotateStateCommand(NewIntakeSubsystem.RotateState.HORIZONTAL),
+                                        new NewIntakePullBackCommand(),
+                                        new NewSampleTransferCommand()
                                 ),
 //                        new SequentialCommandGroup(
                         new WaitCommand(300),
                         new NewSamplePickupCommand(),
                         new WaitCommand(300),
+                        new RotateStateCommand(NewIntakeSubsystem.RotateState.HORIZONTAL),
                         new NewIntakePullBackCommand(),
                         new NewSampleTransferCommand(),
 //                        ),
