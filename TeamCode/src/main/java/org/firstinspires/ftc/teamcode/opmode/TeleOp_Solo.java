@@ -242,6 +242,11 @@ public class TeleOp_Solo extends CommandOpMode {
         if (rightTrigger && !lastRightTrigger) {
             gamepad1.rumble(500);
             CommandScheduler.getInstance().schedule(new SequentialCommandGroup(
+<<<<<<< Updated upstream
+=======
+//                    new RotateAlignCommand(),
+                    new WaitCommand(300),
+>>>>>>> Stashed changes
                     new NewSamplePickupCommand(),
                     new NewIntakePullBackCommand(),
                     new NewSampleTransferCommand()

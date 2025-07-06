@@ -29,9 +29,11 @@ import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleTransferCom
 import org.firstinspires.ftc.teamcode.commands.drivecommand.PathCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.ArmStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.BucketStateCommand;
+import org.firstinspires.ftc.teamcode.commands.subsystem.RotateStateCommand;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.IntakeSubsystem;
+import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 import org.firstinspires.ftc.teamcode.util.Constants;
 import org.firstinspires.ftc.teamcode.util.Globals;
 import org.firstinspires.ftc.teamcode.util.PoseConstants;
@@ -40,13 +42,18 @@ import org.firstinspires.ftc.teamcode.util.PoseConstants;
 @Autonomous(name = "5+0", preselectTeleOp = "Solo")
 public class Auto_5Plus0 extends LinearOpMode {
 
-    public static double score1X = 133;
-    public static double score1Y = 14;
-    public static double score1Degrees = 110;
+    ///  -20.6, -8.4, 290.79
+    /// 0,0,0
 
-    public static double score2X = 16;
-    public static double score2Y = 127;
-    public static double score2Degrees = -45;
+    //Pose(111.5, 7.5, Math.toRadians(180));
+
+    public static double score1X = 131;
+    public static double score1Y = 15.5;
+    public static double score1Degrees = 113.6;
+
+    public static double score2X = 132.1;
+    public static double score2Y = 15.9;
+    public static double score2Degrees = 100;
 
     public static double score3X = 16;
     public static double score3Y = 127;
@@ -85,7 +92,7 @@ public class Auto_5Plus0 extends LinearOpMode {
     public static Path sample4Path, sample4ScorePath;
 
     public void buildPaths() {
-        Pose startPose = PoseConstants.Start.blueBasket;
+        Pose startPose = PoseConstants.Start.blueBasket; // Pose(111.5, 7.5, Math.toRadians(180));
         Pose scorePose = new Pose(score1X, score1Y, Math.toRadians(score1Degrees));
         Pose score1 = new Pose(score1X, score1Y, Math.toRadians(score1Degrees));
         Pose score2 = new Pose(score2X, score2Y, Math.toRadians(score2Degrees));
@@ -151,10 +158,15 @@ public class Auto_5Plus0 extends LinearOpMode {
                             )),
                         new DropSampleCommand().andThen(new LiftDownCommand())
                                 .alongWith(
-                                        new NewSamplePickupCommand(),
-                                        new NewIntakePullBackCommand(),
-                                        new NewSampleTransferCommand()
+                                        new RotateStateCommand(NewIntakeSubsystem.RotateState.ANGLE_160)
                                 ),
+//                        new SequentialCommandGroup(
+                        new WaitCommand(300),
+                        new NewSamplePickupCommand(),
+                        new WaitCommand(300),
+                        new NewIntakePullBackCommand(),
+                        new NewSampleTransferCommand(),
+//                        ),
 
                         new WaitCommand(1500),
                         new PathCommand(sample1ScorePath)

@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 <!--Author: Ryan Chhabra - 11138 Robo Eclipse-->
 
-<!--This declares the robot class, and can be copy-pasted.-->
+<!--This declares the robot class
+, and can be copy-pasted.-->
 <Robot type="FirstInspires-FTC">
 
     <!--This line declares the Control Hub Portal which contains both hubs. It can be copy-pasted-->
