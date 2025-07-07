@@ -41,6 +41,7 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         PREGRABFORWARD,
         STORE,
         TRANSFER,
+        AUTO_PICKUP,
         NONE
     }
 
@@ -69,6 +70,7 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         INTAKE,
         UP,
         DOWN,
+        AUTO,
         FLAT,
         NONE
     }
@@ -150,6 +152,8 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
                 return Constants.armUp;
             case FLAT:
                 return Constants.armFlat;
+            case AUTO:
+                return Constants.armAuto;
             case DOWN:
                 return Constants.armDown;
             default:
@@ -171,6 +175,8 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
                 return Constants.wristStore;
             case TRANSFER:
                 return Constants.wristTransfer;
+            case AUTO_PICKUP:
+                return Constants.wristAutoPickup;
             default:
                 return Constants.wristStore;
         }

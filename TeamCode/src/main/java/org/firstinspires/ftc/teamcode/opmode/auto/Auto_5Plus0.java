@@ -20,6 +20,7 @@ import org.firstinspires.ftc.teamcode.commands.advancedcommand.IntakePullBackCom
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.IntakePushOutCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.LiftDownCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.LiftUpCommand;
+import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakeAutoPushOutCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePullBackCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePushOutCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleAlignCommand;
@@ -29,7 +30,10 @@ import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleTransferCom
 import org.firstinspires.ftc.teamcode.commands.drivecommand.PathCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.ArmStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.BucketStateCommand;
+import org.firstinspires.ftc.teamcode.commands.subsystem.ClawStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.RotateStateCommand;
+import org.firstinspires.ftc.teamcode.commands.subsystem.WristPositionCommand;
+import org.firstinspires.ftc.teamcode.commands.subsystem.WristStateCommand;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.DepositSubsystem;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.IntakeSubsystem;
@@ -47,9 +51,9 @@ public class Auto_5Plus0 extends LinearOpMode {
 
     //Pose(111.5, 7.5, Math.toRadians(180));
 
-    public static double score1X = 131;
-    public static double score1Y = 15.5;
-    public static double score1Degrees = 113.6;
+    public static double score1X = 130;
+    public static double score1Y = 13.6;
+    public static double score1Degrees = 125;
 
     public static double score2X = 132.1;
     public static double score2Y = 15.9;
@@ -64,9 +68,9 @@ public class Auto_5Plus0 extends LinearOpMode {
     public static double score4Degrees = -45;
 
 
-    public static double sample1x = 32;
-    public static double sample1y = 109;
-    public static double sample1degrees = 60;
+    public static double sample1x = 125;
+    public static double sample1y = 20;
+    public static double sample1degrees = 100;
     public static int sample1ext = 1300;
 
     public static double sample2x = 40.5;
@@ -149,42 +153,43 @@ public class Auto_5Plus0 extends LinearOpMode {
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-//                        new ArmStateCommand(IntakeSubsystem.ArmState.UP),
                         new BucketStateCommand(DepositSubsystem.BucketState.INTAKE),
+
                         new PathCommand(preload)
                             .alongWith(new SequentialCommandGroup(
                                     new LiftUpCommand(),
                                     new NewIntakePushOutCommand(sample1ext)
                             )),
-                        new DropSampleCommand().andThen(new LiftDownCommand())
-                                .alongWith(
-                                        new RotateStateCommand(NewIntakeSubsystem.RotateState.ANGLE_160),
-                                        new WaitCommand(300),
-                                        new NewSamplePickupCommand(),
-//                                        new WaitCommand(300),`
-                                        new RotateStateCommand(NewIntakeSubsystem.RotateState.HORIZONTAL),
-                                        new NewIntakePullBackCommand(),
-                                        new NewSampleTransferCommand()
-                                ),
-//                        new SequentialCommandGroup(
-                        new WaitCommand(300),
+                        new DropSampleCommand(),
+                        new PathCommand(sample1Path).alongWith(new LiftDownCommand()),
                         new NewSamplePickupCommand(),
-                        new WaitCommand(300),
-                        new RotateStateCommand(NewIntakeSubsystem.RotateState.HORIZONTAL),
-                        new NewIntakePullBackCommand(),
-                        new NewSampleTransferCommand(),
-//                        ),
-
-                        new WaitCommand(1500),
-                        new PathCommand(sample1ScorePath)
-                                .alongWith(
-                                        new SequentialCommandGroup(
-                                                new LiftUpCommand(),
-                                                new WaitCommand(700)
-                                        )
-                                ),
+                        new PathCommand(sample1ScorePath).alongWith(
+                                new NewIntakePullBackCommand(),
+                                new WaitCommand(800),
+                                new NewSampleTransferCommand(),
+                                new LiftUpCommand()
+                        ),
                         new DropSampleCommand(),
                         new LiftDownCommand()
+//                        new SequentialCommandGroup(
+//                        new WaitCommand(300),
+//                        new NewSamplePickupCommand(),
+//                        new WaitCommand(300),
+//                        new RotateStateCommand(NewIntakeSubsystem.RotateState.HORIZONTAL),
+//                        new NewIntakePullBackCommand(),
+//                        new NewSampleTransferCommand(),
+//                        ),
+//
+//                        new WaitCommand(1500),
+//                        new PathCommand(sample1ScorePath)
+//                                .alongWith(
+//                                        new SequentialCommandGroup(
+//                                                new LiftUpCommand(),
+//                                                new WaitCommand(700)
+//                                        )
+//                                ),
+//                        new DropSampleCommand(),
+//                        new LiftDownCommand()
 
                 )
         );

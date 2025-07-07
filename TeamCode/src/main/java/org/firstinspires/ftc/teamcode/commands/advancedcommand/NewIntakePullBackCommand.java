@@ -13,7 +13,12 @@ import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 import org.firstinspires.ftc.teamcode.util.Constants;
 
+import java.util.function.IntSupplier;
+
 public class NewIntakePullBackCommand extends SequentialCommandGroup {
+
+    IntSupplier test = () -> {return (int) (Robot.getInstance().newIntakeSubsystem.getExtensionPosition() * 0.6);};
+
     public NewIntakePullBackCommand() {
         super(
                 new InstantCommand(Robot.getInstance().data::stopIntaking),

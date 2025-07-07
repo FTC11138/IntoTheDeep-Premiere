@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.commands.subsystem.WristStateCommand;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 import org.firstinspires.ftc.teamcode.util.Constants;
+import org.firstinspires.ftc.teamcode.util.Globals;
 
 public class NewSamplePickupCommand extends SequentialCommandGroup {
     public NewSamplePickupCommand() {
@@ -27,12 +28,16 @@ public class NewSamplePickupCommand extends SequentialCommandGroup {
 //                new NewSampleAlignCommand(), will need later, we have no camera currently -----------------------------------------------------------------
 
                 new ClawStateCommand(NewIntakeSubsystem.ClawState.OPEN_WIDE),
-//                new RotateAlignCommand(),
-//                new ExtensionJumpCommand(1, (int) Robot.getInstance().cameraSubsystem.getExtDistanceSample()),
-                new WaitCommand(300),
+                new ConditionalCommand(
+                        new SequentialCommandGroup(
+                                new RotateAlignCommand(),
+                                new ExtensionJumpCommand(1, (int) Robot.getInstance().cameraSubsystem.getExtDistanceSample())
+                        ),
+                        new ExtensionJumpCommand(-1, Constants.extGrabJump),
+                        () -> !Globals.IS_AUTO
 
-///////////////////                new ExtensionJumpCommand(1, (int) Robot.getInstance().cameraSubsystem.getExtDistanceSample()),
-                new WaitCommand(100),
+                ),
+                new WaitCommand(300),
 
                 new NewArmStateCommand(NewIntakeSubsystem.ArmState.DOWN),
                 new WristStateCommand(NewIntakeSubsystem.WristState.GRAB),
