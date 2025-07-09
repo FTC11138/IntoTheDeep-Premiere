@@ -67,7 +67,7 @@ public class Constants {
     public static double wristPreGrabBack = 0.23;
     public static double wristPreGrab = 0.15;
     public static double wristStore = 0.3;
-    public static double wristTransfer = 0.8;
+    public static double wristTransfer = 0.75;
     public static double wristAutoPickup = 0;
 
     public static double rotateHorizontal = 0;

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.commands.advancedcommand;
 
 import com.arcrobotics.ftclib.command.ConditionalCommand;
-import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
@@ -14,9 +13,8 @@ import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 import org.firstinspires.ftc.teamcode.util.Constants;
 import org.firstinspires.ftc.teamcode.util.Globals;
 
-public class NewSamplePickupCommand extends SequentialCommandGroup {
-    public
-    NewSamplePickupCommand() {
+public class NewSamplePickupCommandAuto extends SequentialCommandGroup {
+    public NewSamplePickupCommandAuto() {
         super(
 //                new ConditionalCommand(
 //                        new SequentialCommandGroup(
@@ -29,15 +27,7 @@ public class NewSamplePickupCommand extends SequentialCommandGroup {
 //                new NewSampleAlignCommand(), will need later, we have no camera currently -----------------------------------------------------------------
 
                 new ClawStateCommand(NewIntakeSubsystem.ClawState.OPEN_WIDE),
-                new ConditionalCommand(
-                        new SequentialCommandGroup(
-                                new RotateAlignCommand(),
-                                new ExtensionJumpCommand(1, (int) Robot.getInstance().cameraSubsystem.getExtDistanceSample())
-                        ),
-                        new ExtensionJumpCommand(-1, Constants.extGrabJump),
-                        () -> !Globals.IS_AUTO
-
-                ),
+                
                 new WaitCommand(300),
 
                 new NewArmStateCommand(NewIntakeSubsystem.ArmState.DOWN),
