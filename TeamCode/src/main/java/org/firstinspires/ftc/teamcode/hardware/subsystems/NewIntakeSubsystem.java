@@ -204,13 +204,13 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
             case ANGLE_0:
                 return 90;
             case ANGLE_45:
-                return 45;
-            case ANGLE_90:
-                return 0;
-            case ANGLE_135:
                 return 135;
+            case ANGLE_90:
+                return 90;
+            case ANGLE_135:
+                return 45;
             case ANGLE_160:
-                return 160;
+                return 20;
             case ANGLE_180:
                 return 90;
             case NONE:

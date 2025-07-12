@@ -13,7 +13,7 @@ public class DropSampleCommand extends SequentialCommandGroup {
         super(
                 new BucketStateCommand(DepositSubsystem.BucketState.DROP),
                 new InstantCommand(Robot.getInstance().data::setSampleUnloaded),
-                new WaitCommand(750),
+                new WaitCommand(500),
                 new BucketStateCommand(DepositSubsystem.BucketState.INTAKE)
         );
     }

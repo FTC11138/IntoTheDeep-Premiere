@@ -37,16 +37,16 @@ public class SampleAngleProcessor implements VisionProcessor {
     private int imageWidth = 0;
     private int imageHeight = 0;
 
-    public final Scalar redLow1 = new Scalar(0,100, 100);
-    public final Scalar redHigh1 = new Scalar(10, 255, 255);
-    public final Scalar redLow2 = new Scalar(160,100, 100);
-    public final Scalar redHigh2 = new Scalar(179, 255, 255);
+    public static Scalar redLow1 = new Scalar(0,100, 100);
+    public static Scalar redHigh1 = new Scalar(10, 255, 255);
+    public static Scalar redLow2 = new Scalar(160,100, 100);
+    public static Scalar redHigh2 = new Scalar(179, 255, 255);
 
-    public final Scalar yellowLow = new Scalar(20, 100, 100);
-    public final Scalar yellowHigh = new Scalar(35, 255, 255);
+    public static Scalar yellowLow = new Scalar(20, 0, 100);
+    public static Scalar yellowHigh = new Scalar(60, 255, 255);
 
-    public final Scalar blueLow = new Scalar(100, 150, 50);
-    public final Scalar blueHigh = new Scalar(130, 255, 255);
+    public static Scalar blueLow = new Scalar(100, 150, 50);
+    public static Scalar blueHigh = new Scalar(130, 255, 255);
 
     private static Mat hsv;
     private static Mat mask;
@@ -164,8 +164,8 @@ public class SampleAngleProcessor implements VisionProcessor {
         distCoeffs.put(0, 0,
                 Constants.k1, Constants.k2, Constants.p1, Constants.p2, Constants.k3);
 
-        imageWidth = width;
-        imageHeight = height;
+        imageWidth = height;
+        imageHeight = width;
     }
 
     @Override
@@ -175,7 +175,7 @@ public class SampleAngleProcessor implements VisionProcessor {
         paint.setTextSize(50);
 
         if (foundBlock) {
-            canvas.drawText(String.format("Angle: %.1f° dx: %.1f dy: %.1f", blockAngle, dx, dy), 40, 60, paint);
+            canvas.drawText(String.format("Angle: %.1f° \ndx: %.1f \ndy: %.1f", blockAngle, dx, dy), 40, 60, paint);
         } else {
             canvas.drawText("No block detected", 40, 60, paint);
         }

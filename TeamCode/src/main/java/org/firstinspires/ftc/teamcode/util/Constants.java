@@ -41,9 +41,9 @@ public class Constants {
     public static double bucketIntake = 0.7;
     public static double bucketAscent = 0;
 
-    public static double armTransfer = 0.9;
+    public static double armTransfer = 0.87;
     public static double armIntake = 0.445;
-    public static double armDown = 0.52;
+    public static double armDown = 0.54;
     public static double armAuto = 0.58;
     public static double armFlat = 0.68;
     public static double armUp = 0.8;
@@ -55,8 +55,8 @@ public class Constants {
     public static double intakePushStore = 0.57;
     public static double intakePushDrive = 0.1;
 
-    public static double specimenClawOpen = 0.3;
-    public static double specimenClawClose = 0.25;
+    public static double specimenClawOpen = 0.1;
+    public static double specimenClawClose = 0.67;
 
     public static double clawOpen = 0.8;
     public static double clawOpenWide = 0.65;
@@ -98,7 +98,7 @@ public class Constants {
     public static int extSlow = 50;
 
     public static int extJump = 500;
-    public static int extGrabJump = 250;
+    public static int extGrabJump = 120;
     public static int extGrabFowardOffset = 200;
     public static int extGrabBackOffset = 200;
 
@@ -136,7 +136,8 @@ public class Constants {
 
     public static double sampleAlignAngleTolerance = 2;
 
-    public static double sampleDyCorrectionMultiplier = 1.5;
+    public static double sampleDyCorrectionMultiplier = 1.7;
+    public static double sampleDyCorrectionMultiplier2 = 0;
 
 
 

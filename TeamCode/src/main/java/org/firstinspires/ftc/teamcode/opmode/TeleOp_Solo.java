@@ -47,7 +47,7 @@ import org.firstinspires.ftc.teamcode.util.Constants;
 import org.firstinspires.ftc.teamcode.util.Globals;
 import org.firstinspires.ftc.teamcode.util.PoseConstants;
 
-@TeleOp (name = "TeleOp Solo")
+@TeleOp (name = "Solo")
 public class TeleOp_Solo extends CommandOpMode {
 
     private final Robot robot = Robot.getInstance();

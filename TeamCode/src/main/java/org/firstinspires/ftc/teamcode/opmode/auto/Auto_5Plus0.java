@@ -55,33 +55,33 @@ public class Auto_5Plus0 extends LinearOpMode {
     public static double score1Y = 13.6;
     public static double score1Degrees = 125;
 
-    public static double score2X = 132.1;
-    public static double score2Y = 15.9;
-    public static double score2Degrees = 100;
+    public static double score2X = 130;
+    public static double score2Y = 13.6;
+    public static double score2Degrees = 125;
 
-    public static double score3X = 16;
-    public static double score3Y = 127;
-    public static double score3Degrees = -45;
+    public static double score3X = 130;
+    public static double score3Y = 13.6;
+    public static double score3Degrees = 125;
 
-    public static double score4X = 18;
-    public static double score4Y = 129;
-    public static double score4Degrees = -45;
+    public static double score4X = 130;
+    public static double score4Y = 13.6;
+    public static double score4Degrees = 130;
 
 
     public static double sample1x = 125;
-    public static double sample1y = 20;
-    public static double sample1degrees = 100;
+    public static double sample1y = 18;
+    public static double sample1degrees = 94;
     public static int sample1ext = 1300;
 
-    public static double sample2x = 40.5;
-    public static double sample2y = 115;
+    public static double sample2x = 131;
+    public static double sample2y = 19;
     public static double sample2degrees = 90;
-    public static int sample2ext = 0;
+    public static int sample2ext = 1050;
 
-    public static double sample3x = 40;
-    public static double sample3y = 123;
-    public static double sample3degrees = 90;
-    public static int sample3ext = 0;
+    public static double sample3x = 132;
+    public static double sample3y = 20.7;
+    public static double sample3degrees = 68;
+    public static int sample3ext = 1050;
 
     public static double sample4x = 72;
     public static double sample4y = 100;
@@ -113,7 +113,7 @@ public class Auto_5Plus0 extends LinearOpMode {
 
         // Sample 1 paths
         sample1Path = buildPath(score1, sample1Pose);
-        sample1ScorePath = buildPath(score1, score2);
+        sample1ScorePath = buildPath(sample1Pose, score2);
 
         // Sample 2 paths
         sample2Path = buildPath(scorePose, sample2Pose);
@@ -164,10 +164,41 @@ public class Auto_5Plus0 extends LinearOpMode {
                         new PathCommand(sample1Path).alongWith(new LiftDownCommand()),
                         new NewSamplePickupCommand(),
                         new PathCommand(sample1ScorePath).alongWith(
-                                new NewIntakePullBackCommand(),
-                                new WaitCommand(800),
-                                new NewSampleTransferCommand(),
-                                new LiftUpCommand()
+                                new SequentialCommandGroup(
+                                        new NewIntakePullBackCommand(),
+                                        new WaitCommand(500),
+                                        new NewSampleTransferCommand(),
+                                        new LiftUpCommand(),
+                                        new NewIntakePushOutCommand(sample2ext),
+                                        new WaitCommand(500)
+                                )
+                        ),
+                        new DropSampleCommand(),
+
+                        new PathCommand(sample2Path).alongWith(new LiftDownCommand()),
+                        new NewSamplePickupCommand(),
+                        new PathCommand(sample2ScorePath).alongWith(
+                                new SequentialCommandGroup(
+                                        new NewIntakePullBackCommand(),
+                                        new WaitCommand(500),
+                                        new NewSampleTransferCommand(),
+                                        new LiftUpCommand(),
+                                        new NewIntakePushOutCommand(sample3ext),
+                                        new WaitCommand(500)
+                                )
+                        ),
+                        new DropSampleCommand(),
+
+                        new PathCommand(sample3Path).alongWith(new LiftDownCommand()),
+                        new NewSamplePickupCommand(),
+                        new PathCommand(sample3ScorePath).alongWith(
+                                new SequentialCommandGroup(
+                                        new NewIntakePullBackCommand(),
+                                        new WaitCommand(500),
+                                        new NewSampleTransferCommand(),
+                                        new LiftUpCommand(),
+                                        new WaitCommand(500)
+                                )
                         ),
                         new DropSampleCommand(),
                         new LiftDownCommand()

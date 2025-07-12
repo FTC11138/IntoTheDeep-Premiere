@@ -32,13 +32,13 @@ public class NewSamplePickupCommand extends SequentialCommandGroup {
                 new ConditionalCommand(
                         new SequentialCommandGroup(
                                 new RotateAlignCommand(),
-                                new ExtensionJumpCommand(1, (int) Robot.getInstance().cameraSubsystem.getExtDistanceSample())
+                                new ExtensionJumpCommand(1, (int) Robot.getInstance().cameraSubsystem.getExtDistanceSample()),
+                                new WaitCommand(300)
                         ),
                         new ExtensionJumpCommand(-1, Constants.extGrabJump),
                         () -> !Globals.IS_AUTO
 
                 ),
-                new WaitCommand(300),
 
                 new NewArmStateCommand(NewIntakeSubsystem.ArmState.DOWN),
                 new WristStateCommand(NewIntakeSubsystem.WristState.GRAB),
