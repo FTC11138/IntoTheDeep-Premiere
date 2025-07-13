@@ -38,7 +38,7 @@ public class Constants {
     /* -------------------------------------------- SERVO CONSTANTS -------------------------------------------- */
 
     public static double bucketDrop = 0.22;
-    public static double bucketIntake = 0.7;
+    public static double bucketIntake = 0.79;
     public static double bucketAscent = 0;
 
     public static double armTransfer = 0.87;
@@ -129,7 +129,7 @@ public class Constants {
 
     /* -------------------------------------------- VISION RECTANGLE CONSTANTS -------------------------------------------- */
 
-    public static double kPAngle = -0.012;
+    public static double kPAngle = -0.005;
     public static double kIAngle = 0;
     public static double kDAngle = 0;
     public static double kFAngle = 0;

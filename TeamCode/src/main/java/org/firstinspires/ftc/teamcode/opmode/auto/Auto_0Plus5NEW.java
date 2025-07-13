@@ -51,7 +51,7 @@ public class Auto_0Plus5NEW extends LinearOpMode {
     public static double pickup1and2Offset = 5.5;
 
     // Pickup 1
-    public static double pickup1X = 115.5;
+    public static double pickup1X = 114.2;
     public static double pickup1Y = 23.5;
     public static double pickup1Degrees = 90;
     public static int pickup1Ext = 1000;
@@ -62,14 +62,14 @@ public class Auto_0Plus5NEW extends LinearOpMode {
     public static double drop1Degrees = 90;
 
     // Pickup 2
-    public static double pickup2X = 116.5;
+    public static double pickup2X = 114.2;
     public static double pickup2Y = 31;
     public static double pickup2Degrees = 90;
     public static int pickup2Ext = 1170;
 
     // Drop 2
-    public static double drop2X = 122.5;
-    public static double drop2Y = 23.5;
+    public static double drop2X = 116;
+    public static double drop2Y = 22;
     public static double drop2Degrees = 90;
 
     // Pickup 3
@@ -98,18 +98,18 @@ public class Auto_0Plus5NEW extends LinearOpMode {
 
 
     // Score Pick 1
-    public static double scorePick1X = 125;
-    public static double scorePick1Y = 10.5;
+    public static double scorePick1X = 116;
+    public static double scorePick1Y = 8;
     public static double scorePick1Degrees = 0;
 
     // Score 1
     public static double score1X = 105;
-    public static double score1Y = 68;
+    public static double score1Y = 64; //68
     public static double score1Degrees = -90;
 
     // Score Pick 2
-    public static double scorePick2X = 125;
-    public static double scorePick2Y = 11;
+    public static double scorePick2X = 112;
+    public static double scorePick2Y = 10;
     public static double scorePick2Degrees = 0;
 
     // Score 2
@@ -151,7 +151,7 @@ public class Auto_0Plus5NEW extends LinearOpMode {
         Pose drop3Pose = new Pose(drop3X, drop3Y, Math.toRadians(drop3Degrees));
         Pose drop4Pose = new Pose(drop4X, drop4Y, Math.toRadians(drop4Degrees));
 
-        Pose scorePrePick1Pose = new Pose(scorePick1X - 5, scorePick1Y, Math.toRadians(scorePick1Degrees));
+        Pose scorePrePick1Pose = new Pose(scorePick1X - 8, scorePick1Y, Math.toRadians(scorePick1Degrees));
         Pose scorePick1Pose = new Pose(scorePick1X, scorePick1Y, Math.toRadians(scorePick1Degrees));
         Pose scorePick2Pose = new Pose(scorePick2X, scorePick2Y, Math.toRadians(scorePick2Degrees));
         Pose scorePick3Pose = new Pose(scorePick3X, scorePick3Y, Math.toRadians(scorePick3Degrees));
@@ -176,15 +176,17 @@ public class Auto_0Plus5NEW extends LinearOpMode {
         drop4Path   = buildPath(pickup4Pose, drop4Pose);
 
         // Scoring Paths
-        scorePrePick1Path = buildPath(pickup3Pose, scorePrePick1Pose);
+        scorePrePick1Path = buildPath(drop2Pose, scorePrePick1Pose);
         scorePick1Path = buildPath(scorePrePick1Pose, scorePick1Pose);
-        score1Path     = buildCurve(scorePick1Pose, score1Pose, new Point(score1X, scorePick1Y), new Point(110, score1Y), 0.5);
+        score1Path     = buildCurve(scorePick1Pose, score1Pose, new Point(100, 29), new Point(125, 71), 0.5);
 
-        scorePick2Path = buildCurve(score1Pose, scorePick2Pose, new Point(110, score1Y), new Point(score1X, scorePick2Y));
-        score2Path     = buildCurve(scorePick1Pose, score1Pose, new Point(score2X, scorePick2Y), new Point(110, score2Y), 0.5);
+        scorePick2Path = buildCurve(score1Pose, scorePrePick1Pose, new Point(127, 66), new Point(81, 3.5));
+        scorePick2Path = buildPath(scorePrePick1Pose, scorePick1Pose);
+        score2Path     = buildCurve(scorePick1Pose, score1Pose, new Point(100, 29), new Point(125, 71), 0.5);
 
-        scorePick3Path = buildPath(score2Pose, scorePick3Pose);
-        score3Path     = buildPath(scorePick3Pose, score3Pose);
+        scorePick3Path = buildCurve(score1Pose, scorePrePick1Pose, new Point(127, 66), new Point(81, 3.5));
+        scorePick3Path = buildPath(scorePrePick1Pose, scorePick1Pose);
+        score3Path     = buildCurve(scorePick1Pose, score1Pose, new Point(100, 29), new Point(125, 71), 0.5);
 
     }
 
@@ -219,6 +221,7 @@ public class Auto_0Plus5NEW extends LinearOpMode {
                         // === PICKUP 1 ===
                         new PathCommand(pickup1Path).alongWith(
                                 new SequentialCommandGroup(
+//                                new WaitCommand(100000)
                                         new NewIntakePushOutCommand(pickup1Ext),
                                         new RotateStateCommand(NewIntakeSubsystem.RotateState.ANGLE_0)
                                 )
@@ -240,35 +243,48 @@ public class Auto_0Plus5NEW extends LinearOpMode {
                                         new NewIntakePullBackCommand(),
                                         new WaitCommand(600),
                                         new NewSampleTransferCommand(),
-                                        new NewIntakePushOutCommand(pickup3Ext).alongWith(new DropSampleCommand()),
-                                        new RotateStateCommand(NewIntakeSubsystem.RotateState.ANGLE_0)
+                                        new DropSampleCommand()//
+//                                        new NewIntakePushOutCommand(pickup3Ext).alongWith(new DropSampleCommand()),
+//                                        new RotateStateCommand(NewIntakeSubsystem.RotateState.ANGLE_0)
                                 )
                         ),
+//
+//                        new WaitCommand(500),
+//
+//                        new NewSamplePickupCommand(),
+//                        new NewIntakePullBackCommand(),
+//                        new WaitCommand(450),
+//                        new NewSampleTransferCommand(),
 
-                        new WaitCommand(500),
-
-                        new NewSamplePickupCommand(),
-                        new NewIntakePullBackCommand(),
-                        new WaitCommand(450),
-                        new NewSampleTransferCommand(),
-                        new DropSampleCommand(),
-
-                        new WaitCommand(500),
+//
+//                        new WaitCommand(500),
 
 
                         new PathCommand(scorePrePick1Path).alongWith(new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.OPEN)),
                         new PathCommand(scorePick1Path),
                         new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.CLOSED),
+                        new WaitCommand(300),
                         new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.HIGH),
                         new WaitCommand(500),
                         new PathCommand(score1Path),
                         new SpecimenDepositCommand(),
 
                         new PathCommand(scorePick2Path).alongWith(new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.OPEN)),
+                        new PathCommand(scorePick2Path),
                         new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.CLOSED),
+                        new WaitCommand(300),
                         new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.HIGH),
                         new WaitCommand(500),
                         new PathCommand(score2Path),
+                        new SpecimenDepositCommand(),
+
+                        new PathCommand(scorePick3Path).alongWith(new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.OPEN)),
+                        new PathCommand(scorePick3Path),
+                        new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.CLOSED),
+                        new WaitCommand(300),
+                        new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.HIGH),
+                        new WaitCommand(500),
+                        new PathCommand(score3Path),
                         new SpecimenDepositCommand()
 
                 )
