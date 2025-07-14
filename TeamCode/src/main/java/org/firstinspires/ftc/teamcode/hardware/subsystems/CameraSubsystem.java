@@ -84,9 +84,14 @@ public class CameraSubsystem extends RE_SubsystemBase {
             sampleDy = sampleAngleProcessor.getDy();
 
             double extMove = -Constants.extGrabJump;
-            extMove -= sampleDy * Constants.sampleDyCorrectionMultiplier;
-            extMove -= sampleDy * sampleDy * Constants.sampleDyCorrectionMultiplier2;
-            extMove -= sampleDy * sampleDy * sampleDy * Constants.sampleDyCorrectionMultiplier3;
+
+            extMove -= (
+                    Math.pow(sampleDy, 1) * Constants.sampleDyCorrectionMultiplier +
+                    Math.pow(sampleDy, 2) * Constants.sampleDyCorrectionMultiplier2 +
+                    Math.pow(sampleDy, 3) * Constants.sampleDyCorrectionMultiplier3
+            );
+
+
             if (Robot.getInstance().newIntakeSubsystem.wristState == NewIntakeSubsystem.WristState.PREGRABBACK) {
                 extMove -= Constants.extGrabBackOffset;
             } else if (Robot.getInstance().newIntakeSubsystem.wristState == NewIntakeSubsystem.WristState.PREGRABFORWARD) {
