@@ -37,8 +37,8 @@ public class Constants {
 
     /* -------------------------------------------- SERVO CONSTANTS -------------------------------------------- */
 
-    public static double bucketDrop = 0.22;
-    public static double bucketIntake = 0.79;
+    public static double bucketDrop = 0.4;
+    public static double bucketIntake = 0.66;
     public static double bucketAscent = 0;
 
     public static double armTransfer = 0.87;
@@ -67,7 +67,7 @@ public class Constants {
     public static double wristPreGrabBack = 0.23;
     public static double wristPreGrab = 0.15;
     public static double wristStore = 0.3;
-    public static double wristTransfer = 0.75;
+    public static double wristTransfer = 0.77;
     public static double wristAutoPickup = 0;
 
     public static double rotateHorizontal = 0;
@@ -98,7 +98,7 @@ public class Constants {
     public static int extSlow = 50;
 
     public static int extJump = 500;
-    public static int extGrabJump = 120;
+    public static int extGrabJump = -247;
     public static int extGrabFowardOffset = 200;
     public static int extGrabBackOffset = 200;
 
@@ -136,8 +136,9 @@ public class Constants {
 
     public static double sampleAlignAngleTolerance = 2;
 
-    public static double sampleDyCorrectionMultiplier = 1.7;
-    public static double sampleDyCorrectionMultiplier2 = 0;
+    public static double sampleDyCorrectionMultiplier = -1.48371;
+    public static double sampleDyCorrectionMultiplier2 = 0.00344716;
+    public static double sampleDyCorrectionMultiplier3 = -0.0000240512;
 
 
 

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmode.auto;
 
 import static org.firstinspires.ftc.teamcode.opmode.auto.AutonomousMethods.buildCurve;
+import static org.firstinspires.ftc.teamcode.opmode.auto.AutonomousMethods.buildCurveTurnLater;
 import static org.firstinspires.ftc.teamcode.opmode.auto.AutonomousMethods.buildPath;
 
 import com.acmerobotics.dashboard.config.Config;
@@ -51,7 +52,7 @@ public class Auto_0Plus5NEW extends LinearOpMode {
     public static double pickup1and2Offset = 5.5;
 
     // Pickup 1
-    public static double pickup1X = 114.2;
+    public static double pickup1X = 114;
     public static double pickup1Y = 23.5;
     public static double pickup1Degrees = 90;
     public static int pickup1Ext = 1000;
@@ -62,7 +63,7 @@ public class Auto_0Plus5NEW extends LinearOpMode {
     public static double drop1Degrees = 90;
 
     // Pickup 2
-    public static double pickup2X = 114.2;
+    public static double pickup2X = 114;
     public static double pickup2Y = 31;
     public static double pickup2Degrees = 90;
     public static int pickup2Ext = 1170;
@@ -98,34 +99,34 @@ public class Auto_0Plus5NEW extends LinearOpMode {
 
 
     // Score Pick 1
-    public static double scorePick1X = 116;
-    public static double scorePick1Y = 8;
+    public static double scorePick1X = 125;
+    public static double scorePick1Y = 9;
     public static double scorePick1Degrees = 0;
 
     // Score 1
-    public static double score1X = 105;
-    public static double score1Y = 64; //68
+    public static double score1X = 105.5;
+    public static double score1Y = 67; //68
     public static double score1Degrees = -90;
 
     // Score Pick 2
-    public static double scorePick2X = 112;
-    public static double scorePick2Y = 10;
+    public static double scorePick2X = 125;
+    public static double scorePick2Y = 8.5;
     public static double scorePick2Degrees = 0;
 
     // Score 2
-    public static double score2X = 105;
-    public static double score2Y = 71;
+    public static double score2X = 105.5;
+    public static double score2Y = 69;
     public static double score2Degrees = -90;
 
     // Score Pick 3
-    public static double scorePick3X = 40;
-    public static double scorePick3Y = 123;
-    public static double scorePick3Degrees = 90;
+    public static double scorePick3X = 125;
+    public static double scorePick3Y = 8;
+    public static double scorePick3Degrees = 0;
 
     // Score 3
-    public static double score3X = 16;
-    public static double score3Y = 127;
-    public static double score3Degrees = -45;
+    public static double score3X = 105.5;
+    public static double score3Y = 71;
+    public static double score3Degrees = -90;
 
 
     // Pickup and Drop Paths
@@ -151,7 +152,7 @@ public class Auto_0Plus5NEW extends LinearOpMode {
         Pose drop3Pose = new Pose(drop3X, drop3Y, Math.toRadians(drop3Degrees));
         Pose drop4Pose = new Pose(drop4X, drop4Y, Math.toRadians(drop4Degrees));
 
-        Pose scorePrePick1Pose = new Pose(scorePick1X - 8, scorePick1Y, Math.toRadians(scorePick1Degrees));
+        Pose scorePrePick1Pose = new Pose(scorePick1X - 5, scorePick1Y, Math.toRadians(scorePick1Degrees));
         Pose scorePick1Pose = new Pose(scorePick1X, scorePick1Y, Math.toRadians(scorePick1Degrees));
         Pose scorePick2Pose = new Pose(scorePick2X, scorePick2Y, Math.toRadians(scorePick2Degrees));
         Pose scorePick3Pose = new Pose(scorePick3X, scorePick3Y, Math.toRadians(scorePick3Degrees));
@@ -176,18 +177,22 @@ public class Auto_0Plus5NEW extends LinearOpMode {
         drop4Path   = buildPath(pickup4Pose, drop4Pose);
 
         // Scoring Paths
-        scorePrePick1Path = buildPath(drop2Pose, scorePrePick1Pose);
+        scorePrePick1Path = buildPath(drop2Pose, scorePrePick1Pose, 0.5);
+        scorePrePick1Path.setPathEndTimeoutConstraint(0);
         scorePick1Path = buildPath(scorePrePick1Pose, scorePick1Pose);
-        score1Path     = buildCurve(scorePick1Pose, score1Pose, new Point(100, 29), new Point(125, 71), 0.5);
+        scorePick1Path.setPathEndTimeoutConstraint(0);
+        score1Path     = buildCurve(scorePick1Pose, score1Pose, new Point(score1X, scorePick1Y), new Point(111, score1Y), 0.5);
+        score1Path.setPathEndTimeoutConstraint(0);
 
-        scorePick2Path = buildCurve(score1Pose, scorePrePick1Pose, new Point(127, 66), new Point(81, 3.5));
-        scorePick2Path = buildPath(scorePrePick1Pose, scorePick1Pose);
-        score2Path     = buildCurve(scorePick1Pose, score1Pose, new Point(100, 29), new Point(125, 71), 0.5);
+        scorePick2Path = buildCurve(score1Pose, scorePick2Pose, new Point(114, score1Y), new Point(score1X, scorePick1Y),0.5);
+        scorePick2Path.setPathEndTimeoutConstraint(0);
+        score2Path     = buildCurve(scorePick2Pose, score2Pose, new Point(score2X, scorePick2Y), new Point(111, score2Y), 0.5);
+        score2Path.setPathEndTimeoutConstraint(0);
 
-        scorePick3Path = buildCurve(score1Pose, scorePrePick1Pose, new Point(127, 66), new Point(81, 3.5));
-        scorePick3Path = buildPath(scorePrePick1Pose, scorePick1Pose);
-        score3Path     = buildCurve(scorePick1Pose, score1Pose, new Point(100, 29), new Point(125, 71), 0.5);
-
+        scorePick3Path = buildCurve(score2Pose, scorePick3Pose, new Point(114, score2Y), new Point(score3X, scorePick3Y),0.5);
+        scorePick3Path.setPathEndTimeoutConstraint(0);
+        score3Path     = buildCurve(scorePick3Pose, score3Pose, new Point(score3X, scorePick3Y), new Point(111, score3Y), 0.5);
+        score3Path.setPathEndTimeoutConstraint(0);
     }
 
     @Override
@@ -265,21 +270,19 @@ public class Auto_0Plus5NEW extends LinearOpMode {
                         new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.CLOSED),
                         new WaitCommand(300),
                         new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.HIGH),
-                        new WaitCommand(500),
                         new PathCommand(score1Path),
                         new SpecimenDepositCommand(),
 
                         new PathCommand(scorePick2Path).alongWith(new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.OPEN)),
-                        new PathCommand(scorePick2Path),
+                        new PathCommand(scorePick2Path).alongWith(new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.GRAB)),
                         new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.CLOSED),
                         new WaitCommand(300),
                         new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.HIGH),
-                        new WaitCommand(500),
                         new PathCommand(score2Path),
                         new SpecimenDepositCommand(),
 
                         new PathCommand(scorePick3Path).alongWith(new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.OPEN)),
-                        new PathCommand(scorePick3Path),
+                        new PathCommand(scorePick3Path).alongWith(new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.GRAB)),
                         new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.CLOSED),
                         new WaitCommand(300),
                         new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.HIGH),
