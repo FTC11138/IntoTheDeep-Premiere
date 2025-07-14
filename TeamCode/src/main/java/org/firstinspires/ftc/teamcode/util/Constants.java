@@ -98,7 +98,6 @@ public class Constants {
     public static int extSlow = 50;
 
     public static int extJump = 500;
-    public static int extGrabJump = -247;
     public static int extGrabFowardOffset = 200;
     public static int extGrabBackOffset = 200;
 
@@ -136,7 +135,8 @@ public class Constants {
 
     public static double sampleAlignAngleTolerance = 2;
 
-    public static double sampleDyCorrectionMultiplier = -1.48371;
+    public static int sampleDyCorrectionConstant = -247;
+    public static double sampleDyCorrectionMultiplier1 = -1.48371;
     public static double sampleDyCorrectionMultiplier2 = 0.00344716;
     public static double sampleDyCorrectionMultiplier3 = -0.0000240512;
 

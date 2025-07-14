@@ -83,10 +83,10 @@ public class CameraSubsystem extends RE_SubsystemBase {
             sampleDx = sampleAngleProcessor.getDx();
             sampleDy = sampleAngleProcessor.getDy();
 
-            double extMove = -Constants.extGrabJump;
+            double extMove = Constants.sampleDyCorrectionConstant;
 
-            extMove -= (
-                    Math.pow(sampleDy, 1) * Constants.sampleDyCorrectionMultiplier +
+            extMove += (
+                    Math.pow(sampleDy, 1) * Constants.sampleDyCorrectionMultiplier1 +
                     Math.pow(sampleDy, 2) * Constants.sampleDyCorrectionMultiplier2 +
                     Math.pow(sampleDy, 3) * Constants.sampleDyCorrectionMultiplier3
             );
