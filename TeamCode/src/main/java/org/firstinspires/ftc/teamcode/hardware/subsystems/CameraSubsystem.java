@@ -1,5 +1,12 @@
 package org.firstinspires.ftc.teamcode.hardware.subsystems;
 
+//import static org.firstinspires.ftc.teamcode.util.Constants.SampleBackwardFarCorrectionConstant;
+import static org.firstinspires.ftc.teamcode.util.Constants.*;
+//import static org.firstinspires.ftc.teamcode.util.Constants.SampleDyForwardFarCorrectionConstant;
+//import static org.firstinspires.ftc.teamcode.util.Constants.SampleDyMiddleCorrectionConstant;
+//import static org.firstinspires.ftc.teamcode.util.Constants.SampleForwardFarCorrectionConstant;
+//import static org.firstinspires.ftc.teamcode.util.Constants.SampleMiddleCorrectionConstant;
+
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -83,12 +90,25 @@ public class CameraSubsystem extends RE_SubsystemBase {
             sampleDx = sampleAngleProcessor.getDx();
             sampleDy = sampleAngleProcessor.getDy();
 
-            double extMove = Constants.sampleDyCorrectionConstant;
+            double extMove;
+
+            if (sampleDy < SampleDyMiddleCorrectionConstant) {
+                extMove = Constants.sampleDyCorrectionConstantForward;
+            } else {//if (sampleDy <= 0) {
+                extMove = Constants.sampleDyCorrectionConstantBehind;
+            }
+
+            if (sampleDy > SampleDyBackwardFarCorrectionConstant) {
+                extMove += Constants.sampleDyCorrectionConstantFarBehind;
+            } else if (sampleDy < SampleDyForwardFarCorrectionConstant) {
+                extMove += Constants.sampleDyCorrectionConstantFarForward       ;
+            }
 
             extMove += (
                     Math.pow(sampleDy, 1) * Constants.sampleDyCorrectionMultiplier1 +
                     Math.pow(sampleDy, 2) * Constants.sampleDyCorrectionMultiplier2 +
-                    Math.pow(sampleDy, 3) * Constants.sampleDyCorrectionMultiplier3
+                    Math.pow(sampleDy, 3) * Constants.sampleDyCorrectionMultiplier3 +
+                    Math.pow(sampleDy, 4) * Constants.sampleDyCorrectionMultiplier4
             );
 
 

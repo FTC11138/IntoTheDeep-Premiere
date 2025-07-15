@@ -5,7 +5,6 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.ScheduleCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -15,40 +14,28 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.DropSampleCommand;
-import org.firstinspires.ftc.teamcode.commands.advancedcommand.IntakePullBackCommand;
-import org.firstinspires.ftc.teamcode.commands.advancedcommand.IntakePushOutCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.LiftDownCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.LiftMidCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.LiftUpCommand;
-import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePullBackCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePushOutCommand;
-import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleEjectCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePickupCommand;
-import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleTransferCommand;
-import org.firstinspires.ftc.teamcode.commands.advancedcommand.RotateAlignCommand;
-import org.firstinspires.ftc.teamcode.commands.advancedcommand.RotateToggleCommand;
-import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleEjectCommand;
-import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleGrabCommand;
-import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleTransferCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SpecimenDepositCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SpecimenGrabCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.WristToggleCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.ExtensionResetCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.LiftPowerCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.LiftResetCommand;
-import org.firstinspires.ftc.teamcode.commands.subsystem.RotateStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.SpecLiftResetCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.SpecimenLiftStateCommand;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.RobotData;
-import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.SpecimenSubsystem;
 import org.firstinspires.ftc.teamcode.util.Constants;
 import org.firstinspires.ftc.teamcode.util.Globals;
 import org.firstinspires.ftc.teamcode.util.PoseConstants;
 
-@TeleOp (name = "Solo")
-public class TeleOp_Solo extends CommandOpMode {
+@TeleOp (name = "Sample_Pickup_Tuning")
+public class Sample_Pickup_Tuning extends CommandOpMode {
 
     private final Robot robot = Robot.getInstance();
     private final RobotData data = Robot.getInstance().data;
@@ -172,10 +159,10 @@ public class TeleOp_Solo extends CommandOpMode {
                 )
         ));
         scheduleCommand(lastB, b, new LiftDownCommand());
-        scheduleCommand(lastY, y, new LiftMidCommand());
+//        scheduleCommand(lastY, y, new LiftMidCommand());
 
         scheduleCommand(lastLeftBumper, leftBumper, new WristToggleCommand());
-        scheduleCommand(lastRightBumper, rightBumper, new LiftUpCommand());
+//        scheduleCommand(lastRightBumper, rightBumper, new LiftUpCommand());
 
         scheduleCommand(lastDpadDown, dpadDown, new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.GRAB));
         scheduleCommand(lastDpadUp, dpadUp, new ConditionalCommand(
@@ -244,15 +231,10 @@ public class TeleOp_Solo extends CommandOpMode {
             CommandScheduler.getInstance().schedule(new SequentialCommandGroup(
 //                    new RotateAlignCommand(),
 //                    new WaitCommand(300),
-                    new ConditionalCommand(
-                            new SequentialCommandGroup(
-                                    new NewSamplePickupCommand(),
-                                    new NewIntakePullBackCommand()
-                            ),
-                            new InstantCommand(),
-                            () -> Robot.getInstance().data.intaking
-                    ),
-                    new NewSampleTransferCommand()
+                    new NewSamplePickupCommand(),
+                        new NewIntakePushOutCommand(800)
+//                    new NewIntakePullBackCommand(),
+//                    new NewSampleTransferCommand()
             ));
 //            CommandScheduler.getInstance().schedule(new SampleTransferCommand());
 //            CommandScheduler.getInstance().schedule(new WaitCommand(5000));
@@ -266,7 +248,6 @@ public class TeleOp_Solo extends CommandOpMode {
         }
 
         if (leftTrigger && !lastLeftTrigger) {
-            CommandScheduler.getInstance().cancel(new NewSampleTransferCommand(), new NewIntakePullBackCommand(), new NewSamplePickupCommand());
             CommandScheduler.getInstance().schedule(new NewIntakePushOutCommand(Constants.extIntake));
         }
 

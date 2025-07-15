@@ -47,7 +47,7 @@ public class NewSamplePickupCommand extends SequentialCommandGroup {
 
                 new NewArmStateCommand(NewIntakeSubsystem.ArmState.DOWN),
                 new WristStateCommand(NewIntakeSubsystem.WristState.GRAB),
-                new WaitCommand(100),
+                new WaitCommand(200),
                 new ClawStateCommand(NewIntakeSubsystem.ClawState.CLOSE),
                 new WaitCommand(200),
                 new ArmStateCommand(NewIntakeSubsystem.ArmState.FLAT)

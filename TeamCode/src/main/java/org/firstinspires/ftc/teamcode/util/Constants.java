@@ -58,9 +58,9 @@ public class Constants {
     public static double specimenClawOpen = 0.1;
     public static double specimenClawClose = 0.67;
 
-    public static double clawOpen = 0.8;
-    public static double clawOpenWide = 0.65;
-    public static double clawClose = 1;
+    public static double clawOpen = .45;
+    public static double clawOpenWide = 0.35;
+    public static double clawClose = .66;
 
     public static double wristGrab = 0;
     public static double wristPreGrabForward = 0.1;
@@ -135,10 +135,19 @@ public class Constants {
 
     public static double sampleAlignAngleTolerance = 2;
 
-    public static int sampleDyCorrectionConstant = -247;
+    public static int sampleDyCorrectionConstantFarBehind = -140;
+    public static int sampleDyCorrectionConstantFarForward = -200;
+    public static int sampleDyCorrectionConstantBehind = -320;
+    public static int sampleDyCorrectionConstantForward = -320;
+
+    public static int SampleDyMiddleCorrectionConstant = -40;
+    public static int SampleDyForwardFarCorrectionConstant = -100;
+    public static int SampleDyBackwardFarCorrectionConstant = 42;
+
     public static double sampleDyCorrectionMultiplier1 = -1.48371;
     public static double sampleDyCorrectionMultiplier2 = 0.00344716;
     public static double sampleDyCorrectionMultiplier3 = -0.0000240512;
+    public static double sampleDyCorrectionMultiplier4 = 0.0000001;
 
 
 

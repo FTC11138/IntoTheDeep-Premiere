@@ -18,7 +18,7 @@ public class SampleGrabCommand extends SequentialCommandGroup {
                 new InstantCommand(Robot.getInstance().data::startIntaking),
                 new NewArmStateCommand(NewIntakeSubsystem.ArmState.DOWN),
                 new WristStateCommand(NewIntakeSubsystem.WristState.GRAB),
-                new ExtensionJumpCommand(-1, Constants.extGrabJump),
+                new ExtensionJumpCommand(-1, Constants.extJump),
                 new WaitCommand(150),
                 //Either make a seperate command to incorporate the camera or include here!
                 new ClawStateCommand(NewIntakeSubsystem.ClawState.CLOSE),

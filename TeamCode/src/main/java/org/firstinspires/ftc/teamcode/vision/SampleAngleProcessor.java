@@ -39,13 +39,13 @@ public class SampleAngleProcessor implements VisionProcessor {
 
     public static Scalar redLow1 = new Scalar(0,100, 100);
     public static Scalar redHigh1 = new Scalar(10, 255, 255);
-    public static Scalar redLow2 = new Scalar(160,100, 100);
+    public static Scalar redLow2 = new Scalar(150,100, 100);
     public static Scalar redHigh2 = new Scalar(179, 255, 255);
 
     public static Scalar yellowLow = new Scalar(20, 0, 100);
     public static Scalar yellowHigh = new Scalar(60, 255, 255);
 
-    public static Scalar blueLow = new Scalar(100, 150, 50);
+    public static Scalar blueLow = new Scalar(100, 100, 50);
     public static Scalar blueHigh = new Scalar(130, 255, 255);
 
     private static Mat hsv;
