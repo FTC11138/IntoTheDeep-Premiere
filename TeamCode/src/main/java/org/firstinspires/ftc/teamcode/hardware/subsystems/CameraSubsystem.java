@@ -37,6 +37,7 @@ public class CameraSubsystem extends RE_SubsystemBase {
     private double sampleDx;
     private double sampleDy;
     private double extAdjustDistance;
+    private double robotAdjustDistance;
 
 
     public enum CameraState {
@@ -68,6 +69,10 @@ public class CameraSubsystem extends RE_SubsystemBase {
 
     public double getExtDistanceSample() {
         return extAdjustDistance;
+    }
+
+    public double getRobotDistanceSample() {
+        return robotAdjustDistance;
     }
 
 
@@ -118,6 +123,10 @@ public class CameraSubsystem extends RE_SubsystemBase {
                 extMove += Constants.extGrabFowardOffset;
             }
             extAdjustDistance = extMove;
+
+
+
+            robotAdjustDistance = sampleDx * sampleDxCorrectionMultiplier;
         }
 
     }

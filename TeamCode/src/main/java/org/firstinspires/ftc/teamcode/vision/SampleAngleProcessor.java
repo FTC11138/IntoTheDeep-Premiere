@@ -10,6 +10,7 @@ import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibra
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
 import org.firstinspires.ftc.teamcode.util.Constants;
+import org.firstinspires.ftc.teamcode.util.Globals;
 import org.firstinspires.ftc.vision.VisionProcessor;
 import org.opencv.calib3d.Calib3d;
 import org.opencv.core.Core;
@@ -31,15 +32,16 @@ public class SampleAngleProcessor implements VisionProcessor {
     private Mat cameraMatrix, distCoeffs;
     private double blockAngle = 0;
     private boolean foundBlock = false;
+    private Globals.COLORS blockColor = Globals.COLORS.NONE;
     private double dx = 0;
     private double dy = 0;
 
     private int imageWidth = 0;
     private int imageHeight = 0;
 
-    public static Scalar redLow1 = new Scalar(0,100, 100);
+    public static Scalar redLow1 = new Scalar(0, 100, 100);
     public static Scalar redHigh1 = new Scalar(10, 255, 255);
-    public static Scalar redLow2 = new Scalar(150,100, 100);
+    public static Scalar redLow2 = new Scalar(150, 100, 100);
     public static Scalar redHigh2 = new Scalar(179, 255, 255);
 
     public static Scalar yellowLow = new Scalar(20, 0, 100);
@@ -54,7 +56,6 @@ public class SampleAngleProcessor implements VisionProcessor {
     private static Mat yellowMask;
     private static Mat blueMask;
 
-
     @Override
     public Object processFrame(Mat input, long captureTimeNanos) {
         Mat rotated = new Mat();
@@ -66,27 +67,22 @@ public class SampleAngleProcessor implements VisionProcessor {
 
         mask = new Mat();
 
-        // Red Mask
+        // Create red masks
         redMask1 = new Mat();
         redMask2 = new Mat();
         Core.inRange(hsv, redLow1, redHigh1, redMask1);
         Core.inRange(hsv, redLow2, redHigh2, redMask2);
         Core.bitwise_or(redMask1, redMask2, mask);
 
-        // Yellow Mask
+        // Add yellow mask
         yellowMask = new Mat();
         Core.inRange(hsv, yellowLow, yellowHigh, yellowMask);
         Core.bitwise_or(mask, yellowMask, mask);
 
-        // Blue Mask
+        // Add blue mask
         blueMask = new Mat();
         Core.inRange(hsv, blueLow, blueHigh, blueMask);
         Core.bitwise_or(mask, blueMask, mask);
-
-        redMask1.release();
-        redMask2.release();
-        yellowMask.release();
-        blueMask.release();
 
         Imgproc.erode(mask, mask, new Mat(), new Point(-1, -1), 2);
         Imgproc.dilate(mask, mask, new Mat(), new Point(-1, -1), 2);
@@ -122,7 +118,7 @@ public class SampleAngleProcessor implements VisionProcessor {
             blockAngle = closestRect.angle;
 
             if (width < height) {
-                blockAngle = blockAngle + 90;
+                blockAngle += 90;
             }
             if (blockAngle < 0) {
                 blockAngle += 180;
@@ -132,6 +128,24 @@ public class SampleAngleProcessor implements VisionProcessor {
             dy = closestRect.center.y - centerY;
             foundBlock = true;
 
+            // Determine block color by sampling masks
+            int cx = (int) Math.round(closestRect.center.x);
+            int cy = (int) Math.round(closestRect.center.y);
+            double r1 = redMask1.get(cy, cx)[0];
+            double r2 = redMask2.get(cy, cx)[0];
+            double yv = yellowMask.get(cy, cx)[0];
+            double bv = blueMask.get(cy, cx)[0];
+
+            if (r1 + r2 > 0) {
+                blockColor = Globals.COLORS.RED;
+            } else if (yv > 0) {
+                blockColor = Globals.COLORS.YELLOW;
+            } else if (bv > 0) {
+                blockColor = Globals.COLORS.BLUE;
+            } else {
+                blockColor = Globals.COLORS.NONE;
+            }
+
             Point[] box = new Point[4];
             closestRect.points(box);
             for (int i = 0; i < 4; i++) {
@@ -139,13 +153,19 @@ public class SampleAngleProcessor implements VisionProcessor {
             }
 
             Imgproc.putText(rotated,
-                    String.format("Angle: %.1f deg dx: %.1f dy: %.1f", blockAngle, dx, dy),
+                    String.format("Angle: %.1f deg dx: %.1f dy: %.1f clr: %s", blockAngle, dx, dy, blockColor),
                     closestRect.center,
                     Imgproc.FONT_HERSHEY_SIMPLEX,
                     0.8,
                     new Scalar(255, 255, 0),
                     2);
         }
+
+        // Release color masks
+        redMask1.release();
+        redMask2.release();
+        yellowMask.release();
+        blueMask.release();
 
         rotated.copyTo(input);
         return null;
@@ -175,7 +195,8 @@ public class SampleAngleProcessor implements VisionProcessor {
         paint.setTextSize(50);
 
         if (foundBlock) {
-            canvas.drawText(String.format("Angle: %.1f° \ndx: %.1f \ndy: %.1f", blockAngle, dx, dy), 40, 60, paint);
+            canvas.drawText(String.format("Angle: %.1f°  dx: %.1f  dy: %.1f", blockAngle, dx, dy), 40, 60, paint);
+            canvas.drawText(String.format("Color: %s", blockColor), 40, 120, paint);
         } else {
             canvas.drawText("No block detected", 40, 60, paint);
         }
@@ -188,6 +209,10 @@ public class SampleAngleProcessor implements VisionProcessor {
 
     public boolean isBlockFound() {
         return foundBlock;
+    }
+
+    public Globals.COLORS getBlockColor() {
+        return blockColor;
     }
 
     public double getDx() {

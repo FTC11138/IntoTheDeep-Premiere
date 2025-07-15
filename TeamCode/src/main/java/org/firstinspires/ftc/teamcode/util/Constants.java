@@ -150,6 +150,8 @@ public class Constants {
     public static double sampleDyCorrectionMultiplier4 = 0.0000001;
 
 
+    public static double sampleDxCorrectionMultiplier = 0.1;
+
 
     public static double fX = 203.7;
     public static double fY = 203.7;
