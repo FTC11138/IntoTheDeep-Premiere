@@ -83,10 +83,10 @@ public class Auto_5Plus0 extends LinearOpMode {
     public static double sample3degrees = 68;
     public static int sample3ext = 1050;
 
-    public static double sample4x = 72;
-    public static double sample4y = 100;
-    public static double sample4degrees = -90;
-    public static int sample4ext = 250;
+    public static double sample4x = 86.4;
+    public static double sample4y = 47.9;
+    public static double sample4degrees = 90;
+    public static int sample4ext = 400;
 
 
     public static Path preload;
