@@ -23,7 +23,7 @@ public class NewSampleTransferCommand extends ConditionalCommand {
                                 new SequentialCommandGroup(
                                         new RotateStateCommand(NewIntakeSubsystem.RotateState.VERTICAL),
                                         new WristStateCommand(NewIntakeSubsystem.WristState.TRANSFER),
-                                        new WaitCommand(300),
+                                        new WaitCommand(600),
                                         new NewArmStateCommand(NewIntakeSubsystem.ArmState.TRANSFER)
 
                                 ),

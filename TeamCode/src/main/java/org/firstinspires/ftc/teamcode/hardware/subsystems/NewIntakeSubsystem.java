@@ -61,6 +61,7 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         ANGLE_45,
         ANGLE_135,
         ANGLE_160,
+        SAMPLE3PICKUP,
 
         NONE
     }
@@ -213,6 +214,9 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
                 return 20;
             case ANGLE_180:
                 return 90;
+            case SAMPLE3PICKUP:
+                return 160;
+
             case NONE:
                 return clawAngle;
             default:

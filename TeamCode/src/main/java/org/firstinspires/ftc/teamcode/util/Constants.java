@@ -38,7 +38,7 @@ public class Constants {
     /* -------------------------------------------- SERVO CONSTANTS -------------------------------------------- */
 
     public static double bucketDrop = 0.4;
-    public static double bucketIntake = 0.66;
+    public static double bucketIntake = 0.62;
     public static double bucketAscent = 0;
 
     public static double armTransfer = 0.87;
@@ -74,8 +74,6 @@ public class Constants {
     public static double rotateVertical = 90;
     public static double rotate0 = 0.3;
     public static double rotate180 = 0.97;
-
-
 
 
     /* -------------------------------------------- MOTOR CONSTANTS -------------------------------------------- */
