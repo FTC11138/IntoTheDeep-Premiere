@@ -24,6 +24,7 @@ import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePullBack
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePushOutCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePickupCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePickupCommandAuto;
+import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePickupCommandSub;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleTransferCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SpecimenDepositCommand;
 import org.firstinspires.ftc.teamcode.commands.drivecommand.PathCommand;
@@ -52,10 +53,10 @@ public class Auto_0Plus5NEW extends LinearOpMode {
     public static double pickup1and2Offset = 5.5;
 
     // Pickup 1
-    public static double pickup1X = 114;
-    public static double pickup1Y = 23.5;
+    public static double pickup1X = 116;
+    public static double pickup1Y = 22;
     public static double pickup1Degrees = 90;
-    public static int pickup1Ext = 1000;
+    public static int pickup1Ext = 1200;
 
     // Drop 1
     public static double drop1X = 116;
@@ -105,7 +106,7 @@ public class Auto_0Plus5NEW extends LinearOpMode {
 
     // Score 1
     public static double score1X = 105.5;
-    public static double score1Y = 67; //68
+    public static double score1Y = 65; //68
     public static double score1Degrees = -90;
 
     // Score Pick 2
@@ -115,7 +116,7 @@ public class Auto_0Plus5NEW extends LinearOpMode {
 
     // Score 2
     public static double score2X = 105.5;
-    public static double score2Y = 69;
+    public static double score2Y = 67;
     public static double score2Degrees = -90;
 
     // Score Pick 3
@@ -125,8 +126,22 @@ public class Auto_0Plus5NEW extends LinearOpMode {
 
     // Score 3
     public static double score3X = 105.5;
-    public static double score3Y = 71;
+    public static double score3Y = 69;
     public static double score3Degrees = -90;
+
+    // Score Pick 4
+    public static double scorePick4X = 125;
+    public static double scorePick4Y = 7.5;
+    public static double scorePick4Degrees = 0;
+
+    public static double obsX = 115;
+    public static double obsY = 14;
+    public static double obsDegrees = -90;
+
+    // Score 4
+    public static double score4X = 105.5;
+    public static double score4Y = 71;
+    public static double score4Degrees = -90;
 
 
     // Pickup and Drop Paths
@@ -139,6 +154,8 @@ public class Auto_0Plus5NEW extends LinearOpMode {
     public static Path scorePrePick1Path, scorePick1Path, score1Path;
     public static Path scorePick2Path, score2Path;
     public static Path scorePick3Path, score3Path;
+    public static Path scorePick4Path, score4Path;
+    public static Path obsPath;
     public Pose startPose = new Pose(start1X, start1Y, Math.toRadians(start1Degrees));
 
     public void buildPaths() {
@@ -156,10 +173,13 @@ public class Auto_0Plus5NEW extends LinearOpMode {
         Pose scorePick1Pose = new Pose(scorePick1X, scorePick1Y, Math.toRadians(scorePick1Degrees));
         Pose scorePick2Pose = new Pose(scorePick2X, scorePick2Y, Math.toRadians(scorePick2Degrees));
         Pose scorePick3Pose = new Pose(scorePick3X, scorePick3Y, Math.toRadians(scorePick3Degrees));
+        Pose scorePick4Pose = new Pose(scorePick4X, scorePick4Y, Math.toRadians(scorePick4Degrees));
+        Pose obsPose = new Pose(obsX, obsY, Math.toRadians(obsDegrees));
 
         Pose score1Pose = new Pose(score1X, score1Y, Math.toRadians(score1Degrees));
         Pose score2Pose = new Pose(score2X, score2Y, Math.toRadians(score2Degrees));
         Pose score3Pose = new Pose(score3X, score3Y, Math.toRadians(score3Degrees));
+        Pose score4Pose = new Pose(score4X, score4Y, Math.toRadians(score4Degrees));
 
 
         // Pickup/Drop Paths in correct order
@@ -167,7 +187,7 @@ public class Auto_0Plus5NEW extends LinearOpMode {
         drop1Path   = buildPath(pickup1Pose, drop1Pose);
 
         pickup2Path = buildPath(pickup1Pose, pickup2Pose);
-        drop2Path   = buildPath(pickup2Pose, drop2Pose);
+        drop2Path   = buildPath(pickup1Pose, drop2Pose);
 
         pickup3Path = buildPath(drop2Pose, pickup3Pose);
         drop3Path   = buildPath(pickup3Pose, drop3Pose);
@@ -179,6 +199,7 @@ public class Auto_0Plus5NEW extends LinearOpMode {
         // Scoring Paths
         scorePrePick1Path = buildPath(drop2Pose, scorePrePick1Pose, 0.5);
         scorePrePick1Path.setPathEndTimeoutConstraint(0);
+
         scorePick1Path = buildPath(scorePrePick1Pose, scorePick1Pose);
         scorePick1Path.setPathEndTimeoutConstraint(0);
         score1Path     = buildCurve(scorePick1Pose, score1Pose, new Point(score1X, scorePick1Y), new Point(111, score1Y), 0.5);
@@ -193,6 +214,13 @@ public class Auto_0Plus5NEW extends LinearOpMode {
         scorePick3Path.setPathEndTimeoutConstraint(0);
         score3Path     = buildCurve(scorePick3Pose, score3Pose, new Point(score3X, scorePick3Y), new Point(111, score3Y), 0.5);
         score3Path.setPathEndTimeoutConstraint(0);
+
+        scorePick4Path = buildCurve(score3Pose, scorePick4Pose, new Point(114, score3Y), new Point(score3X, scorePick3Y),0.5);
+        scorePick4Path.setPathEndTimeoutConstraint(0);
+        score4Path     = buildCurve(scorePick4Pose, score4Pose, new Point(score4X, scorePick4Y), new Point(111, score4Y), 0.5);
+        score4Path.setPathEndTimeoutConstraint(0);
+
+        obsPath = buildPath(score4Pose, obsPose);
     }
 
     @Override
@@ -226,7 +254,6 @@ public class Auto_0Plus5NEW extends LinearOpMode {
                         // === PICKUP 1 ===
                         new PathCommand(pickup1Path).alongWith(
                                 new SequentialCommandGroup(
-//                                new WaitCommand(100000)
                                         new NewIntakePushOutCommand(pickup1Ext),
                                         new RotateStateCommand(NewIntakeSubsystem.RotateState.ANGLE_0)
                                 )
@@ -234,38 +261,11 @@ public class Auto_0Plus5NEW extends LinearOpMode {
                         new WaitCommand(200),
                         new NewSamplePickupCommand(),
                         new NewIntakePullBackCommand(),
-                        new WaitCommand(450),
+                        new WaitCommand(300),
                         new NewSampleTransferCommand(),
-                        new NewIntakePushOutCommand(pickup2Ext).alongWith(new DropSampleCommand()),
-                        new RotateStateCommand(NewIntakeSubsystem.RotateState.ANGLE_0),
+//                        new DropSampleCommand(),
 
-                        // === PICKUP 2 ===
-                        new PathCommand(pickup2Path),
-                        new NewSamplePickupCommand(),
-
-                        new PathCommand(drop2Path).alongWith(
-                                new SequentialCommandGroup(
-                                        new NewIntakePullBackCommand(),
-                                        new WaitCommand(600),
-                                        new NewSampleTransferCommand(),
-                                        new DropSampleCommand()//
-//                                        new NewIntakePushOutCommand(pickup3Ext).alongWith(new DropSampleCommand()),
-//                                        new RotateStateCommand(NewIntakeSubsystem.RotateState.ANGLE_0)
-                                )
-                        ),
-//
-//                        new WaitCommand(500),
-//
-//                        new NewSamplePickupCommand(),
-//                        new NewIntakePullBackCommand(),
-//                        new WaitCommand(450),
-//                        new NewSampleTransferCommand(),
-
-//
-//                        new WaitCommand(500),
-
-
-                        new PathCommand(scorePrePick1Path).alongWith(new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.OPEN)),
+                        new PathCommand(scorePrePick1Path).alongWith(new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.OPEN), new DropSampleCommand()),
                         new PathCommand(scorePick1Path),
                         new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.CLOSED),
                         new WaitCommand(300),
@@ -274,7 +274,7 @@ public class Auto_0Plus5NEW extends LinearOpMode {
                         new SpecimenDepositCommand(),
 
                         new PathCommand(scorePick2Path).alongWith(new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.OPEN)),
-                        new PathCommand(scorePick2Path).alongWith(new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.GRAB)),
+                        new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.GRAB),
                         new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.CLOSED),
                         new WaitCommand(300),
                         new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.HIGH),
@@ -282,13 +282,24 @@ public class Auto_0Plus5NEW extends LinearOpMode {
                         new SpecimenDepositCommand(),
 
                         new PathCommand(scorePick3Path).alongWith(new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.OPEN)),
-                        new PathCommand(scorePick3Path).alongWith(new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.GRAB)),
+                        new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.GRAB),
                         new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.CLOSED),
                         new WaitCommand(300),
                         new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.HIGH),
                         new WaitCommand(500),
                         new PathCommand(score3Path),
-                        new SpecimenDepositCommand()
+                        new SpecimenDepositCommand(),
+
+                        new PathCommand(scorePick4Path).alongWith(new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.OPEN)),
+                        new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.GRAB),
+                        new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.CLOSED),
+                        new WaitCommand(300),
+                        new SpecimenLiftStateCommand(SpecimenSubsystem.SpecimenLiftState.HIGH),
+                        new WaitCommand(500),
+                        new PathCommand(score4Path),
+                        new SpecimenDepositCommand(),
+
+                        new PathCommand(obsPath).alongWith(new SpecimenClawStateCommand(SpecimenSubsystem.SpecimenClawState.OPEN))
 
                 )
 

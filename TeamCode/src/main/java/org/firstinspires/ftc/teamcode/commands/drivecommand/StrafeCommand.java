@@ -7,6 +7,7 @@ import com.pedropathing.pathgen.Path;
 import com.pedropathing.pathgen.PathChain;
 
 import org.firstinspires.ftc.teamcode.hardware.Robot;
+import org.firstinspires.ftc.teamcode.opmode.auto.AutonomousMethods;
 
 public class StrafeCommand extends CommandBase {
 
@@ -37,10 +38,10 @@ public class StrafeCommand extends CommandBase {
         Pose target = robot.follower.getPose();
         target.setX(target.getX() + inches);
 
-        PathChain path = new PathChain(new Path(new BezierLine(current, target)));
+        PathChain path = new PathChain(AutonomousMethods.buildPath(current, target));
 
         robot.follower.setMaxPower(speed);
-        robot.follower.followPath(path, false);
+        robot.follower.followPath(path, true);
     }
 
     @Override

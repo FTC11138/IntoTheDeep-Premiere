@@ -124,6 +124,7 @@ public class CameraSubsystem extends RE_SubsystemBase {
             }
             extAdjustDistance = extMove;
 
+            sampleDx += 30;
 
 
             robotAdjustDistance = sampleDx * sampleDxCorrectionMultiplier;

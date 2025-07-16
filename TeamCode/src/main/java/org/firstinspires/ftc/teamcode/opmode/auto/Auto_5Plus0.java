@@ -55,46 +55,46 @@ public class Auto_5Plus0 extends LinearOpMode {
 
     //Pose(111.5, 7.5, Math.toRadians(180));
 
-    public static double score1X = 132;
-    public static double score1Y = 13.1;
+    public static double score1X = 129;
+    public static double score1Y = 14.8;
     public static double score1Degrees = 126;
 
-    public static double score2X = 132;
-    public static double score2Y = 13.1;
-    public static double score2Degrees = 126;
+    public static double score2X = score1X;
+    public static double score2Y = score1Y;
+    public static double score2Degrees = score1Degrees;
 
-    public static double score3X = 132;
-    public static double score3Y = 13.1;
-    public static double score3Degrees = 126;
+    public static double score3X = score1X;
+    public static double score3Y = score1Y;
+    public static double score3Degrees = score1Degrees;
 
-    public static double score4X = 132;
-    public static double score4Y = 13.1;
-    public static double score4Degrees = 126;
+    public static double score4X = score1X;
+    public static double score4Y = score1Y;
+    public static double score4Degrees = score1Degrees;
 
-    public static double score5X = 132;
-    public static double score5Y = 13.1;
+    public static double score5X = 130;
+    public static double score5Y = 14;
     public static double score5Degrees = 130;
 
 
     public static double sample1x = 126.9;
     public static double sample1y = 20;
     public static double sample1degrees = 98.7;
-    public static int sample1ext = 1115;
+    public static int sample1ext = 900;
 
     public static double sample2x = 131.4;
     public static double sample2y = 17.46;
     public static double sample2degrees = 90;
-    public static int sample2ext = 1200;
+    public static int sample2ext = 1000;
 
     public static double sample3x = 130.1;
     public static double sample3y = 20.4;
     public static double sample3degrees = 62.5;
-    public static int sample3ext = 1200;
+    public static int sample3ext = 1100;
 
     public static double sample4x = 71.6;
     public static double sample4y = 48;
     public static double sample4degrees = 90;
-    public static int sample4ext = 400;
+    public static int submersibleExt = 400;
 
 
     public static Path preload;
@@ -213,7 +213,8 @@ public class Auto_5Plus0 extends LinearOpMode {
                         ),
                         new DropSampleCommand(),
                         new LiftDownCommand(),
-                        new PathCommand(submersiblePath),
+                        new PathCommand(submersiblePath).alongWith(new NewIntakePushOutCommand(submersibleExt)).alongWith(new LiftDownCommand()),
+                        new WaitCommand(500),
                         new NewSamplePickupCommandSub(),
                         new PathCommand(submersibleScorePath).alongWith(
                                 new SequentialCommandGroup(
@@ -221,6 +222,7 @@ public class Auto_5Plus0 extends LinearOpMode {
                                         new WaitCommand(500),
                                         new NewSampleTransferCommand(),
                                         new LiftUpCommand(),
+                                        new NewIntakePushOutCommand(submersibleExt),
                                         new WaitCommand(500)
 
                 )

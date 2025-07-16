@@ -32,12 +32,12 @@ public class NewSamplePickupCommandSub extends SequentialCommandGroup {
                         new RotateAlignCommand(),
                         new ExtensionJumpCommand(1, (int) Robot.getInstance().cameraSubsystem.getExtDistanceSample()),
                         new StrafeCommand(Robot.getInstance().cameraSubsystem.getRobotDistanceSample()),
-                        new WaitCommand(1000) // TUNE THIS VALUE, ITS JUST SET HIGH TO DEBUG
+                        new WaitCommand(300) // TUNE THIS VALUE, ITS JUST SET HIGH TO DEBUG
                 ),
 
                 new ClawStateCommand(NewIntakeSubsystem.ClawState.OPEN_WIDE),
                 
-                new WaitCommand(300),
+//                new WaitCommand(300),
 
                 new NewArmStateCommand(NewIntakeSubsystem.ArmState.DOWN),
                 new WristStateCommand(NewIntakeSubsystem.WristState.GRAB),
