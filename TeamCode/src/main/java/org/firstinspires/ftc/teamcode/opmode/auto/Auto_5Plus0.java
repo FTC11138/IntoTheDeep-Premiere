@@ -25,6 +25,7 @@ import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePullBack
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePushOutCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleAlignCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePickupCommand;
+import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePickupCommandSub;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleTransferCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleTransferCommand;
 import org.firstinspires.ftc.teamcode.commands.drivecommand.PathCommand;
@@ -201,7 +202,21 @@ public class Auto_5Plus0 extends LinearOpMode {
                                 )
                         ),
                         new DropSampleCommand(),
-                        new LiftDownCommand()
+                        new LiftDownCommand(),
+                        new PathCommand(sample4Path),
+                        new NewSamplePickupCommandSub(),
+                        new PathCommand(sample4ScorePath).alongWith(
+                                new SequentialCommandGroup(
+                                        new NewIntakePullBackCommand(),
+                                        new WaitCommand(500),
+                                        new NewSampleTransferCommand(),
+                                        new LiftUpCommand(),
+                                        new WaitCommand(500)
+
+                )
+
+
+
 //                        new SequentialCommandGroup(
 //                        new WaitCommand(300),
 //                        new NewSamplePickupCommand(),
