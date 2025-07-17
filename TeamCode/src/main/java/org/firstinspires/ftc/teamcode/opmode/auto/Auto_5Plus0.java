@@ -55,9 +55,9 @@ public class Auto_5Plus0 extends LinearOpMode {
 
     //Pose(111.5, 7.5, Math.toRadians(180));
 
-    public static double score1X = 129;
-    public static double score1Y = 14.8;
-    public static double score1Degrees = 126;
+    public static double score1X = 129.7;
+    public static double score1Y = 14.5;
+    public static double score1Degrees = 134;
 
     public static double score2X = score1X;
     public static double score2Y = score1Y;
@@ -76,20 +76,20 @@ public class Auto_5Plus0 extends LinearOpMode {
     public static double score5Degrees = 130;
 
 
-    public static double sample1x = 126.9;
+    public static double sample1x = 122.5;
     public static double sample1y = 20;
-    public static double sample1degrees = 98.7;
-    public static int sample1ext = 900;
+    public static double sample1degrees = 90;
+    public static int sample1ext = 1020;
 
-    public static double sample2x = 131.4;
+    public static double sample2x = 131.8;
     public static double sample2y = 17.46;
-    public static double sample2degrees = 90;
+    public static double sample2degrees = 89.7;
     public static int sample2ext = 1000;
 
-    public static double sample3x = 130.1;
-    public static double sample3y = 20.4;
-    public static double sample3degrees = 62.5;
-    public static int sample3ext = 1100;
+    public static double sample3x = 133;
+    public static double sample3y = 30;
+    public static double sample3degrees = 70;
+    public static int sample3ext = 500;
 
     public static double sample4x = 71.6;
     public static double sample4y = 48;
