@@ -18,10 +18,6 @@ public class StrafeCommand extends CommandBase {
     private final double speed;
 
     public StrafeCommand(double inches) {
-
-
-
-
         this.inches = inches;
         this.speed = 1;
     }
@@ -33,7 +29,6 @@ public class StrafeCommand extends CommandBase {
 
     @Override
     public void initialize() {
-
         Pose current = robot.follower.getPose();
         Pose target = robot.follower.getPose();
         target.setX(target.getX() + inches);
@@ -41,7 +36,7 @@ public class StrafeCommand extends CommandBase {
         PathChain path = new PathChain(AutonomousMethods.buildPath(current, target));
 
         robot.follower.setMaxPower(speed);
-        robot.follower.followPath(path, true);
+        if (inches >= 1) robot.follower.followPath(path, true);
     }
 
     @Override

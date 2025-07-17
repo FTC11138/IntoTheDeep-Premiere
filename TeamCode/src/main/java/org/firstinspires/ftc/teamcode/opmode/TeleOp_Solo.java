@@ -15,6 +15,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.DropSampleCommand;
+import org.firstinspires.ftc.teamcode.commands.advancedcommand.ExtensionJumpCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.IntakePullBackCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.IntakePushOutCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.LiftDownCommand;
@@ -24,6 +25,7 @@ import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePullBack
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePushOutCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleEjectCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePickupCommand;
+import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePrePickupCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleTransferCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.RotateAlignCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.RotateToggleCommand;
@@ -33,12 +35,15 @@ import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleTransferCom
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SpecimenDepositCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SpecimenGrabCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.WristToggleCommand;
+import org.firstinspires.ftc.teamcode.commands.subsystem.ArmStateCommand;
+import org.firstinspires.ftc.teamcode.commands.subsystem.ClawStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.ExtensionResetCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.LiftPowerCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.LiftResetCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.RotateStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.SpecLiftResetCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.SpecimenLiftStateCommand;
+import org.firstinspires.ftc.teamcode.commands.subsystem.WristStateCommand;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.RobotData;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
@@ -56,6 +61,8 @@ public class TeleOp_Solo extends CommandOpMode {
 
 
     boolean teleOpEnabled = false;
+
+    boolean grabConfirmed = false;
 
     double fieldCentricOffset;
 
@@ -242,30 +249,28 @@ public class TeleOp_Solo extends CommandOpMode {
         if (rightTrigger && !lastRightTrigger) {
             gamepad1.rumble(500);
             CommandScheduler.getInstance().schedule(new SequentialCommandGroup(
-//                    new RotateAlignCommand(),
-//                    new WaitCommand(300),
                     new ConditionalCommand(
-                            new SequentialCommandGroup(
-                                    new NewSamplePickupCommand(),
-                                    new NewIntakePullBackCommand()
+                            new ConditionalCommand(
+                                    new SequentialCommandGroup(
+                                            new InstantCommand(() -> grabConfirmed = false),
+                                            new NewSamplePickupCommand(),
+                                            new NewIntakePullBackCommand()
+                                    ),
+                                    new SequentialCommandGroup(
+                                            new InstantCommand(() -> grabConfirmed = true),
+                                            new NewSamplePrePickupCommand()
+                                    ),
+                                    () -> grabConfirmed
                             ),
                             new InstantCommand(),
                             () -> Robot.getInstance().data.intaking
                     ),
                     new NewSampleTransferCommand()
             ));
-//            CommandScheduler.getInstance().schedule(new SampleTransferCommand());
-//            CommandScheduler.getInstance().schedule(new WaitCommand(5000));
-//            CommandScheduler.getInstance().schedule(new NewSampleTransferCommand());
-//                    new ConditionalCommand(
-//                            new NewIntakePullBackCommand().andThen(new NewSampleTransferCommand()),
-//                            new NewSampleTransferCommand())
-//                            () -> robot.data.intaking
-//                    )
-//            );
         }
 
         if (leftTrigger && !lastLeftTrigger) {
+            grabConfirmed = false;
             CommandScheduler.getInstance().cancel(new NewSampleTransferCommand(), new NewIntakePullBackCommand(), new NewSamplePickupCommand());
             CommandScheduler.getInstance().schedule(new NewIntakePushOutCommand(Constants.extIntake));
         }
