@@ -46,7 +46,7 @@ public class Constants {
     public static double armDown = 0.54;
     public static double armAuto = 0.58;
     public static double armFlat = 0.68;
-    public static double armUp = 0.8;
+    public static double armUp = 0.76;
     public static double armServoOffset = -0.055;
     public static double armServoOffsetTransfer = -0.02;
 
@@ -58,16 +58,16 @@ public class Constants {
     public static double specimenClawOpen = 0.1;
     public static double specimenClawClose = 0.67;
 
-    public static double clawOpen = .45;
-    public static double clawOpenWide = 0.35;
-    public static double clawClose = .66;
+    public static double clawOpen = 0.4;
+    public static double clawOpenWide = 0.25;
+    public static double clawClose = 0.58;
 
     public static double wristGrab = 0;
     public static double wristPreGrabForward = 0.1;
     public static double wristPreGrabBack = 0.23;
     public static double wristPreGrab = 0.15;
     public static double wristStore = 0.3;
-    public static double wristTransfer = 0.77;
+    public static double wristTransfer = 0.74;
     public static double wristAutoPickup = 0;
 
     public static double rotateHorizontal = 0;
@@ -84,6 +84,7 @@ public class Constants {
     public static int liftMid = 700;
     public static int liftSlow = 400;
     public static int liftAscent = 470;
+    public static int liftOffset = 200;
 
     public static double liftUpRatio = 1;
     public static double liftDownRatio = 1;
@@ -133,19 +134,24 @@ public class Constants {
 
     public static double sampleAlignAngleTolerance = 2;
 
-    public static int sampleDyCorrectionConstantFarBehind = -140;
-    public static int sampleDyCorrectionConstantFarForward = -200;
-    public static int sampleDyCorrectionConstantBehind = -320;
-    public static int sampleDyCorrectionConstantForward = -320;
+    public static int sampleDyCorrectionConstantFarBehind = 0;
+    public static int sampleDyCorrectionConstantFarForward = 0;
+    public static int sampleDyCorrectionConstantBehind = -300;
+    public static int sampleDyCorrectionConstantForward = -200;
 
     public static int SampleDyMiddleCorrectionConstant = -40;
-    public static int SampleDyForwardFarCorrectionConstant = -100;
+    public static int SampleDyForwardFarCorrectionConstant = -90;
     public static int SampleDyBackwardFarCorrectionConstant = 42;
 
-    public static double sampleDyCorrectionMultiplier1 = -1.48371;
-    public static double sampleDyCorrectionMultiplier2 = 0.00344716;
-    public static double sampleDyCorrectionMultiplier3 = -0.0000240512;
-    public static double sampleDyCorrectionMultiplier4 = 0.0000001;
+//    public static double sampleDyCorrectionMultiplier1 = -1.48371;
+//    public static double sampleDyCorrectionMultiplier2 = 0.00344716;
+//    public static double sampleDyCorrectionMultiplier3 = -0.0000240512;
+//    public static double sampleDyCorrectionMultiplier4 = 0.0000001;
+
+    public static double sampleDyCorrectionMultiplier1 = -1.5;
+    public static double sampleDyCorrectionMultiplier2 = 0;
+    public static double sampleDyCorrectionMultiplier3 = 0;
+    public static double sampleDyCorrectionMultiplier4 = 0;
 
 
     public static double sampleDxCorrectionMultiplier = -0.015;
@@ -156,8 +162,8 @@ public class Constants {
     public static double cX = 320;
     public static double cY = 240;
 
-    public static double k1 = 0;
-    public static double k2 = 0;
+    public static double k1 = -0.38;
+    public static double k2 = 0.15;
     public static double p1 = 0;
     public static double p2 = 0;
     public static double k3 = 0;

@@ -106,7 +106,7 @@ public class Auto_0Plus5NEW extends LinearOpMode {
 
     // Score 1
     public static double score1X = 105.5;
-    public static double score1Y = 65; //68
+    public static double score1Y = 60; //68
     public static double score1Degrees = -90;
 
     // Score Pick 2
@@ -116,7 +116,7 @@ public class Auto_0Plus5NEW extends LinearOpMode {
 
     // Score 2
     public static double score2X = 105.5;
-    public static double score2Y = 67;
+    public static double score2Y = 62;
     public static double score2Degrees = -90;
 
     // Score Pick 3
@@ -126,7 +126,7 @@ public class Auto_0Plus5NEW extends LinearOpMode {
 
     // Score 3
     public static double score3X = 105.5;
-    public static double score3Y = 69;
+    public static double score3Y = 64;
     public static double score3Degrees = -90;
 
     // Score Pick 4
@@ -134,13 +134,13 @@ public class Auto_0Plus5NEW extends LinearOpMode {
     public static double scorePick4Y = 7.5;
     public static double scorePick4Degrees = 0;
 
-    public static double obsX = 115;
+    public static double obsX = 125;
     public static double obsY = 14;
     public static double obsDegrees = -90;
 
     // Score 4
     public static double score4X = 105.5;
-    public static double score4Y = 71;
+    public static double score4Y = 66;
     public static double score4Degrees = -90;
 
 
@@ -259,7 +259,7 @@ public class Auto_0Plus5NEW extends LinearOpMode {
                                 )
                         ),
                         new WaitCommand(200),
-                        new NewSamplePickupCommand(),
+                        new NewSamplePickupCommandAuto(),
                         new NewIntakePullBackCommand(),
                         new WaitCommand(300),
                         new NewSampleTransferCommand(),

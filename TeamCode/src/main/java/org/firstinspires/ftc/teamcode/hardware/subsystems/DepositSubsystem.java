@@ -85,6 +85,11 @@ public class DepositSubsystem extends RE_SubsystemBase {
         this.lift2.setPower(power);
     }
 
+    public void setTargetLiftPositionHigh(int target, double power) {
+        this.lift1.setTargetPosition(target + Constants.liftOffset, power);
+        this.lift2.setTargetPosition(target, power);
+    }
+
     public void setTargetLiftPosition(int target, double power) {
         this.lift1.setTargetPosition(target, power);
         this.lift2.setTargetPosition(target, power);
