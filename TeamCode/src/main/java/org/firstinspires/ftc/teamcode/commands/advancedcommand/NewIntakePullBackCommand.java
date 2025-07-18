@@ -25,9 +25,8 @@ public class NewIntakePullBackCommand extends SequentialCommandGroup {
                 new RotateStateCommand(NewIntakeSubsystem.RotateState.HORIZONTAL),
                 new NewArmStateCommand(NewIntakeSubsystem.ArmState.UP),
                 new ExtensionPositionCommand(Constants.extMin),
-                new WaitCommand(100),
                 new WristStateCommand(NewIntakeSubsystem.WristState.STORE),
-                new WaitCommand((int) (Robot.getInstance().newIntakeSubsystem.getExtensionPosition() * 0.6))
+                new WaitCommand((int) (Robot.getInstance().newIntakeSubsystem.getExtensionPosition() * 0.5))
         );
     }
 }

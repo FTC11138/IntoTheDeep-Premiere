@@ -67,22 +67,24 @@ public class SampleAngleProcessor implements VisionProcessor {
 
         mask = new Mat();
 
-        // Create red masks
-        redMask1 = new Mat();
-        redMask2 = new Mat();
-        Core.inRange(hsv, redLow1, redHigh1, redMask1);
-        Core.inRange(hsv, redLow2, redHigh2, redMask2);
-        Core.bitwise_or(redMask1, redMask2, mask);
-
-        // Add yellow mask
+        // Always include yellow (neutral)
         yellowMask = new Mat();
         Core.inRange(hsv, yellowLow, yellowHigh, yellowMask);
-        Core.bitwise_or(mask, yellowMask, mask);
+        mask = yellowMask.clone(); // start mask with yellow
 
-        // Add blue mask
-        blueMask = new Mat();
-        Core.inRange(hsv, blueLow, blueHigh, blueMask);
-        Core.bitwise_or(mask, blueMask, mask);
+        // Conditionally add alliance color
+        if (Globals.ALLIANCE == Globals.COLORS.RED) {
+            redMask1 = new Mat();
+            redMask2 = new Mat();
+            Core.inRange(hsv, redLow1, redHigh1, redMask1);
+            Core.inRange(hsv, redLow2, redHigh2, redMask2);
+            Core.bitwise_or(redMask1, redMask2, redMask1);
+            Core.bitwise_or(mask, redMask1, mask);
+        } else if (Globals.ALLIANCE == Globals.COLORS.BLUE) {
+            blueMask = new Mat();
+            Core.inRange(hsv, blueLow, blueHigh, blueMask);
+            Core.bitwise_or(mask, blueMask, mask);
+        }
 
         Imgproc.erode(mask, mask, new Mat(), new Point(-1, -1), 2);
         Imgproc.dilate(mask, mask, new Mat(), new Point(-1, -1), 2);
@@ -131,10 +133,10 @@ public class SampleAngleProcessor implements VisionProcessor {
             // Determine block color by sampling masks
             int cx = (int) Math.round(closestRect.center.x);
             int cy = (int) Math.round(closestRect.center.y);
-            double r1 = redMask1.get(cy, cx)[0];
-            double r2 = redMask2.get(cy, cx)[0];
+            double r1 = redMask1 != null && !redMask1.empty() ? redMask1.get(cy, cx)[0] : 0;
+            double r2 = redMask2 != null && !redMask2.empty() ? redMask2.get(cy, cx)[0] : 0;
             double yv = yellowMask.get(cy, cx)[0];
-            double bv = blueMask.get(cy, cx)[0];
+            double bv = blueMask != null && !blueMask.empty() ? blueMask.get(cy, cx)[0] : 0;
 
             if (r1 + r2 > 0) {
                 blockColor = Globals.COLORS.RED;
@@ -161,15 +163,16 @@ public class SampleAngleProcessor implements VisionProcessor {
                     2);
         }
 
-        // Release color masks
-        redMask1.release();
-        redMask2.release();
-        yellowMask.release();
-        blueMask.release();
+        // Release all masks
+        if (redMask1 != null) redMask1.release();
+        if (redMask2 != null) redMask2.release();
+        if (yellowMask != null) yellowMask.release();
+        if (blueMask != null) blueMask.release();
 
         rotated.copyTo(input);
         return null;
     }
+
 
     @Override
     public void init(int width, int height, CameraCalibration calibration) {
