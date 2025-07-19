@@ -8,57 +8,44 @@ import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
-import com.pedropathing.follower.FollowerConstants;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.Path;
 import com.pedropathing.pathgen.Point;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.commands.*;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.DropSampleCommand;
-import org.firstinspires.ftc.teamcode.commands.advancedcommand.ExtensionJumpCommand;
-import org.firstinspires.ftc.teamcode.commands.advancedcommand.IntakePullBackCommand;
-import org.firstinspires.ftc.teamcode.commands.advancedcommand.IntakePushOutCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.LiftDownCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.LiftUpCommand;
-import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakeAutoPushOutCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePullBackCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePushOutCommand;
-import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleAlignCommand;
-import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePickupCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePickupCommandAuto;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePickupCommandSub;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSampleTransferCommand;
-import org.firstinspires.ftc.teamcode.commands.advancedcommand.SampleTransferCommand;
 import org.firstinspires.ftc.teamcode.commands.drivecommand.PathCommand;
-import org.firstinspires.ftc.teamcode.commands.subsystem.ArmStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.BucketStateCommand;
-import org.firstinspires.ftc.teamcode.commands.subsystem.ClawStateCommand;
 import org.firstinspires.ftc.teamcode.commands.subsystem.RotateStateCommand;
-import org.firstinspires.ftc.teamcode.commands.subsystem.WristPositionCommand;
-import org.firstinspires.ftc.teamcode.commands.subsystem.WristStateCommand;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.hardware.subsystems.DepositSubsystem;
-import org.firstinspires.ftc.teamcode.hardware.subsystems.IntakeSubsystem;
-import org.firstinspires.ftc.teamcode.hardware.subsystems.NewIntakeSubsystem;
-import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
-import org.firstinspires.ftc.teamcode.util.Constants;
 import org.firstinspires.ftc.teamcode.util.Globals;
 import org.firstinspires.ftc.teamcode.util.PoseConstants;
 
 @Config
-@Autonomous(name = "5+0", preselectTeleOp = "Solo")
-public class Auto_5Plus0 extends LinearOpMode {
+@Autonomous(name = "5+0 Reverse", preselectTeleOp = "Solo")
+public class Auto_5Plus0_Reverse extends LinearOpMode {
 
     ///  -20.6, -8.4, 290.79
     /// 0,0,0
 
     //Pose(111.5, 7.5, Math.toRadians(180));
 
-    public static double score1X = 128;
-    public static double score1Y = 14;
-    public static double score1Degrees = 135;
+    public static double startX = 32.5;
+    public static double startY = 7.5;
+    public static double startDegrees = 0;
+
+    public static double score1X = 15;
+    public static double score1Y = 15;
+    public static double score1Degrees = 45;
 
     public static double score2X = score1X;
     public static double score2Y = score1Y;
@@ -72,27 +59,27 @@ public class Auto_5Plus0 extends LinearOpMode {
     public static double score4Y = score1Y;
     public static double score4Degrees = score1Degrees;
 
-    public static double score5X = 128;
-    public static double score5Y = 14;
-    public static double score5Degrees = 135;
+    public static double score5X = score1X;
+    public static double score5Y = score1Y;
+    public static double score5Degrees = score1Degrees;
 
 
-    public static double sample1x = 124;
+    public static double sample1x = 20;
     public static double sample1y = 20;
     public static double sample1degrees = 90;
     public static int sample1ext = 1050;
 
-    public static double sample2x = 131;
+    public static double sample2x = 13;
     public static double sample2y = 17;
     public static double sample2degrees = 90;
     public static int sample2ext = 1150;
 
-    public static double sample3x = 130.1;
+    public static double sample3x = 13.9;
     public static double sample3y = 20.4;
-    public static double sample3degrees = 64;
+    public static double sample3degrees = 116;
     public static int sample3ext = 1200;
 
-    public static double sample4x = 71.6;
+    public static double sample4x = 72.4;
     public static double sample4y = 42;
     public static double sample4degrees = 90;
     public static int submersibleExt = 1200;
@@ -105,7 +92,7 @@ public class Auto_5Plus0 extends LinearOpMode {
     public static Path submersiblePath, submersibleScorePath;
 
     public void buildPaths() {
-        Pose startPose = PoseConstants.Start.blueBasket; // Pose(111.5, 7.5, Math.toRadians(180));
+        Pose startPose = new Pose(startX, startY, Math.toRadians(startDegrees)); // Pose(111.5, 7.5, Math.toRadians(180));
         Pose scorePose = new Pose(score1X, score1Y, Math.toRadians(score1Degrees));
         Pose score1 = new Pose(score1X, score1Y, Math.toRadians(score1Degrees));
         Pose score2 = new Pose(score2X, score2Y, Math.toRadians(score2Degrees));
@@ -134,8 +121,8 @@ public class Auto_5Plus0 extends LinearOpMode {
         sample3ScorePath = buildPath(sample3Pose, score4);
 
         // Sample 4 paths
-        submersiblePath = buildCurve(score4, sample4Pose, new Point(73.5, 25.5));
-        submersibleScorePath = buildCurve(sample4Pose, score5, new Point(73.5, 25.5));
+        submersiblePath = buildCurve(score4, sample4Pose, new Point(70.5, 25.5));
+        submersibleScorePath = buildCurve(sample4Pose, score5, new Point(70.5, 25.5));
     }
 
     @Override
@@ -156,7 +143,7 @@ public class Auto_5Plus0 extends LinearOpMode {
             robot.write();
         }
 
-        robot.follower.setPose(PoseConstants.Start.blueBasket);
+        robot.follower.setPose(new Pose(startX, startY, Math.toRadians(startDegrees)));
         robot.data.stopIntaking();
         robot.data.stopScoring();
         robot.data.setSampleLoaded();

@@ -21,9 +21,10 @@ public class NewSampleTransferCommand extends ConditionalCommand {
 //                        new NewArmStateCommand(NewIntakeSubsystem.ArmState.FLAT),
                         new ConditionalCommand(
                                 new SequentialCommandGroup(
-                                        new RotateStateCommand(NewIntakeSubsystem.RotateState.VERTICAL),
                                         new WristStateCommand(NewIntakeSubsystem.WristState.TRANSFER),
-                                        new WaitCommand(400),
+                                        new WaitCommand(100),
+                                        new RotateStateCommand(NewIntakeSubsystem.RotateState.VERTICAL),
+                                        new WaitCommand(300),
                                         new NewArmStateCommand(NewIntakeSubsystem.ArmState.TRANSFER)
 
                                 ),

@@ -9,6 +9,8 @@ import com.pedropathing.pathgen.PathChain;
 import org.firstinspires.ftc.teamcode.hardware.Robot;
 import org.firstinspires.ftc.teamcode.opmode.auto.AutonomousMethods;
 
+import java.util.function.DoubleSupplier;
+
 public class StrafeCommand extends CommandBase {
 
     private final double inches;
@@ -17,8 +19,8 @@ public class StrafeCommand extends CommandBase {
 
     private final double speed;
 
-    public StrafeCommand(double inches) {
-        this.inches = inches;
+    public StrafeCommand(DoubleSupplier inches) {
+        this.inches = inches.getAsDouble();
         this.speed = 1;
     }
 
@@ -36,7 +38,7 @@ public class StrafeCommand extends CommandBase {
         PathChain path = new PathChain(AutonomousMethods.buildPath(current, target));
 
         robot.follower.setMaxPower(speed);
-        if (inches >= 1) robot.follower.followPath(path, true);
+        robot.follower.followPath(path, true);
     }
 
     @Override

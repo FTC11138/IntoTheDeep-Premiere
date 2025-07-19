@@ -71,6 +71,7 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
         INTAKE,
         UP,
         DOWN,
+        DOWN_SUB,
         AUTO,
         FLAT,
         NONE
@@ -157,6 +158,8 @@ public class NewIntakeSubsystem extends RE_SubsystemBase {
                 return Constants.armAuto;
             case DOWN:
                 return Constants.armDown;
+            case DOWN_SUB:
+                return Constants.armDownSub;
             default:
                 return 0;
         }

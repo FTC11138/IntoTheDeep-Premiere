@@ -19,6 +19,8 @@ import org.firstinspires.ftc.teamcode.commands.advancedcommand.LiftMidCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.LiftUpCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewIntakePushOutCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePickupCommand;
+import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePickupCommandAuto;
+import org.firstinspires.ftc.teamcode.commands.advancedcommand.NewSamplePrePickupCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SpecimenDepositCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.SpecimenGrabCommand;
 import org.firstinspires.ftc.teamcode.commands.advancedcommand.WristToggleCommand;
@@ -231,8 +233,8 @@ public class Sample_Pickup_Tuning extends CommandOpMode {
             CommandScheduler.getInstance().schedule(new SequentialCommandGroup(
 //                    new RotateAlignCommand(),
 //                    new WaitCommand(300),
-                    new NewSamplePickupCommand(),
-                        new NewIntakePushOutCommand(800)
+                    new NewSamplePickupCommandAuto(),
+                    new NewIntakePushOutCommand(800)
 //                    new NewIntakePullBackCommand(),
 //                    new NewSampleTransferCommand()
             ));

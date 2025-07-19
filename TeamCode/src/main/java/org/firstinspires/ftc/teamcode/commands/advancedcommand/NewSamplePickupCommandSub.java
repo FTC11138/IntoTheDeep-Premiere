@@ -29,9 +29,10 @@ public class NewSamplePickupCommandSub extends SequentialCommandGroup {
 
                 new ClawStateCommand(NewIntakeSubsystem.ClawState.OPEN_WIDE),
                 new SequentialCommandGroup(
+                        new StrafeCommand(() -> Robot.getInstance().cameraSubsystem.getRobotDistanceSample()),
+                        new WaitCommand(500),
+                        new ExtensionJumpCommand(1, () -> (int) Robot.getInstance().cameraSubsystem.getExtDistanceSample()),
                         new RotateAlignCommand(),
-                        new ExtensionJumpCommand(1, (int) Robot.getInstance().cameraSubsystem.getExtDistanceSample()),
-                        new StrafeCommand(Robot.getInstance().cameraSubsystem.getRobotDistanceSample()),
                         new WaitCommand(300) // TUNE THIS VALUE, ITS JUST SET HIGH TO DEBUG
                 ),
 
@@ -39,9 +40,9 @@ public class NewSamplePickupCommandSub extends SequentialCommandGroup {
                 
 //                new WaitCommand(300),
 
-                new NewArmStateCommand(NewIntakeSubsystem.ArmState.DOWN),
+                new NewArmStateCommand(NewIntakeSubsystem.ArmState.DOWN_SUB),
                 new WristStateCommand(NewIntakeSubsystem.WristState.GRAB),
-                new WaitCommand(100),
+                new WaitCommand(400),
                 new ClawStateCommand(NewIntakeSubsystem.ClawState.CLOSE),
                 new WaitCommand(200),
                 new ArmStateCommand(NewIntakeSubsystem.ArmState.FLAT)

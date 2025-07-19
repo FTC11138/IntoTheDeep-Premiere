@@ -40,7 +40,7 @@ import org.firstinspires.ftc.teamcode.util.Globals;
 import org.firstinspires.ftc.teamcode.util.PoseConstants;
 
 @Config
-@Autonomous(name = "0+5 Drag No Stop", preselectTeleOp = "Solo")
+@Autonomous(name = "0 Pick Sub", preselectTeleOp = "Solo")
 public class Auto_0PickSub extends LinearOpMode {
 
     public static double start1X = 57.4;

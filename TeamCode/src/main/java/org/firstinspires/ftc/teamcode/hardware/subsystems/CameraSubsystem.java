@@ -97,15 +97,15 @@ public class CameraSubsystem extends RE_SubsystemBase {
 
             double extMove;
 
-            if (sampleDy < SampleDyMiddleCorrectionConstant) {
+            if (sampleDy < sampleDyMiddleCorrectionConstant) {
                 extMove = Constants.sampleDyCorrectionConstantForward;
             } else {//if (sampleDy <= 0) {
                 extMove = Constants.sampleDyCorrectionConstantBehind;
             }
 
-            if (sampleDy > SampleDyBackwardFarCorrectionConstant) {
+            if (sampleDy > sampleDyBackwardFarCorrectionConstant) {
                 extMove += Constants.sampleDyCorrectionConstantFarBehind;
-            } else if (sampleDy < SampleDyForwardFarCorrectionConstant) {
+            } else if (sampleDy < sampleDyForwardFarCorrectionConstant) {
                 extMove += Constants.sampleDyCorrectionConstantFarForward       ;
             }
 
@@ -124,7 +124,7 @@ public class CameraSubsystem extends RE_SubsystemBase {
             }
             extAdjustDistance = extMove;
 
-            sampleDx += 30;
+            sampleDx += Constants.sampleDxConstant;
 
 
             robotAdjustDistance = sampleDx * sampleDxCorrectionMultiplier;
